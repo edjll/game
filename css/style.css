@@ -24,7 +24,7 @@ body{
 .head{
 	width: 50%;
 	height: 100%;
-	background-image: url(../image/button.png);
+	background-image: url(../image/Button.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-radius: 25px;
