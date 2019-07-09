@@ -15,7 +15,13 @@ class Engine {
 
 		this.input 			= new Input();
 
-		window.requestAnimationFrame(this.loop());
+		this.ground 		= [];
+
+		window.requestAnimationFrame(this.loop.bind(this));
+	}
+
+	addGround(object, index) {
+		this.ground[index] = object;
 	}
 
 	getLocalPosition(object) {
@@ -30,10 +36,15 @@ class Engine {
 			this.update(dt);
 		}
 
-		if (this.map) {
-			this.ctx.translate(this.map.camera.x, this.map.camera.y);
-			this.map.draw(this.ctx);
+		this.ctx.save();
+
+		if (this.ground) {
+			this.ground.forEach(element => {
+				element.draw(this.ctx);
+			});
 		}
+
+		this.ctx.restore();
 
 		this.lastTime = realTime;
 		window.requestAnimationFrame(this.loop.bind(this));
