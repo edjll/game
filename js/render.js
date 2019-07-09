@@ -39,11 +39,7 @@ class Render {
 			let x = (this.frame % this.framesX) * this.frameWidth,
 			 	y = Math.floor(this.frame / this.framesX) * this.frameHeight;
 
-			if (this.ground) {
-				ctx.drawImage(this.image, this.position.x, this.position.y, this.frameWidth, this.frameHeight);
-			} else {
-				ctx.drawImage(this.image, x, y, this.frameWidth, this.frameHeight, this.position.x, this.position.y, this.frameWidth, this.frameHeight);
-			}
+			ctx.drawImage(this.image, x, y, this.image.width, this.image.height, this.position.x, this.position.y, this.frameWidth, this.frameHeight);
 		}
 	}
 }
