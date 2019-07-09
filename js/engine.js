@@ -17,11 +17,17 @@ class Engine {
 
 		this.ground 		= [];
 
+		this.player 		= undefined;
+
 		window.requestAnimationFrame(this.loop.bind(this));
 	}
 
-	addGround(object, index) {
-		this.ground[index] = object;
+	addGround(object) {
+		this.ground.push(object);
+	}
+
+	addObject(object) {
+		this.objects.push(object);
 	}
 
 	getLocalPosition(object) {
@@ -44,6 +50,12 @@ class Engine {
 				element.draw(this.ctx);
 			});
 		}
+
+		this.objects.forEach(object => {
+			object.draw(this.ctx);
+		});
+
+		this.player.draw(this.ctx);
 
 		this.ctx.restore();
 
