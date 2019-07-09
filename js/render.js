@@ -1,18 +1,19 @@
 class Render {
-	constructor(image, x, y, width, height, frameStart = 0, frameCount = 0, framesX = 1, framesY = 1, speed = 1) {
+	constructor(image, x, y, width, height, scale = 1, frameStart = 0, frameCount = 0, framesX = 1, framesY = 1, speed = 1) {
 		this.image = new Image();
 		this.image.src = image;
 
-		this.ground = false;
+		this.position = new Vector(x, y);
 
 		this.image.onload = () => {
-			this.position = new Vector(x, y);
 
 			this.frame = frameStart;
 			this.frameStart = frameStart;
 			this.frameCount = frameCount;
 			this.framesX = framesX;
 			this.framesY = framesY;
+
+			this.scale = scale;
 
 			this.frameWidth = width / framesX;
 			this.frameHeight = height / framesY;
@@ -39,7 +40,7 @@ class Render {
 			let x = (this.frame % this.framesX) * this.frameWidth,
 			 	y = Math.floor(this.frame / this.framesX) * this.frameHeight;
 
-			ctx.drawImage(this.image, x, y, this.image.width, this.image.height, this.position.x, this.position.y, this.frameWidth, this.frameHeight);
+			ctx.drawImage(this.image, x, y, this.frameWidth, this.frameHeight, this.position.x, this.position.y, this.frameWidth * this.scale, this.frameHeight * this.scale);
 		}
 	}
 }
