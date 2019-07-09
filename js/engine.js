@@ -39,6 +39,7 @@ class Engine {
 		this.ctx.save();
 
 		if (this.ground) {
+			this.ctx.translate(this.camera.x, this.camera.y);
 			this.ground.forEach(element => {
 				element.draw(this.ctx);
 			});
