@@ -16,8 +16,10 @@ class Player {
 	}
 
 	translate(x, y) {
-		this.render[this.frame].position.x += x;
-		this.render[this.frame].position.y += y;
+		this.position.x += x;
+		this.position.y += y;
+		this.render[this.frame].position.x = this.position.x;
+		this.render[this.frame].position.y = this.position.y;
 	}
 
 	draw(ctx) {

@@ -24,4 +24,20 @@ engine.update = (dt) => {
 		engine.player.frame = 0;
 		engine.player.translate(3, 0);
 	}
+
+	//camera position
+	let localPosition = engine.getLocalPosition(engine.player);
+
+	//player translate to left
+	if (localPosition.x < engine.canvas.width * 0.4) {
+		engine.camera.x += 3;
+	}
+	if (engine.camera.x > 0) {
+		engine.camera.x  = 0;
+	}
+
+	//player translate to right
+	if (localPosition.x > engine.canvas.width * 0.6) {
+		engine.camera.x -= 3;
+	}
 }
