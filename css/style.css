@@ -18,10 +18,21 @@ body{
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	flex-direction: column;
+	
 }
 .head{
-	background-image: url(../img/button.png);
+	width: 50%;
+	height: 100%;
+	background-image: url(../image/button.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-radius: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Shojumaru', cursive;
+	font-size: 50px;
+	color: black;
 }
 .main_container{
 	width: 100%;
