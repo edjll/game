@@ -18,6 +18,10 @@ class Engine {
 		window.requestAnimationFrame(this.loop());
 	}
 
+	getLocalPosition(object) {
+		return object.position.plus(this.camera);
+	}
+
 	loop() {
 		let realTime  = performance.now(),
 			dt 		  = (realTime - this.lastTime) / 1000;
@@ -28,7 +32,7 @@ class Engine {
 
 		if (this.map) {
 			this.ctx.translate(this.map.camera.x, this.map.camera.y);
-			this.mapd.draw(this.ctx);
+			this.map.draw(this.ctx);
 		}
 
 		this.lastTime = realTime;
