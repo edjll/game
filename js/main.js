@@ -9,7 +9,7 @@ engine.addGround(new Ground('./image/ground_1.png', groundWidth, groundHeight, s
 engine.addGround(new Ground('./image/ground_2.png', groundWidth, groundHeight, scale));
 engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, scale));
 
-engine.player = new Player('./image/run.png', 20, engine.canvas.height * 0.72, scale);
+engine.player = new Player('./image/idle.png', 20, engine.canvas.height * 0.72, scale);
 
 engine.update = (dt) => {
 	if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
