@@ -37,3 +37,7 @@ start.onclick = () => {
 		window.location = './game.html';
 	}
 }
+
+let soundTrack = document.getElementById('soundTrack');
+soundTrack.play();
+soundTrack.volume = 0.8;
