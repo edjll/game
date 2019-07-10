@@ -17,7 +17,7 @@ engine.player = new Player('./image/hero/idle.png',  1501, 401,
 						   './image/hero/shot.png',  2751, 400,
 						   20, engine.canvas.height * 0.59, scale);
 
-engine.bullet = new Bullet('./image/bullet.png', scale);
+
 
 engine.update = (dt) => {
 
@@ -41,6 +41,7 @@ engine.update = (dt) => {
 
 		}
 	}
+
 	if (engine.input.isKeyDown('ArrowRight')) {
 		engine.player.frame = 3;
 		engine.player.frame_idle = 1;
@@ -61,17 +62,20 @@ engine.update = (dt) => {
 
 		}
 	}
+
 	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight')) {
 		engine.player.frame = engine.player.frame_idle;
 		engine.player.translate(0, 0);
 	}
+
 	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && engine.input.isKeyDown('ControlLeft')) {
 		engine.player.frame = engine.player.frame_shot;
 		if (engine.player.render[engine.player.frame_shot].frame == engine.player.render[engine.player.frame_shot].frameCount / 2 + engine.player.render[engine.player.frame_shot].frameStart) {
-			engine.bullet.addBullet(engine.player.position + engine.player.render[0].frameWidth);
+			engine.arrows.addArrow(engine.player.position + engine.player.render[0].frameWidth);
 		}
 		engine.player.translate(0, 0);
 	}
+
 	if (!engine.input.isKeyDown('ControlLeft')) {
 		engine.player.render[engine.player.frame_shot].frame = engine.player.render[engine.player.frame_shot].frameStart;
 	}
