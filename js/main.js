@@ -44,7 +44,6 @@ engine.update = (dt) => {
 
 	if (engine.input.isKeyDown('ArrowRight')) {
 		engine.player.frame = 3;
-		console.log(engine.player.render[engine.player.frame].frame);
 		engine.player.frame_idle = 1;
 		engine.player.frame_shot = 5;
 		engine.player.translate(3, 0);
@@ -68,12 +67,13 @@ engine.update = (dt) => {
 		if (engine.player.render[engine.player.frame_shot].last) {
 			engine.input.shot = false;
 			engine.player.render[engine.player.frame_shot].last = false;
+			engine.player.render[engine.player.frame_shot].point = true;
 		} else {
 			engine.player.frame = engine.player.frame_shot;
-			console.log(engine.player.render[engine.player.frame].frame);
 			engine.player.translate(0, 0);
-			if (engine.player.render[engine.player.frame_shot].controlFrame) {
-				engine.arrows.addArrow(engine.player.position.x + engine.player.render[0].frameWidth * scale, engine.player.position.y, 1);
+			if (engine.player.render[engine.player.frame_shot].controlFrame && engine.player.render[engine.player.frame_shot].point) {
+				engine.arrows.addArrow(engine.player.position.x + engine.player.render[0].frameWidth * scale * 0.59, engine.player.position.y + engine.player.render[0].frameHeight * scale * 0.48, 2);
+				engine.player.render[engine.player.frame_shot].point = false;
 			}
 		}
 	}

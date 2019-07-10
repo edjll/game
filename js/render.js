@@ -23,6 +23,7 @@ class Render {
 			this.last = false;
 
 			this.controlFrame = false;
+			this.point = true;
 
 			this.time = performance.now();
 
@@ -37,7 +38,7 @@ class Render {
 				this.frame++;
 				this.time = time + 1000 / this.speed;
 			}
-			if (this.frame == this.frameStart + this.frameCount) {
+			if (this.frame == this.frameStart + this.frameCount - 2) {
 				this.controlFrame = true;
 			} else {
 				this.controlFrame = false;

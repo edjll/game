@@ -58,6 +58,7 @@ class Engine {
 				object.draw(this.ctx);
 			});
 
+			this.arrows.translate(this.player.position.x, this.canvas.width);
 			this.arrows.draw(this.ctx);
 
 			this.player.draw(this.ctx);

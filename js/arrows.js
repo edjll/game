@@ -10,19 +10,20 @@ class Arrows {
 	}
 
 	addArrow(x, y, speed) {
-		this.arrows.push({
-							x: x,
-							y: y,
-							speed: speed
-						});
+		this.arrows.push(new Arrow(x, y, speed));
 	}
 
-	draw(ctx) {
+	translate(x, width) {
+		this.arrows.forEach(arrow => {
+			arrow.translate(x, width, this.arrows);
+		});
+	}
+
+	draw(ctx, width) {
 		if (this.image.ready) {
 			this.arrows.forEach(element => {
-				ctx.drawImage(this.image, element.x, element.y, this.image.width * this.scale, this.image.height * this.scale);
-				element.x += element.speed;
-			})
+				ctx.drawImage(this.image, element.position.x, element.position.y, this.image.width * this.scale, this.image.height * this.scale);
+			});
 		}
 	}
 }
