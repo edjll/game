@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Game</title>
+	<title>Tet offensive</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Shojumaru&display=swap" rel="stylesheet">
 </head>
@@ -18,16 +18,18 @@
 	</div>
 	<div class="main_container">	
 		<div class="container">
-			<button>Play</button>
-			<button>Help</button>
+			<button id="play" class="container_button">Play</button>
+			<button id="help" class="container_button">Help</button>
 		</div>
 	</div>
-
-	<script src="js/vector.js"></script>
-	<script src="js/input.js"></script>
-	<script src="js/engine.js"></script>
-	<script src="js/render.js"></script>
-	<script src="js/ground.js"></script>
-	<script src="js/main.js"></script>
+	<div id="login">
+		<input type="text" id="nickname" size="12" placeholder="Your nickname">
+		<button id="start">Start</button>
+		<button id="cancel">
+			<div class="row"></div>
+			<div class="row"></div>
+		</button>
+	</div>
+	<script src="js/settings.js"></script>
 </body>
 </html>
