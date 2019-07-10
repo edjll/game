@@ -9,7 +9,7 @@ engine.addGround(new Ground('./image/ground_1.png', groundWidth, groundHeight, s
 engine.addGround(new Ground('./image/ground_2.png', groundWidth, groundHeight, scale));
 engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, scale));
 
-engine.player = new Player('./image/idle.png', 20, engine.canvas.height * 0.72, scale);
+engine.player = new Player('./image/idle.png', './image/run.png', 20, engine.canvas.height * 0.72, scale);
 
 engine.update = (dt) => {
 	if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -28,12 +28,18 @@ engine.update = (dt) => {
 	}
 
 	if (engine.input.isKeyDown('ArrowLeft')) {
-		engine.player.frame = 0;
+		engine.player.frame = 2;
+		engine.player.frame_idle = 0;
 		engine.player.translate(-3, 0);
 	}
 	if (engine.input.isKeyDown('ArrowRight')) {
-		engine.player.frame = 1;
+		engine.player.frame = 3;
+		engine.player.frame_idle = 1;
 		engine.player.translate(3, 0);
+	}
+	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight')) {
+		engine.player.frame = engine.player.frame_idle;
+		engine.player.translate(0, 0);
 	}
 
 	//camera position in window
