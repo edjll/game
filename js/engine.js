@@ -1,8 +1,8 @@
 class Engine {
 	constructor() {
 		this.canvas 		= document.createElement('canvas');
-		this.canvas.width 	= window.innerWidth - 40;
-		this.canvas.height 	= window.innerHeight - 40;
+		this.canvas.width 	= window.innerWidth;
+		this.canvas.height 	= window.innerHeight;
 		document.body.appendChild(this.canvas);
 
 		this.ctx 			= this.canvas.getContext('2d');
@@ -20,6 +20,8 @@ class Engine {
 		this.player 		= undefined;
 
 		this.arrows 		= undefined;
+
+		this.avatar 		= undefined;
 
 		window.requestAnimationFrame(this.loop.bind(this));
 	}
@@ -62,6 +64,8 @@ class Engine {
 			this.arrows.draw(this.ctx);
 
 			this.player.draw(this.ctx);
+
+			this.avatar.draw(this.ctx, -this.camera.x);
 
 			this.ctx.restore();
 		}
