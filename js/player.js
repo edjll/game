@@ -1,14 +1,18 @@
 class Player {
-	constructor(image, x, y, scale = 1, hp = 100, mp = 100) {
-		this.image = image;
+	constructor(image_idle, image_run, x, y, scale = 1, hp = 100, mp = 100) {
+		this.image_idle = image_idle;
+		this.image_run = image_run;
 
 		this.position = new Vector(x, y);
 
 		this.frame = 1;
+		this.frame_idle = 1;
 
 		this.render =  [
-							new Render(this.image, this.position.x, this.position.y, 4870, 812, scale,  0, 9, 10, 2, 10),  //left
-							new Render(this.image, this.position.x, this.position.y, 4870, 812, scale, 10, 9, 10, 2, 10)   //right
+							new Render(this.image_idle, this.position.x, this.position.y, 4870, 812, scale,  0, 9, 10, 2, 10),  //left idle
+							new Render(this.image_idle, this.position.x, this.position.y, 4870, 812, scale, 10, 9, 10, 2, 10),  //right idle
+							new Render(this.image_run, this.position.x, this.position.y, 4850, 894, scale,  0, 9, 10, 2, 10),  //left run
+							new Render(this.image_run, this.position.x, this.position.y, 4850, 894, scale, 10, 9, 10, 2, 10)   //right run
 						];
 
 		this.hp = hp;
