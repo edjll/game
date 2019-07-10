@@ -4,11 +4,11 @@ class Player {
 
 		this.position = new Vector(x, y);
 
-		this.frame = 0;
+		this.frame = 1;
 
 		this.render =  [
-							new Render(this.image, this.position.x, this.position.y, 487, 406, scale, 0, 0, 1, 1, 1),  //right
-							new Render(this.image, this.position.x, this.position.y, 487, 406, scale, 0, 0, 1, 1, 1)   //left
+							new Render(this.image, this.position.x, this.position.y, 4850, 894, scale,  0, 9, 10, 2, 10),  //left
+							new Render(this.image, this.position.x, this.position.y, 4850, 894, scale, 10, 9, 10, 2, 10)   //right
 						];
 
 		this.hp = hp;
