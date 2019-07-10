@@ -1,9 +1,9 @@
 
 
 let engine = new Engine(),
-	scale = engine.canvas.height / 2000,
-	groundWidth = 2474,
-	groundHeight = 2000;
+	groundWidth = 1024,
+	groundHeight = 768,
+	scale = engine.canvas.height / groundHeight;
 
 engine.addGround(new Ground('./image/ground_1.png', groundWidth, groundHeight, scale));
 engine.addGround(new Ground('./image/ground_2.png', groundWidth, groundHeight, scale));
@@ -15,7 +15,7 @@ engine.ground[2].render.position.x = engine.ground[1].render.position.x + ground
 engine.player = new Player('./image/idle_s.png',  9006, 2402,
 						   './image/run_s.png',   6004, 4804,
 						   './image/shot_s.png',  5503,  801,
-						   20, engine.canvas.height * 0.72, scale);
+						   20, engine.canvas.height * 0.72, scale / 2);
 
 engine.bullet = new Bullet('./image/bullet.png', scale);
 
