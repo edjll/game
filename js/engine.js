@@ -19,7 +19,7 @@ class Engine {
 
 		this.player 		= undefined;
 
-		this.bullet 		= undefined;
+		this.arrows 		= undefined;
 
 		window.requestAnimationFrame(this.loop.bind(this));
 	}
@@ -60,7 +60,6 @@ class Engine {
 
 			this.player.draw(this.ctx);
 
-			this.bullet.draw(this.ctx);
 
 			this.ctx.restore();
 		}
