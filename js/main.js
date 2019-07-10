@@ -1,3 +1,5 @@
+
+
 let engine = new Engine(),
 	scale = engine.canvas.height / 2000,
 	groundWidth = 2474,
@@ -15,7 +17,6 @@ engine.update = (dt) => {
 		engine.ground[0].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
 	}
 
-
 	if (engine.input.isKeyDown('ArrowLeft')) {
 		engine.player.frame = 0;
 		engine.player.translate(-3, 0);
@@ -25,7 +26,7 @@ engine.update = (dt) => {
 		engine.player.translate(3, 0);
 	}
 
-	//camera position
+	//camera position in window
 	let localPosition = engine.getLocalPosition(engine.player);
 
 	//player translate to left
