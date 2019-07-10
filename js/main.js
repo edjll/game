@@ -14,7 +14,7 @@ engine.ground[2].render.position.x = engine.ground[1].render.position.x + ground
 
 engine.player = new Player('./image/hero/idle.png',  1501, 401,
 						   './image/hero/run.png',   1000, 800,
-						   './image/hero/shot.png',  2751, 400,
+						   './image/hero/shot.png',  2751, 800,
 						   20, engine.canvas.height * 0.59, scale);
 
 engine.arrows = new Arrows('./image/arrow.png', scale);

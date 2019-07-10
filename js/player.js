@@ -15,8 +15,8 @@ class Player {
 							new Render(this.image_idle, this.position.x, this.position.y, image_idle_width, image_idle_height, scale,  0, 11,  6, 2, 10),  //right idle
 							new Render(this.image_run,  this.position.x, this.position.y, image_run_width,  image_run_height,  scale,  0, 15,  4, 4, 10),  //left  run
 							new Render(this.image_run,  this.position.x, this.position.y, image_run_width,  image_run_height,  scale,  0, 15,  4, 4, 10),  //right run
-							new Render(this.image_shot, this.position.x, this.position.y, image_shot_width, image_shot_height, scale,  0, 21, 11, 2, 10),  //left  shot
-							new Render(this.image_shot, this.position.x, this.position.y, image_shot_width, image_shot_height, scale,  0, 21, 11, 2, 10)   //right shot
+							new Render(this.image_shot, this.position.x, this.position.y, image_shot_width, image_shot_height, scale,  0, 21, 11, 4, 10),  //left  shot
+							new Render(this.image_shot, this.position.x, this.position.y, image_shot_width, image_shot_height, scale,  22, 21, 11, 4, 10)   //right shot
 						];
 
 		this.hp = hp;
