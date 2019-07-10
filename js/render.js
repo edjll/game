@@ -20,6 +20,10 @@ class Render {
 
 			this.speed = speed;
 
+			this.last = false;
+
+			this.controlFrame = false;
+
 			this.time = performance.now();
 
 			this.image.ready = true;
@@ -33,8 +37,14 @@ class Render {
 				this.frame++;
 				this.time = time + 1000 / this.speed;
 			}
+			if (this.frame == this.frameStart + this.frameCount) {
+				this.controlFrame = true;
+			} else {
+				this.controlFrame = false;
+			}
 			if (this.frame > this.frameStart + this.frameCount) {
 				this.frame = this.frameStart;
+				this.last = true;
 			}
 
 			let x = (this.frame % this.framesX) * this.frameWidth,

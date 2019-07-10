@@ -58,9 +58,9 @@ class Engine {
 				object.draw(this.ctx);
 			});
 
-			this.player.draw(this.ctx);
-
 			this.arrows.draw(this.ctx);
+
+			this.player.draw(this.ctx);
 
 			this.ctx.restore();
 		}
