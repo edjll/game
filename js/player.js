@@ -7,8 +7,8 @@ class Player {
 		this.frame = 1;
 
 		this.render =  [
-							new Render(this.image, this.position.x, this.position.y, 4850, 894, scale,  0, 9, 10, 2, 10),  //left
-							new Render(this.image, this.position.x, this.position.y, 4850, 894, scale, 10, 9, 10, 2, 10)   //right
+							new Render(this.image, this.position.x, this.position.y, 4870, 812, scale,  0, 9, 10, 2, 10),  //left
+							new Render(this.image, this.position.x, this.position.y, 4870, 812, scale, 10, 9, 10, 2, 10)   //right
 						];
 
 		this.hp = hp;
