@@ -19,6 +19,8 @@ class Engine {
 
 		this.player 		= undefined;
 
+		this.bullet 		= undefined;
+
 		window.requestAnimationFrame(this.loop.bind(this));
 	}
 
@@ -38,26 +40,30 @@ class Engine {
 		let realTime  = performance.now(),
 			dt 		  = (realTime - this.lastTime) / 1000;
 
-		if (this.update) {
-			this.update(dt);
-		}
+		if (this.input.pause) {
+			if (this.update) {
+				this.update(dt);
+			}
 
-		this.ctx.save();
+			this.ctx.save();
 
-		if (this.ground) {
-			this.ctx.translate(this.camera.x, this.camera.y);
-			this.ground.forEach(element => {
-				element.draw(this.ctx);
+			if (this.ground) {
+				this.ctx.translate(this.camera.x, this.camera.y);
+				this.ground.forEach(element => {
+					element.draw(this.ctx);
+				});
+			}
+
+			this.objects.forEach(object => {
+				object.draw(this.ctx);
 			});
+
+			this.player.draw(this.ctx);
+
+			this.bullet.draw(this.ctx);
+
+			this.ctx.restore();
 		}
-
-		this.objects.forEach(object => {
-			object.draw(this.ctx);
-		});
-
-		this.player.draw(this.ctx);
-
-		this.ctx.restore();
 
 		this.lastTime = realTime;
 		window.requestAnimationFrame(this.loop.bind(this));
