@@ -61,7 +61,7 @@ body{
 }
 
 .container_button{
-	transform: translateY(0) !important;
+	transform: translateY(0);
 	transition-duration: 0.5s;
 	background-color: #0c6517;
 	font-size: 50px;
@@ -74,6 +74,22 @@ body{
 .out{
 	transform: translateX(-100vh);
 	transition-duration: 0.5s;
+}
+#helpOn {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.98);
+	height: 100vh;
+	width: 100vw;
+	position: absolute;
+	transform: translateY(+100vh);
+	transition-duration: 0.5s;
+}
+.helpOn {
+	opacity: 0.9;
+	transform: translateY(0) !important;
 }
 #login {
 	display: flex;
