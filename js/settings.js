@@ -6,10 +6,14 @@ let play 		= document.getElementById('play'),
 
 play.onclick = () => {
 	loginForm.className = 'loginOn';
+	play.className = ' out';
+	help.className = ' out';
 }
 
 cancel.onclick = () => {
 	loginForm.className = '';
+	play.className = 'container_button';
+	help.className = 'container_button';
 }
 
 start.onclick = () => {

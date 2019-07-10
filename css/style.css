@@ -61,6 +61,8 @@ body{
 }
 
 .container_button{
+	transform: translateY(0) !important;
+	transition-duration: 0.5s;
 	background-color: #0c6517;
 	font-size: 50px;
 	border-radius: 50px;
@@ -69,7 +71,10 @@ body{
 	width: 250px;
 	cursor: pointer;
 }
-
+.out{
+	transform: translateX(-100vh);
+	transition-duration: 0.5s;
+}
 #login {
 	display: flex;
 	flex-direction: column;
@@ -82,11 +87,29 @@ body{
 	transform: translateY(-100vh);
 	transition-duration: 0.5s;
 }
-
 .loginOn {
+	opacity: 0.9;
 	transform: translateY(0) !important;
 }
-
+#nickname{
+	border-radius: 25px;
+	margin-bottom: 50px;
+	font-size: 25px;
+	width: 300px;
+	height: 50px;
+	font-family: 'Shojumaru', cursive;
+}
+#start{
+	background-color: red;
+	color: #0c6517;
+	border-radius: 25px;
+	margin-bottom: 50px;
+	font-size: 25px;
+	width: 250px;
+	height: 50px;
+	cursor: pointer;
+	font-family: 'Shojumaru', cursive;
+}
 #cancel {
 	display: flex;
 	flex-direction: column;
