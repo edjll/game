@@ -42,6 +42,21 @@ class Avatar {
 			ctx.closePath();
 			ctx.stroke();
 
+			let mp = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale,
+											  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 41) * this.scale);
+
+			mp.addColorStop(0, "#504edf");
+			mp.addColorStop(1, "#4948c2");
+
+			ctx.fillStyle = mp;
+
+			ctx.beginPath();
+
+				ctx.fillRect(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale, 120 * this.scale, 17 * this.scale);
+			
+			ctx.closePath();
+			ctx.stroke();
+
 
 			ctx.drawImage(this.image, x + this.position.x - this.radius * 0.9, this.position.y - this.radius * 0.9, this.image.width * this.scale, this.image.height * this.scale);
 		}
