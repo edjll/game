@@ -12,7 +12,7 @@ engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, s
 engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
 engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
 
-engine.player = new Player('./image/hero/idle.png',  1501, 401,
+engine.player = new Player('./image/hero/idle.png',  1501, 800,
 						   './image/hero/run.png',   1000, 800,
 						   './image/hero/shot.png',  2751, 800,
 						   20, engine.canvas.height * 0.59, scale);
