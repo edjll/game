@@ -60,6 +60,7 @@ class Engine {
 
 			this.player.draw(this.ctx);
 
+			this.arrows.draw(this.ctx);
 
 			this.ctx.restore();
 		}

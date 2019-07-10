@@ -2,18 +2,14 @@ class Arrows {
 	constructor(image, scale = 1) {
 		this.image = new Image();
 		this.image.src = image;
+		this.scale = scale;
 		this.arrows = [];
 		this.image.onload = () => {
 			this.image.ready = true;
 		}
 	}
 
-	translate(x, y) {
-		this.position.x += x;
-		this.position.y += y;
-	}
-
-	addArrow(x, y) {
+	addArrow(x, y, speed) {
 		this.arrows.push({
 							x: x,
 							y: y,
@@ -23,8 +19,9 @@ class Arrows {
 
 	draw(ctx) {
 		if (this.image.ready) {
-			this.arrows.forEach(bullet => {
-				ctx.drawImage(this.image, element.x, element.y, this.image.width * scale, this.image.height * scale);
+			this.arrows.forEach(element => {
+				ctx.drawImage(this.image, element.x, element.y, this.image.width * this.scale, this.image.height * this.scale);
+				element.x += element.speed;
 			})
 		}
 	}

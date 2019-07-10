@@ -17,7 +17,7 @@ engine.player = new Player('./image/hero/idle.png',  1501, 401,
 						   './image/hero/shot.png',  2751, 400,
 						   20, engine.canvas.height * 0.59, scale);
 
-
+engine.arrows = new Arrows('./image/arrow.png', scale);
 
 engine.update = (dt) => {
 
@@ -70,9 +70,7 @@ engine.update = (dt) => {
 
 	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && engine.input.isKeyDown('ControlLeft')) {
 		engine.player.frame = engine.player.frame_shot;
-		if (engine.player.render[engine.player.frame_shot].frame == engine.player.render[engine.player.frame_shot].frameCount / 2 + engine.player.render[engine.player.frame_shot].frameStart) {
-			engine.arrows.addArrow(engine.player.position + engine.player.render[0].frameWidth);
-		}
+		engine.arrows.addArrow(engine.player.position.x + engine.player.render[0].frameWidth, engine.player.position.y, 1);
 		engine.player.translate(0, 0);
 	}
 
