@@ -1,9 +1,10 @@
 class Player {
-	constructor(image_idle,  image_idle_width,  image_idle_height, 
-				image_run,   image_run_width,   image_run_height, 
-				image_shot,  image_shot_width,  image_shot_height, 
-				image_jump,  image_jump_width,  image_jump_height, 
-				image_death, image_death_width, image_death_height,
+	constructor(image_idle,   image_idle_width,   image_idle_height, 
+				image_run,    image_run_width,    image_run_height, 
+				image_shot,   image_shot_width,   image_shot_height, 
+				image_jump,   image_jump_width,   image_jump_height, 
+				image_death,  image_death_width,  image_death_height,
+				image_attack, image_attack_width, image_attack_height,
 				x, y, scale = 1, hp = 100, mp = 100, regenHp = 1, regenMp = 1) {
 
 		this.image_idle = image_idle;
@@ -11,6 +12,7 @@ class Player {
 		this.image_shot = image_shot;
 		this.image_jump = image_jump;
 		this.image_death = image_death;
+		this.image_attack = image_attack;
 
 		this.scale = scale;
 
@@ -21,20 +23,25 @@ class Player {
 		this.frame 		= 1;
 		this.frame_idle = 1;
 		this.frame_shot = 5;
+		this.frame_attack = 11;
 
 		this.death 	= false;
 
 		this.arrows = undefined;
 
 		this.render 	=  [
-								new Render(this.image_idle,  this.position.x, this.position.y, image_idle_width,  image_idle_height,  this.scale,   0, 11,  6, 4, 10),  //left  idle
-								new Render(this.image_idle,  this.position.x, this.position.y, image_idle_width,  image_idle_height,  this.scale,  12, 11,  6, 4, 10),  //right idle
-								new Render(this.image_run,   this.position.x, this.position.y, image_run_width,   image_run_height,   this.scale,   0, 15,  4, 8, 10),  //left  run
-								new Render(this.image_run,   this.position.x, this.position.y, image_run_width,   image_run_height,   this.scale,  16, 15,  4, 8, 10),  //right run
-								new Render(this.image_shot,  this.position.x, this.position.y, image_shot_width,  image_shot_height,  this.scale,   0, 21, 11, 4, 10),  //left  shot
-								new Render(this.image_shot,  this.position.x, this.position.y, image_shot_width,  image_shot_height,  this.scale,  22, 21, 11, 4, 10),  //right shot
-								new Render(this.image_jump,  this.position.x, this.position.y, image_jump_width,  image_jump_height,  this.scale,   0,  0,  1, 1, 10),  //right jump
-								new Render(this.image_death, this.position.x, this.position.y, image_death_width, image_death_height, this.scale,  16, 15,  5, 6, 10)   //right death
+								new Render(this.image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,   0, 11,  6, 4, 10),  // 0  left  idle
+								new Render(this.image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,  12, 11,  6, 4, 10),  // 1  right idle
+								new Render(this.image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,   0, 15,  4, 8, 10),  // 2  left  run
+								new Render(this.image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
+								new Render(this.image_shot,   this.position.x, this.position.y, image_shot_width,   image_shot_height,   this.scale,   0, 21, 11, 4, 10),  // 4  left  shot
+								new Render(this.image_shot,   this.position.x, this.position.y, image_shot_width,   image_shot_height,   this.scale,  22, 21, 11, 4, 10),  // 5  right shot
+								new Render(this.image_jump,   this.position.x, this.position.y, image_jump_width,   image_jump_height,   this.scale,   0,  0,  1, 1, 10),  // 6  left  jump
+								new Render(this.image_jump,   this.position.x, this.position.y, image_jump_width,   image_jump_height,   this.scale,   0,  0,  1, 1, 10),  // 7  right jump
+								new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 15,  5, 6, 10),  // 8  left  death
+								new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  16, 15,  5, 6, 10),  // 9  right death
+								new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0,  9,  5, 4, 10),  // 10 left  attack
+								new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  10,  9,  5, 4, 10)   // 11 right attack
 							];
 
 		this.hp = hp;
@@ -59,6 +66,11 @@ class Player {
 		this.shotCooldown = false;
 		this.shotTimeCoolDownStart = undefined;
 		this.shotTimeCoolDownEnd   = undefined;
+
+		this.attackActive = false;
+		this.attackCooldown = false;
+		this.attackTimeCoolDownStart = undefined;
+		this.attackTimeCoolDownEnd   = undefined;
 
 		this.gravityActive = false;
 	}
@@ -105,7 +117,7 @@ class Player {
 	}
 
 	jump() {
-		this.frame = 6;
+		this.frame = 7;
 		if (this.startY - this.position.y < 100) {
 			this.translate(0, - 5 * this.deltaJump);
 		}
@@ -136,6 +148,21 @@ class Player {
 		}
 	}
 
+	attack() {
+		if (this.render[this.frame_attack].last) {
+			this.render[this.frame_attack].last  = false;
+			this.attackTimeCoolDownStart = performance.now();
+			this.attackCooldown = true;
+			this.attackActive = false;
+			return true;
+		} else {
+			this.frame = this.frame_attack;
+			this.attackActive = true;
+			this.translate(0, 0);
+			return false;
+		}
+	}
+
 	cooldowns() {
 		if (this.jumpCooldown) {
 			if (this.jumpTimeCoolDownEnd > this.jumpTimeCoolDownStart + 3000) {
@@ -149,10 +176,16 @@ class Player {
 			}
 			this.shotTimeCoolDownEnd = performance.now();
 		}
+		if (this.attackCooldown) {
+			if (this.attackTimeCoolDownEnd > this.attackTimeCoolDownStart + 1000) {
+				this.attackCooldown = false;
+			}
+			this.attackTimeCoolDownEnd = performance.now();
+		}
 	}
 
 	deathPlayer() {
-		this.frame = 7;
+		this.frame = 9;
 		this.translate(0, 0);
 		this.regenHp = 0;
 		this.regenMp = 0;
