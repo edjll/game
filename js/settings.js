@@ -8,7 +8,7 @@ let play 		= document.getElementById('play'),
 	login 		= document.getElementById('login');
 
 play.onclick = () => {
-	loginForm.className = 'loginOn';
+	loginForm.id = 'loginOn';
 	play.className += ' out';
 	help.className += ' out';
 }
@@ -22,8 +22,7 @@ cancel.onclick = () => {
 }
 
 start.onclick = () => {
-	login.style.transform = 'origin(right centr)';
-	login.style.transform = 'rotate(66deg)';
+	login.className +=' rotate';	
 	if (nickname.value.length) {
 		localStorage.setItem('nickname', nickname.value);
 		window.location = './game.html';
