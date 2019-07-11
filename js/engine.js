@@ -72,7 +72,7 @@ class Engine {
 				object.draw(this.ctx);
 			});
 
-			this.player.draw(this.ctx, this.canvas.width);
+			this.player.draw(this.ctx, this.canvas.width, -this.camera.x);
 
 			this.avatar.draw(this.ctx, -this.camera.x, this.player.hp, this.player.mp);
 

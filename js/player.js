@@ -50,13 +50,17 @@ class Player {
 
 		this.deltaJump = 1;
 
+		this.jumpActive = false;
 		this.jumpCooldown = false;
 		this.jumpTimeCoolDownStart = undefined;
 		this.jumpTimeCoolDownEnd   = undefined;
 
+		this.shotActive = false;
 		this.shotCooldown = false;
 		this.shotTimeCoolDownStart = undefined;
 		this.shotTimeCoolDownEnd   = undefined;
+
+		this.gravityActive = false;
 	}
 
 	translate(x, y) {
@@ -93,8 +97,10 @@ class Player {
 	}
 
 	gravity() {
+		this.gravityActive = false;
 		if (this.position.y != this.startY) {
 			this.translate(0, this.deltaJump);
+			this.gravityActive = true;
 		}
 	}
 
@@ -112,12 +118,18 @@ class Player {
 			this.render[this.frame_shot].point = true;
 			this.shotTimeCoolDownStart = performance.now();
 			this.shotCooldown = true;
+			this.shotActive = false;
 			return true;
 		} else {
+			this.shotActive = true;
 			this.frame = this.frame_shot;
 			this.translate(0, 0);
 			if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
-				this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48, 6);
+				if (this.frame == 5) {
+					this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6);
+				} else {
+					this.arrows.addArrow(this.position.x, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48, -6);
+				}
 				this.render[this.frame].point = false;
 			}
 			return false;
@@ -149,13 +161,13 @@ class Player {
 		}
 	}
 
-	draw(ctx, width) {
+	draw(ctx, width, x) {
 
 		this.regen();
 		this.gravity();
 		this.cooldowns();
 
-		this.arrows.translate(this.position.x, width);
+		this.arrows.translate(x, width);
 		this.arrows.draw(ctx);
 
 		this.render[this.frame].draw(ctx);

@@ -14,7 +14,7 @@ class Input {
 			if (event.code == 'ControlLeft') {
 				this.shot = true;
 			}
-			if (event.code == 'Space') {
+			if (event.code == 'ArrowUp') {
 				this.jump = true;
 			}
 		}
