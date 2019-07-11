@@ -22,6 +22,8 @@ class Render {
 
 			this.last = false;
 
+			this.death = false;
+
 			this.controlFrame = false;
 			this.point = true;
 
