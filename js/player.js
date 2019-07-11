@@ -185,7 +185,7 @@ class Player {
 	}
 
 	deathPlayer() {
-		this.frame = 9;
+		this.frame = 8;
 		this.translate(0, 0);
 		this.regenHp = 0;
 		this.regenMp = 0;
