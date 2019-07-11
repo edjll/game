@@ -1,51 +1,46 @@
 let play 		= document.getElementById('play'),
 	help  		= document.getElementById('help'),
-	helpO  	= document.getElementById('helpOff'),
+	helpPanel   = document.getElementById('helpPanel'),
 	loginForm 	= document.getElementById('login'),
 	start 		= document.getElementById('start'),
 	cancel 		= document.getElementById('cancel'),
-	nickname 	= document.getElementById('nickname');
-	login 		= document.getElementById('login');
-	main		= document.getElementById('main');
-	flag		= 0;
+	nickname 	= document.getElementById('nickname'),
+	main		= document.getElementById('main'),
+	background 	= document.getElementById('background');
+
 
 play.onclick = () => {
-	if (flag == -1) {
-		play.className = 'container_button';
-		help.className = 'container_button';
-		helpO.id = 'helpOff';
+	if (!main.className.length) {
+		main.className = 'playOn';
+		loginForm.className = 'loginOn';
+		setTimeout(() => {
+			main.className += ' background_left';
+			loginForm.className += ' background_right';
+		}, 1000);
 	}
-	flag = 1;
-	loginForm.id = 'loginOn';
-	play.className += ' left_out';
-	help.className += ' left_out';
 }
 
 help.onclick = () => {
-	if (flag == 1) {
-		loginForm.id = 'login';
-		play.className = 'container_button';
-		help.className = 'container_button';
+	if (!helpPanel.className.length) {
+		helpPanel.className = 'helpOn';
 	}
-	flag = -1;
-	helpO.id = 'helpOn'
-	play.className += ' right_out';
-	help.className += ' right_out';
 }
 
 cancel.onclick = () => {
-	flag == 0;
-	play.className = 'container_button';
-	help.className = 'container_button';
-	helpO.id = 'helpOff';
+	helpPanel.className = '';
 }
 
 start.onclick = () => {
+	background.className = 'backgroundOff';
 	login.className += ' rotate_right';
-	main.className += ' rotate_left'	
+	login.setAttribute('disabled', '');
+	main.className += ' rotate_left';
+	main.setAttribute('disabled', '');
+	start.setAttribute('disabled', '');
+	help.setAttribute('disabled', '');
 	if (nickname.value.length) {
 		localStorage.setItem('nickname', nickname.value);
-		window.location = './game.html';
+		engine.input.pause = true;
 	}
 }
 

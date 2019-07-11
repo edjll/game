@@ -6,18 +6,23 @@
 }
 
 body{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	background-image: url(../image/background.png);
-	background-position: center center;
-  	background-repeat: no-repeat;
-  	background-attachment: fixed;
-  	background-size: cover;
 	width: 100%;
 	height: 100vh;
 	font-family: 'Shojumaru', cursive;
+}
+
+#background {
+	background-position: right center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+  	background-image: url(../image/background.png);
+  	width: 100%;
+  	height: 100%;
+  	position: absolute;
+}
+
+.backgroundOff {
+	background-image: none !important;
 }
 
 .head{
@@ -30,15 +35,19 @@ body{
 	font-family: 'Shojumaru', cursive;
 }
 
-.main_container{
-	width: 100%;
+#main {
+	width: 50%;
 	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	position: absolute;
+	left: 25%;
 	transition-duration: 1s;
-	-webkit-transform-origin: left center;
-	z-index: = 1; 
+	transform-origin: left center;
+	background-position: right center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
 }
 
 .container{
@@ -61,73 +70,62 @@ body{
 	cursor: pointer;
 }
 
-.left_out{
-	transform: translateX(-25vw);
-	transition-duration: 0.5s;
-}
-.right_out{
-	transform: translateX(+25vw);
-	transition-duration: 0.5s;
+.playOn {
+	left: 0 !important;
 }
 
-#helpOff{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	width: 50vw;
-	position: absolute;
-	transform: translateX(-100vw);
-	transition-duration: 1s;
+.helpOn {
+	left: 0 !important;
 }
 
-#helpOn{
+#helpPanel {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	background-color: black;
-	height: 100vh;
-	width: 50vw;
+	height: 100%;
+	width: 100%;
 	position: absolute;
-	transform: translateX(-25vw);
+	left: -100%;
+	top: 0;
 	transition-duration: 1s;
 }
 
 #login {
-	margin-top: 65px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
-	width: 50vw;
+	height: 100%;
+	width: 50%;
 	position: absolute;
-	transform: translateX(+100vw);
+	right: -100%;
 	transition-duration: 1s;
+	transform-origin: right center;
+	background-position: left center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
 }
 
-#loginOn {
-	margin-top: 65px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
-	width: 50vw;
-	position: absolute;
-	transform: translateX(+25vw);
-	transition-duration: 1s;
-	-webkit-transform-origin: right center; 
+.loginOn {
+	right: 0 !important;
+}
+
+.background_left {
+	background-image: url(../image/background_left.png);
+}
+
+.background_right {
+	background-image: url(../image/background_right.png);
 }
 
 .rotate_right{
-	transform: perspective(1000px) rotateY(-45deg) !important;
+	transform: perspective(1000px) rotateY(-90deg) !important;
 }
 
 .rotate_left{
-	transform: perspective(1000px) rotateY(45deg) !important;
+	transform: perspective(1000px) rotateY(90deg) !important;
 }
 
 #nickname{
@@ -137,13 +135,13 @@ body{
 	width: 300px;
 	height: 50px;
 	font-family: 'Shojumaru', cursive;
+	text-align: center;
 }
 
 #start{
 	background-color: red;
 	color: #0c6517;
 	border-radius: 25px;
-	margin-bottom: 50px;
 	font-size: 25px;
 	width: 250px;
 	height: 50px;
@@ -160,7 +158,7 @@ body{
 	width: 30px;
 	border: none;
 	background-color: transparent;
-	position: fixed;
+	position: absolute;
 	top: 20px;
 	right: 20px;
 	cursor: pointer;
