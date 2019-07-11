@@ -132,6 +132,7 @@ img{
 }
 
 #login {
+	margin-top: 100px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -145,7 +146,6 @@ img{
 }
 
 .loginOn {
-	opacity: 0.9;
 	transform: translateX(+25vw) !important;
 }
 
