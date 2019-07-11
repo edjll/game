@@ -66,8 +66,11 @@ class Avatar {
 				text = String(Math.floor((time - this.time) / 60000)) + ':' + String(Math.floor((time - this.time) / 1000) % 60);
 
 
-			ctx.font = '20px Georgia';
-			ctx.fillText(text, x + width - 50 * this.scale, 30 * this.scale);
+			ctx.font = 30 * this.scale + 'px Georgia';
+			ctx.fillText(text, x + width - 70 * this.scale, 30 * this.scale);
+
+			ctx.font = 35 * this.scale + 'px Georgia';
+			ctx.fillText(localStorage.getItem('nickname'), x + (160 + this.radius) * this.scale, (10 + this.radius) * this.scale);
 		}
 	}
 }
