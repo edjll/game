@@ -14,7 +14,7 @@ engine.ground[2].render.position.x = engine.ground[1].render.position.x + ground
 
 engine.player = new Player('./image/hero/idle.png',  1501, 800,
 						   './image/hero/run.png',   1000, 800,
-						   './image/hero/shot.png',  2751, 800,
+						   './image/hero/shot_n.png',  2751, 800,
 						   20, engine.canvas.height * 0.59, scale);
 
 engine.arrows = new Arrows('./image/arrow.png', scale);
@@ -24,9 +24,9 @@ engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 engine.update = (dt) => {
 
 	if (engine.input.isKeyDown('ArrowLeft')) {
-		engine.player.frame = 2;
-		engine.player.frame_idle = 0;
-		engine.player.frame_shot = 4;
+		engine.player.frame 		= 2;
+		engine.player.frame_idle 	= 0;
+		engine.player.frame_shot 	= 4;
 		engine.player.translate(-3, 0);
 
 		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -45,9 +45,9 @@ engine.update = (dt) => {
 	}
 
 	if (engine.input.isKeyDown('ArrowRight')) {
-		engine.player.frame = 3;
-		engine.player.frame_idle = 1;
-		engine.player.frame_shot = 5;
+		engine.player.frame 		= 3;
+		engine.player.frame_idle 	= 1;
+		engine.player.frame_shot 	= 5;
 		engine.player.translate(3, 0);
 
 		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -68,7 +68,7 @@ engine.update = (dt) => {
 	if (engine.input.shot) {
 		if (engine.player.render[engine.player.frame_shot].last) {
 			engine.input.shot = false;
-			engine.player.render[engine.player.frame_shot].last = false;
+			engine.player.render[engine.player.frame_shot].last  = false;
 			engine.player.render[engine.player.frame_shot].point = true;
 		} else {
 			engine.player.frame = engine.player.frame_shot;
