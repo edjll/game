@@ -3,9 +3,9 @@ let play 		= document.getElementById('play'),
 	helpOn  	= document.getElementById('helpOn'),
 	loginForm 	= document.getElementById('login'),
 	start 		= document.getElementById('start'),
-	cancel_1 	= document.getElementById('cancel_1'),
-	cancel_2 	= document.getElementById('cancel_2'),
+	cancel 		= document.getElementById('cancel'),
 	nickname 	= document.getElementById('nickname');
+	login 		= document.getElementById('login');
 
 play.onclick = () => {
 	loginForm.className = 'loginOn';
@@ -15,23 +15,15 @@ play.onclick = () => {
 
 help.onclick = () => {
 	helpOn.className = 'helpOn'
-	play.className += ' out';
-	help.className += ' out';
 }
 
-cancel_1.onclick = () => {
+cancel.onclick = () => {
 	helpOn.className = '';
-	play.className = 'container_button';
-	help.className = 'container_button';
-}
-
-cancel_2.onclick = () => {
-	loginForm.className = '';
-	play.className = 'container_button';
-	help.className = 'container_button';
 }
 
 start.onclick = () => {
+	login.style.transform = 'origin(right centr)';
+	login.style.transform = 'rotate(66deg)';
 	if (nickname.value.length) {
 		localStorage.setItem('nickname', nickname.value);
 		window.location = './game.html';
