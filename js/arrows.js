@@ -10,7 +10,7 @@ class Arrows {
 	}
 
 	addArrow(x, y, speed) {
-		this.arrows.push(new Arrow(x, y, speed));
+		this.arrows.push(new Arrow(x, y, speed, this.image.width, this.image.height / 2));
 	}
 
 	translate(x, width) {
@@ -22,7 +22,13 @@ class Arrows {
 	draw(ctx, width) {
 		if (this.image.ready) {
 			this.arrows.forEach(element => {
-				ctx.drawImage(this.image, element.position.x, element.position.y, this.image.width * this.scale, this.image.height * this.scale);
+				let y;
+				if (element.speed > 0) {
+					y = this.image.height / 2;
+				} else {
+					y = 0;
+				}
+				ctx.drawImage(this.image, 0, y, this.image.width, this.image.height / 2, element.position.x, element.position.y, this.image.width * this.scale, this.image.height / 2 * this.scale);
 			});
 		}
 	}

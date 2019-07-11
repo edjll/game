@@ -25,10 +25,38 @@ engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
 engine.update = () => {
 
-	if (engine.input.isKeyDown('ArrowLeft')) {
-		engine.player.frame 		= 2;
-		engine.player.frame_idle 	= 0;
-		engine.player.frame_shot 	= 4;
+	if (engine.input.shot) {
+		if (engine.player.shotCooldown || engine.player.gravityActive) {
+			engine.input.shot = false;
+		} else {
+			if (engine.player.shot()) {
+				engine.input.shot = false;
+			}
+			engine.input.jump = false;
+		}
+	}
+
+	if (engine.input.jump) {
+		if (engine.player.jumpCooldown) {
+			engine.input.jump = false;
+		} else {
+			engine.player.jump();
+			if (engine.player.jumpFrame == 20) {
+				engine.input.jump = false;
+				engine.player.jumpFrame = 0;
+				engine.player.jumpCooldown = true;
+				engine.player.jumpTimeCoolDownStart = performance.now();
+			}
+		}
+	}
+
+	if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive)) {
+		if (!engine.input.jump) {
+			engine.player.frame 		= 2;
+			engine.player.frame_idle 	= 0;
+			engine.player.frame_shot 	= 4;
+		}
+		
 		engine.player.translate(-3, 0);
 
 		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -46,10 +74,12 @@ engine.update = () => {
 		}
 	}
 
-	if (engine.input.isKeyDown('ArrowRight')) {
-		engine.player.frame 		= 3;
-		engine.player.frame_idle 	= 1;
-		engine.player.frame_shot 	= 5;
+	if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive)) {
+		if (!(engine.input.jump && engine.player.jumpActive)) {
+			engine.player.frame 		= 3;
+			engine.player.frame_idle 	= 1;
+			engine.player.frame_shot 	= 5;
+		}
 		engine.player.translate(3, 0);
 
 		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -64,22 +94,6 @@ engine.update = () => {
 
 			engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
 
-		}
-	}
-
-	if (engine.input.shot && !engine.player.shotCooldown) {
-		if (engine.player.shot()) {
-			engine.input.shot = false;
-		}
-	}
-
-	if (engine.input.jump && !engine.player.jumpCooldown) {
-		engine.player.jump();
-		if (engine.player.jumpFrame == 20) {
-			engine.input.jump = false;
-			engine.player.jumpFrame = 0;
-			engine.player.jumpCooldown = true;
-			engine.player.jumpTimeCoolDownStart = performance.now();
 		}
 	}
 
