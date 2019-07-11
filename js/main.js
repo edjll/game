@@ -12,13 +12,14 @@ engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, s
 engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
 engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
 
-engine.player = new Player('./image/hero/idle.png',   1501, 800,
-						   './image/hero/run.png',    1000, 800,
-						   './image/hero/shot_n.png', 2751, 800,
-						   './image/hero/jump.png',    250, 200,
+engine.player = new Player('./image/hero/idle.png',   1501,  800,
+						   './image/hero/run.png',    1000,  800,
+						   './image/hero/shot_n.png', 2751,  800,
+						   './image/hero/jump.png',    250,  200,
+						   './image/hero/death.png',  1250, 1200,
 						   20, engine.canvas.height * 0.59, scale);
 
-engine.arrows = new Arrows('./image/arrow.png', scale);
+engine.player.arrows = new Arrows('./image/arrow.png', scale);
 
 engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
@@ -66,28 +67,13 @@ engine.update = () => {
 		}
 	}
 
-	if (engine.input.shot) {
-		if (engine.player.render[engine.player.frame_shot].last) {
+	if (engine.input.shot && !engine.player.shotCooldown) {
+		if (engine.player.shot()) {
 			engine.input.shot = false;
-			engine.player.render[engine.player.frame_shot].last  = false;
-			engine.player.render[engine.player.frame_shot].point = true;
-		} else {
-			engine.player.frame = engine.player.frame_shot;
-			engine.player.translate(0, 0);
-			if (engine.player.render[engine.player.frame_shot].controlFrame && engine.player.render[engine.player.frame_shot].point) {
-				engine.arrows.addArrow(engine.player.position.x + engine.player.render[0].frameWidth * scale * 0.59, engine.player.position.y + engine.player.render[0].frameHeight * scale * 0.48, 6);
-				engine.player.render[engine.player.frame_shot].point = false;
-			}
 		}
 	}
 
-	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.shot) {
-		engine.player.frame = engine.player.frame_idle;
-		engine.player.translate(0, 0);
-	}
-
 	if (engine.input.jump && !engine.player.jumpCooldown) {
-		engine.player.frame = 6;
 		engine.player.jump();
 		if (engine.player.jumpFrame == 20) {
 			engine.input.jump = false;
@@ -96,6 +82,13 @@ engine.update = () => {
 			engine.player.jumpTimeCoolDownStart = performance.now();
 		}
 	}
+
+	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.jump && !engine.input.shot) {
+		engine.player.frame = engine.player.frame_idle;
+		engine.player.translate(0, 0);
+	}
+
+	engine.player.hurt(400, 100);
 
 	//camera position in window
 	let localPosition = engine.getLocalPosition(engine.player);

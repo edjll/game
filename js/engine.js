@@ -19,9 +19,11 @@ class Engine {
 
 		this.player 		= undefined;
 
-		this.arrows 		= undefined;
-
 		this.avatar 		= undefined;
+
+		this.game 			= true;
+
+		this.gamePause 		= false;
 
 		window.requestAnimationFrame(this.loop.bind(this));
 	}
@@ -38,11 +40,21 @@ class Engine {
 		return object.position.plus(this.camera);
 	}
 
+	pause() {
+		this.ctx.globalAlpha = 0.5;
+
+		this.ctx.fillStyle = 'black';
+
+		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+		this.ctx.globalAlpha = 1;
+	}
+
 	loop() {
 		let realTime  = performance.now(),
 			dt 		  = (realTime - this.lastTime) / 1000;
 
-		if (this.input.pause) {
+		if (!this.gamePause && this.game) {
 			if (this.update) {
 				this.update();
 			}
@@ -60,16 +72,23 @@ class Engine {
 				object.draw(this.ctx);
 			});
 
-			this.arrows.translate(this.player.position.x, this.canvas.width);
-			this.arrows.draw(this.ctx);
-
-			this.player.hurt(400, 100);
-
-			this.player.draw(this.ctx);
+			this.player.draw(this.ctx, this.canvas.width);
 
 			this.avatar.draw(this.ctx, -this.camera.x, this.player.hp, this.player.mp);
 
+			if (this.player.death) {
+				this.game = false; 
+				this.pause();
+			} else if (!this.input.pause) {
+				this.gamePause = true;
+				this.pause();
+			}
+
 			this.ctx.restore();
+
+		}
+		if (this.input.pause) {
+			this.gamePause = false;
 		}
 
 		this.lastTime = realTime;
