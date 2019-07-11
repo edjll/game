@@ -29,7 +29,7 @@ engine.bots = new Bots('./image/enemy/idle.png',   803,  800,
 					   './image/enemy/hurt.png',   2751,  800,
 					   './image/enemy/death.png',  1250, 1200,
 					   './image/enemy/attack.png', 1250,  800,
-					   200, engine.canvas.height * 0.665, scale);
+					   200, engine.canvas.height * 0.59, scale);
 
 engine.update = () => {
 

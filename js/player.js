@@ -62,11 +62,13 @@ class Player {
 		this.jumpTimeCoolDownStart = undefined;
 		this.jumpTimeCoolDownEnd   = undefined;
 
+		this.shotMp = 20;
 		this.shotActive = false;
 		this.shotCooldown = false;
 		this.shotTimeCoolDownStart = undefined;
 		this.shotTimeCoolDownEnd   = undefined;
 
+		this.attackMp = 10;
 		this.attackActive = false;
 		this.attackCooldown = false;
 		this.attackTimeCoolDownStart = undefined;
@@ -131,11 +133,16 @@ class Player {
 			this.shotTimeCoolDownStart = performance.now();
 			this.shotCooldown = true;
 			this.shotActive = false;
+			this.shotMp = 20;
 			return true;
 		} else {
 			this.shotActive = true;
 			this.frame = this.frame_shot;
 			this.translate(0, 0);
+			if (this.shotMp > 0) {
+				this.mp -= 1;
+				this.shotMp -= 1;
+			}
 			if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
 				if (this.frame == 5) {
 					this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6);
@@ -154,8 +161,13 @@ class Player {
 			this.attackTimeCoolDownStart = performance.now();
 			this.attackCooldown = true;
 			this.attackActive = false;
+			this.attackMp = 10;
 			return true;
 		} else {
+			if (this.attackMp > 0) {
+				this.mp -= 1;
+				this.attackMp -= 1;
+			}
 			this.frame = this.frame_attack;
 			this.attackActive = true;
 			this.translate(0, 0);
