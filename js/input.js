@@ -2,7 +2,7 @@ class Input {
 	constructor() {
 		this.downKeys 	= [];
 		this.speed 		= 1;
-		this.pause 		= false;
+		this.pause 		= true;
 		this.shot 		= false;
 		this.jump 		= false;
 		this.attack 	= false;

@@ -9,7 +9,7 @@ class Engine {
 
 		this.lastTime 		= performance.now();
 
-		this.objects 		= [];
+		this.bots			= undefined;
 
 		this.camera 		= new Vector(0, 0);
 
@@ -30,10 +30,6 @@ class Engine {
 
 	addGround(object) {
 		this.ground.push(object);
-	}
-
-	addObject(object) {
-		this.objects.push(object);
 	}
 
 	getLocalPosition(object) {
@@ -67,11 +63,9 @@ class Engine {
 					element.draw(this.ctx);
 				});
 			}
-
-			this.objects.forEach(object => {
-				object.draw(this.ctx);
-			});
 			
+			this.bots.draw(this.ctx);
+
 			this.player.draw(this.ctx, this.canvas.width, -this.camera.x);
 
 			this.avatar.draw(this.ctx, -this.camera.x, this.player.hp, this.player.mp);

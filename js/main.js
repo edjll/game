@@ -24,6 +24,13 @@ engine.player.arrows = new Arrows('./image/arrow.png', scale);
 
 engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
+engine.bots = new Bots('./image/enemy/idle.png',   803,  800,
+					   './image/enemy/run.png',    1000, 1600,
+					   './image/enemy/hurt.png',   2751,  800,
+					   './image/enemy/death.png',  1250, 1200,
+					   './image/enemy/attack.png', 1250,  800,
+					   200, engine.canvas.height * 0.665, scale);
+
 engine.update = () => {
 
 	if (engine.input.shot) {
@@ -117,7 +124,7 @@ engine.update = () => {
 	}
 
 	engine.player.hurt(400, 100);
-	
+
 	//camera position in window
 	let localPosition = engine.getLocalPosition(engine.player);
 
