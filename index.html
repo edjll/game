@@ -9,16 +9,18 @@
 	<link href="https://fonts.googleapis.com/css?family=Shojumaru&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="head">
-		<h1>Ghost Ninjutsu Goro</h1>
-	</div>
-	<div class="main_container" id="main">	
+	<div id="background"></div>
+	<div id="main">	
 		<div class="container">
 			<button id="play" class="container_button">Play</button>
 			<button id="help" class="container_button">Help</button>
 		</div>
 	</div>
-	<div id="helpOff">
+	<div id="login">
+		<input type="text" id="nickname" size="12" placeholder="Your nickname">
+		<button id="start">Start</button>
+	</div>
+	<div id="helpPanel">
 		<img src="image/arrow.jpg">
 		<img src="image/space.jpg">
 		<img src="image/L.ctrl.jpg">
@@ -27,10 +29,16 @@
 			<div class="row"></div>
 		</button>
 	</div>
-	<div id="login">
-		<input type="text" id="nickname" size="12" placeholder="Your nickname">
-		<button id="start">Start</button>
-	</div>
+	<script src="js/vector.js"></script>
+	<script src="js/input.js"></script>
+	<script src="js/engine.js"></script>
+	<script src="js/render.js"></script>
+	<script src="js/ground.js"></script>
+	<script src="js/player.js"></script>
+	<script src="js/arrow.js"></script>
+	<script src="js/arrows.js"></script>
+	<script src="js/avatar.js"></script>
+	<script src="js/main.js"></script>
 	<script src="js/settings.js"></script>
 </body>
 </html>
