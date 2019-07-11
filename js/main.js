@@ -12,9 +12,9 @@ engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, s
 engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
 engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
 
-engine.player = new Player('./image/hero/idle_n.png', 1501,  801,
-						   './image/hero/run_n.png',  1000, 1600,
-						   './image/hero/shot_n.png', 2751,  800,
+engine.player = new Player('./image/hero/idle.png',   1501,  801,
+						   './image/hero/run.png',    1000, 1600,
+						   './image/hero/shot.png',   2751,  800,
 						   './image/hero/jump.png',    250,  200,
 						   './image/hero/death.png',  1250, 1200,
 						   './image/hero/attack.png', 1250,  800,
@@ -116,7 +116,8 @@ engine.update = () => {
 		engine.player.translate(0, 0);
 	}
 
-
+	engine.player.hurt(400, 100);
+	
 	//camera position in window
 	let localPosition = engine.getLocalPosition(engine.player);
 
