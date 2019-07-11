@@ -29,8 +29,8 @@ class Player {
 		this.render 	=  [
 								new Render(this.image_idle,  this.position.x, this.position.y, image_idle_width,  image_idle_height,  this.scale,   0, 11,  6, 4, 10),  //left  idle
 								new Render(this.image_idle,  this.position.x, this.position.y, image_idle_width,  image_idle_height,  this.scale,  12, 11,  6, 4, 10),  //right idle
-								new Render(this.image_run,   this.position.x, this.position.y, image_run_width,   image_run_height,   this.scale,   0, 15,  4, 4, 10),  //left  run
-								new Render(this.image_run,   this.position.x, this.position.y, image_run_width,   image_run_height,   this.scale,   0, 15,  4, 4, 10),  //right run
+								new Render(this.image_run,   this.position.x, this.position.y, image_run_width,   image_run_height,   this.scale,   0, 15,  4, 8, 10),  //left  run
+								new Render(this.image_run,   this.position.x, this.position.y, image_run_width,   image_run_height,   this.scale,  16, 15,  4, 8, 10),  //right run
 								new Render(this.image_shot,  this.position.x, this.position.y, image_shot_width,  image_shot_height,  this.scale,   0, 21, 11, 4, 10),  //left  shot
 								new Render(this.image_shot,  this.position.x, this.position.y, image_shot_width,  image_shot_height,  this.scale,  22, 21, 11, 4, 10),  //right shot
 								new Render(this.image_jump,  this.position.x, this.position.y, image_jump_width,  image_jump_height,  this.scale,   0,  0,  1, 1, 10),  //right jump
