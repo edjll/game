@@ -1,10 +1,13 @@
 class Player {
-	constructor(image_idle, image_idle_width, image_idle_height, image_run, image_run_width, image_run_height, image_shot, image_shot_width, image_shot_height, x, y, scale = 1, hp = 100, mp = 100, regenHp = 1, regenMp = 1) {
+	constructor(image_idle, image_idle_width, image_idle_height, image_run, image_run_width, image_run_height, image_shot, image_shot_width, image_shot_height, image_jump, image_jump_width, image_jump_height, x, y, scale = 1, hp = 100, mp = 100, regenHp = 1, regenMp = 1) {
 		this.image_idle = image_idle;
 		this.image_run 	= image_run;
 		this.image_shot = image_shot;
+		this.image_jump = image_jump;
 
 		this.position 	= new Vector(x, y);
+
+		this.startY 	= this.position.y;
 
 		this.frame 		= 1;
 		this.frame_idle = 1;
@@ -16,7 +19,8 @@ class Player {
 								new Render(this.image_run,  this.position.x, this.position.y, image_run_width,  image_run_height,  scale,   0, 15,  4, 4, 10),  //left  run
 								new Render(this.image_run,  this.position.x, this.position.y, image_run_width,  image_run_height,  scale,   0, 15,  4, 4, 10),  //right run
 								new Render(this.image_shot, this.position.x, this.position.y, image_shot_width, image_shot_height, scale,   0, 21, 11, 4, 10),  //left  shot
-								new Render(this.image_shot, this.position.x, this.position.y, image_shot_width, image_shot_height, scale,  22, 21, 11, 4, 10)   //right shot
+								new Render(this.image_shot, this.position.x, this.position.y, image_shot_width, image_shot_height, scale,  22, 21, 11, 4, 10),  //right shot
+								new Render(this.image_jump, this.position.x, this.position.y, image_jump_width, image_jump_height, scale,   0,  0,  1, 1, 10)   //right jump
 							];
 
 		this.hp = hp;
@@ -28,6 +32,13 @@ class Player {
 		this.lastTime = performance.now();
 		this.realTime = performance.now();
 
+		this.jumpFrame = 0;
+
+		this.deltaJump = 1;
+
+		this.jumpCooldown = false;
+		this.jumpTimeCoolDownStart = undefined;
+		this.jumpTimeCoolDownEnd = undefined;
 	}
 
 	translate(x, y) {
@@ -62,8 +73,32 @@ class Player {
 		this.realTime = performance.now();
 	}
 
+	gravity() {
+		if (this.position.y != this.startY) {
+			this.translate(0, this.deltaJump);
+		}
+	}
+
+	jump() {
+		if (this.startY - this.position.y < 100) {
+			this.translate(0, - 5 * this.deltaJump);
+		}
+		this.jumpFrame += 1;
+	}
+
+	cooldowns() {
+		if (this.jumpCooldown) {
+			if (this.jumpTimeCoolDownEnd > this.jumpTimeCoolDownStart + 3000) {
+				this.jumpCooldown = false;
+			}
+			this.jumpTimeCoolDownEnd = performance.now();
+		}
+	}
+
 	draw(ctx) {
 		this.regen();
+		this.gravity();
+		this.cooldowns();
 		this.render[this.frame].draw(ctx);
 
 	}

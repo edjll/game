@@ -44,7 +44,7 @@ class Engine {
 
 		if (this.input.pause) {
 			if (this.update) {
-				this.update(dt);
+				this.update();
 			}
 
 			this.ctx.save();
