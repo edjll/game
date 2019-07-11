@@ -14,7 +14,7 @@ class Avatar {
 		}
 	}
 
-	draw(ctx, x) {
+	draw(ctx, x, hp, mp) {
 		if (this.image.ready) {
 
 			ctx.strokeStyle = '#214a2e';
@@ -27,35 +27,35 @@ class Avatar {
 			ctx.closePath();
 			ctx.stroke();
 
-			let hp = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, this.position.y * this.scale,
+			let hpFill = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, this.position.y * this.scale,
 											  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 20) * this.scale);
 
-			hp.addColorStop(0, "#d8263f");
-			hp.addColorStop(1, "#ab1d31");
+			hpFill.addColorStop(0, "#d8263f");
+			hpFill.addColorStop(1, "#5f111c");
 
-			ctx.fillStyle = hp;
+			ctx.fillStyle = hpFill;
 
-			ctx.beginPath();
 
-				ctx.fillRect(x + (this.position.x + this.radius + 10) * this.scale, this.position.y * this.scale, 150 * this.scale, 20 * this.scale);
-			
-			ctx.closePath();
-			ctx.stroke();
+			ctx.fillRect(x + (this.position.x + this.radius + 10) * this.scale, this.position.y * this.scale, (2 * hp) * this.scale, 20 * this.scale);
 
-			let mp = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale,
-											  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 41) * this.scale);
+			ctx.fillStyle = 'black';ctx.fillStyle = 'black';
 
-			mp.addColorStop(0, "#504edf");
-			mp.addColorStop(1, "#4948c2");
+			ctx.fillRect(x + (this.position.x + this.radius + 10 + 2 * hp) * this.scale, this.position.y * this.scale, (2 * (100 - hp)) * this.scale, 20 * this.scale);
 
-			ctx.fillStyle = mp;
+			let mpFill = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale,
+											  	  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 41) * this.scale);
 
-			ctx.beginPath();
+			mpFill.addColorStop(0, "#504edf");
+			mpFill.addColorStop(1, "#27266f");
 
-				ctx.fillRect(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale, 120 * this.scale, 17 * this.scale);
-			
-			ctx.closePath();
-			ctx.stroke();
+			ctx.fillStyle = mpFill;
+
+
+			ctx.fillRect(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale, (1.6 * mp) * this.scale, 17 * this.scale);
+
+			ctx.fillStyle = 'black';
+
+			ctx.fillRect(x + (this.position.x + this.radius + 10 + (1.6 * mp)) * this.scale, (this.position.y + 24) * this.scale, (1.6 * (100 - mp)) * this.scale, 17 * this.scale);
 
 
 			ctx.drawImage(this.image, x + this.position.x - this.radius * 0.9, this.position.y - this.radius * 0.9, this.image.width * this.scale, this.image.height * this.scale);

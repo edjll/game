@@ -44,7 +44,7 @@ class Engine {
 
 		if (this.input.pause) {
 			if (this.update) {
-				this.update(dt);
+				this.update();
 			}
 
 			this.ctx.save();
@@ -63,9 +63,11 @@ class Engine {
 			this.arrows.translate(this.player.position.x, this.canvas.width);
 			this.arrows.draw(this.ctx);
 
+			this.player.hurt(400, 100);
+
 			this.player.draw(this.ctx);
 
-			this.avatar.draw(this.ctx, -this.camera.x);
+			this.avatar.draw(this.ctx, -this.camera.x, this.player.hp, this.player.mp);
 
 			this.ctx.restore();
 		}

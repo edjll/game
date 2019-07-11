@@ -4,6 +4,7 @@ class Input {
 		this.speed 		= 1;
 		this.pause 		= true;
 		this.shot 		= false;
+		this.jump 		= false;
 
 		document.onkeydown = (event) => {
 			this.downKeys[event.code] = true;
@@ -12,6 +13,9 @@ class Input {
 			}
 			if (event.code == 'ControlLeft') {
 				this.shot = true;
+			}
+			if (event.code == 'Space') {
+				this.jump = true;
 			}
 		}
 

@@ -12,21 +12,22 @@ engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, s
 engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
 engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
 
-engine.player = new Player('./image/hero/idle.png',  1501, 800,
-						   './image/hero/run.png',   1000, 800,
-						   './image/hero/shot.png',  2751, 800,
+engine.player = new Player('./image/hero/idle.png',   1501, 800,
+						   './image/hero/run.png',    1000, 800,
+						   './image/hero/shot_n.png', 2751, 800,
+						   './image/hero/jump.png',    250, 200,
 						   20, engine.canvas.height * 0.59, scale);
 
 engine.arrows = new Arrows('./image/arrow.png', scale);
 
 engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
-engine.update = (dt) => {
+engine.update = () => {
 
 	if (engine.input.isKeyDown('ArrowLeft')) {
-		engine.player.frame = 2;
-		engine.player.frame_idle = 0;
-		engine.player.frame_shot = 4;
+		engine.player.frame 		= 2;
+		engine.player.frame_idle 	= 0;
+		engine.player.frame_shot 	= 4;
 		engine.player.translate(-3, 0);
 
 		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -45,9 +46,9 @@ engine.update = (dt) => {
 	}
 
 	if (engine.input.isKeyDown('ArrowRight')) {
-		engine.player.frame = 3;
-		engine.player.frame_idle = 1;
-		engine.player.frame_shot = 5;
+		engine.player.frame 		= 3;
+		engine.player.frame_idle 	= 1;
+		engine.player.frame_shot 	= 5;
 		engine.player.translate(3, 0);
 
 		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -68,7 +69,7 @@ engine.update = (dt) => {
 	if (engine.input.shot) {
 		if (engine.player.render[engine.player.frame_shot].last) {
 			engine.input.shot = false;
-			engine.player.render[engine.player.frame_shot].last = false;
+			engine.player.render[engine.player.frame_shot].last  = false;
 			engine.player.render[engine.player.frame_shot].point = true;
 		} else {
 			engine.player.frame = engine.player.frame_shot;
@@ -80,11 +81,20 @@ engine.update = (dt) => {
 		}
 	}
 
-
-
 	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.shot) {
 		engine.player.frame = engine.player.frame_idle;
 		engine.player.translate(0, 0);
+	}
+
+	if (engine.input.jump && !engine.player.jumpCooldown) {
+		engine.player.frame = 6;
+		engine.player.jump();
+		if (engine.player.jumpFrame == 20) {
+			engine.input.jump = false;
+			engine.player.jumpFrame = 0;
+			engine.player.jumpCooldown = true;
+			engine.player.jumpTimeCoolDownStart = performance.now();
+		}
 	}
 
 	//camera position in window
