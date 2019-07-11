@@ -88,6 +88,7 @@ body{
 	position: absolute;
 	transform: translateY(+100vh);
 	transition-duration: 0.5s;
+	z-index: 1;
 }
 
 .helpOn {
@@ -132,12 +133,11 @@ img{
 }
 
 #login {
-	margin-top: 100px;
+	padding-top: 225px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(0, 0, 0, 0.98);
 	height: 100vh;
 	width: 50vw;
 	position: absolute;
@@ -170,22 +170,7 @@ img{
 	font-family: 'Shojumaru', cursive;
 }
 
-#cancel_1 {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	height: 20px;
-	width: 30px;
-	border: none;
-	background-color: transparent;
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	cursor: pointer;
-}
-
-#cancel_2 {
+#cancel {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
