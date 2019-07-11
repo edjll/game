@@ -20,37 +20,25 @@ body{
 	font-family: 'Shojumaru', cursive;
 }
 
-.main_head{
+.head{
+	font-size: 20px;
 	margin-top: 20px;
 	width: 100%;
-	height: 15%;
 	display: flex;
 	justify-content: center;
-}
-
-.container_head{
-	width: 100%;
-	display: flex;
-	justify-content: center;
-}
-
-.head{
-	width: 500px;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	font-size: 50px;
 	color: #2d6e6e;
+	font-family: 'Shojumaru', cursive;
 }
 
 .main_container{
 	width: 100%;
-	height: 85%;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition-duration: 1s;
+	-webkit-transform-origin: left center;
+	z-index: = 1; 
 }
 
 .container{
@@ -73,97 +61,73 @@ body{
 	cursor: pointer;
 }
 
-.out{
+.left_out{
 	transform: translateX(-25vw);
 	transition-duration: 0.5s;
 }
-
-#helpOn {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	background-color: rgba(0, 0, 0, 0.98);
-	height: 100vh;
-	width: 100vw;
-	position: absolute;
-	transform: translateY(+100vh);
-	transition-duration: 0.5s;
-	z-index: 1;
-}
-
-.helpOn {
-	opacity: 0.9;
-	transform: translateY(0) !important;
-}
-
-.main_help{
-	margin-top: 50px;
-	width: 100%;
-	height: 90%;
-	display: flex;
-	justify-content: center;
-	justify-content: space-around;
-}
-
-.container_help{
-	width: 80%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	background-color: white;
-	border-radius: 25px;
-	font-family: 'Shojumaru', cursive;
-}
-
-.help{
-	display: flex;
-	justify-content: space-around;
-	width: 100%;
-	height: 30%;
-}
-
-.help_text{
-	margin-top: 100px;
-	font-size: 75px;
-}
-
-img{
-	margin-top: 50px;
-}
-
-#login {
-	padding-top: 225px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: black;
-	height: 100vh;
-	width: 50vw;
-	position: absolute;
-	transform: translateX(+100vw);
-	transition-duration: 0.5s;
-}
-
-#loginOn {
-	padding-top: 225px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: black;
-	height: 100vh;
-	width: 50vw;
-	position: absolute;
+.right_out{
 	transform: translateX(+25vw);
 	transition-duration: 0.5s;
 }
 
-.rotate{
-	transform-origin: right center;
-	transform: perspective(200px);
-	transform: rotateY(-45deg);
+#helpOff{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 50vw;
+	position: absolute;
+	transform: translateX(-100vw);
+	transition-duration: 1s;
+}
+
+#helpOn{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	height: 100vh;
+	width: 50vw;
+	position: absolute;
+	transform: translateX(-25vw);
+	transition-duration: 1s;
+}
+
+#login {
+	margin-top: 65px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 50vw;
+	position: absolute;
+	transform: translateX(+100vw);
+	transition-duration: 1s;
+}
+
+#loginOn {
+	margin-top: 65px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 50vw;
+	position: absolute;
+	transform: translateX(+25vw);
+	transition-duration: 1s;
+	-webkit-transform-origin: right center; 
+}
+
+.rotate_right{
+	transform: perspective(1000px) rotateY(-45deg) !important;
+}
+
+.rotate_left{
+	transform: perspective(1000px) rotateY(45deg) !important;
 }
 
 #nickname{
