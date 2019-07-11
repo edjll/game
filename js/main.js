@@ -34,7 +34,7 @@ engine.bots = new Bots('./image/enemy/idle.png',   803,  800,
 engine.update = () => {
 
 	if (engine.input.shot) {
-		if (engine.player.shotCooldown || engine.player.gravityActive || engine.input.attack) {
+		if (engine.player.shotCooldown || engine.player.gravityActive || engine.input.attack || engine.player.attackActive) {
 			engine.input.shot = false;
 		} else {
 			if (engine.player.shot()) {
@@ -45,7 +45,7 @@ engine.update = () => {
 	}
 
 	if (engine.input.attack) {
-		if (engine.player.attackCooldown || engine.player.gravityActive || engine.input.shot) {
+		if (engine.player.attackCooldown || engine.player.gravityActive || engine.input.shot || engine.player.shotActive) {
 			engine.input.attack = false;
 		} else {
 			if (engine.player.attack()) {

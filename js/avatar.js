@@ -12,9 +12,11 @@ class Avatar {
 		this.image.onload = () => {
 			this.image.ready = true;
 		}
+
+		this.time = performance.now();
 	}
 
-	draw(ctx, x, hp, mp) {
+	draw(ctx, x, width, hp, mp) {
 		if (this.image.ready) {
 
 			ctx.strokeStyle = '#214a2e';
@@ -28,7 +30,7 @@ class Avatar {
 			ctx.stroke();
 
 			let hpFill = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, this.position.y * this.scale,
-											  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 20) * this.scale);
+											  	  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 20) * this.scale);
 
 			hpFill.addColorStop(0, "#d8263f");
 			hpFill.addColorStop(1, "#5f111c");
@@ -59,6 +61,13 @@ class Avatar {
 
 
 			ctx.drawImage(this.image, x + this.position.x - this.radius * 0.9, this.position.y - this.radius * 0.9, this.image.width * this.scale, this.image.height * this.scale);
+
+			let time = performance.now(),
+				text = String(Math.floor((time - this.time) / 60000)) + ':' + String(Math.floor((time - this.time) / 1000) % 60);
+
+
+			ctx.font = '20px Georgia';
+			ctx.fillText(text, x + width - 50 * this.scale, 30 * this.scale);
 		}
 	}
 }

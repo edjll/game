@@ -68,7 +68,7 @@ class Engine {
 
 			this.player.draw(this.ctx, this.canvas.width, -this.camera.x);
 
-			this.avatar.draw(this.ctx, -this.camera.x, this.player.hp, this.player.mp);
+			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp);
 
 			if (this.player.death) {
 				this.game = false; 

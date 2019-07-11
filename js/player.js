@@ -127,51 +127,55 @@ class Player {
 	}
 
 	shot() {
-		if (this.render[this.frame_shot].last) {
-			this.render[this.frame_shot].last  = false;
-			this.render[this.frame_shot].point = true;
-			this.shotTimeCoolDownStart = performance.now();
-			this.shotCooldown = true;
-			this.shotActive = false;
-			this.shotMp = 20;
-			return true;
-		} else {
-			this.shotActive = true;
-			this.frame = this.frame_shot;
-			this.translate(0, 0);
-			if (this.shotMp > 0) {
-				this.mp -= 1;
-				this.shotMp -= 1;
-			}
-			if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
-				if (this.frame == 5) {
-					this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6);
-				} else {
-					this.arrows.addArrow(this.position.x, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48, -6);
+		if (this.mp >= this.shotMp) {
+			if (this.render[this.frame_shot].last) {
+				this.render[this.frame_shot].last  = false;
+				this.render[this.frame_shot].point = true;
+				this.shotTimeCoolDownStart = performance.now();
+				this.shotCooldown = true;
+				this.shotActive = false;
+				this.shotMp = 20;
+				return true;
+			} else {
+				this.shotActive = true;
+				this.frame = this.frame_shot;
+				this.translate(0, 0);
+				if (this.shotMp > 0) {
+					this.mp -= 1;
+					this.shotMp -= 1;
 				}
-				this.render[this.frame].point = false;
+				if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
+					if (this.frame == 5) {
+						this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6);
+					} else {
+						this.arrows.addArrow(this.position.x, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48, -6);
+					}
+					this.render[this.frame].point = false;
+				}
+				return false;
 			}
-			return false;
 		}
 	}
 
 	attack() {
-		if (this.render[this.frame_attack].last) {
-			this.render[this.frame_attack].last  = false;
-			this.attackTimeCoolDownStart = performance.now();
-			this.attackCooldown = true;
-			this.attackActive = false;
-			this.attackMp = 10;
-			return true;
-		} else {
-			if (this.attackMp > 0) {
-				this.mp -= 1;
-				this.attackMp -= 1;
+		if (this.mp >= this.attackMp) {
+			if (this.render[this.frame_attack].last) {
+				this.render[this.frame_attack].last  = false;
+				this.attackTimeCoolDownStart = performance.now();
+				this.attackCooldown = true;
+				this.attackActive = false;
+				this.attackMp = 10;
+				return true;
+			} else {
+				if (this.attackMp > 0) {
+					this.mp -= 1;
+					this.attackMp -= 1;
+				}
+				this.frame = this.frame_attack;
+				this.attackActive = true;
+				this.translate(0, 0);
+				return false;
 			}
-			this.frame = this.frame_attack;
-			this.attackActive = true;
-			this.translate(0, 0);
-			return false;
 		}
 	}
 
