@@ -69,8 +69,9 @@ class Avatar {
 			ctx.font = 30 * this.scale + 'px Georgia';
 			ctx.fillText(text, x + width - 70 * this.scale, 30 * this.scale);
 
+			ctx.textAlign = 'center';
 			ctx.font = 35 * this.scale + 'px Georgia';
-			ctx.fillText(localStorage.getItem('nickname'), x + (160 + this.radius) * this.scale, (10 + this.radius) * this.scale);
+			ctx.fillText(localStorage.getItem('nickname'), x + (190 + this.radius) * this.scale, (10 + this.radius) * this.scale);
 		}
 	}
 }
