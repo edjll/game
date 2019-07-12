@@ -17,7 +17,7 @@ engine.player = new Player('./image/hero/idle.png',   1501,  801,
 						   './image/hero/shot.png',   2751,  800,
 						   './image/hero/jump.png',    250,  400,
 						   './image/hero/death.png',  1250, 1200,
-						   './image/hero/attack_n.png', 1250,  800,
+						   './image/hero/attack.png', 1250,  800,
 						   './image/hero/hurt.png',   1250,  800,
 						   20, engine.canvas.height * 0.59, scale);
 
@@ -27,10 +27,10 @@ engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
 engine.bots = new Bots('./image/enemy/idle.png',   
 					   './image/enemy/run.png',    
-					   './image/enemy/hurt.png',   
+					   './image/enemy/hurt.png',
 					   './image/enemy/death.png',  
 					   './image/enemy/attack.png', 
-					  	engine.canvas.height * 0.59, scale);
+					  	engine.canvas.height * 0.67, scale);
 
 engine.update = () => {
 

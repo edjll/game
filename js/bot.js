@@ -7,7 +7,7 @@ class Bot {
 				x, y, scale) {
 		this.position = new Vector(x, y);
 		this.frame = 1;
-		this.frame_attack = 8;
+		this.frame_attack = 9;
 		this.step = 2;
 
 		this.scale = scale;
@@ -30,14 +30,24 @@ class Bot {
 		this.cooldown = false;
 		this.timeCooldownStart = undefined;
 		this.timeCooldownEnd = undefined;
+
+		this.attackActive = false;
 	}
 
 	attack() {
 		if (!this.cooldown) {
-			this.frame = 8;
+			if (this.render[this.frame_attack].last) {
+				this.render[this.frame_attack].last = false;
+				this.cooldown = true;
+				this.attackActive = false;
+				this.timeCooldownStart = performance.now();
+			} else {
+				this.attackActive = true;
+				this.frame = 9;
+			}
 		} else {
 			this.timeCooldownEnd = performance.now()
-			this.frame = 0;
+			this.frame = 1;
 			this.cooldownReset();
 		}
 	}
@@ -48,27 +58,32 @@ class Bot {
 		}
 	}
 
-	translate(x, y, width, height, scale) {
-		this.delta = Math.floor((x + width * scale * 0.4 - this.position.x) / this.step);
-		if (this.delta) {
-			if (this.delta > 0) {
+	translate(x, width, height) {
+		this.deltaRight = Math.floor((this.position.x + 10 - (x + width * this.scale * 0.5)) / this.step);
+		this.deltaLeft = Math.floor((x + 10 - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
+		if ((this.position.x <= x && this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5 >= x) || (
+			 this.position.x >= x && this.position.x <= x + width * this.scale * 0.5) || this.attackActive) {
+			this.attack();
+		} else {
+			if (this.deltaLeft > 0) {
 				this.frame = 3;
 				this.position.x += this.step;
-			} else if (this.delta < 0){
-				this.frame = 2;
+			} else if (this.deltaRight > 0) {
+				this.frame = 3;
 				this.position.x -= this.step;
+			} else {
+				this.frame = 1;
+			}
+			if (this.position.x < 0) {
+				this.position.x = 0;
 			}
 		}
-		if (this.position.x < 0) {
-			this.position.x = 0;
-		}
-		this.position.y += y - this.position.y;
-		if (this.position.x < x + width * this.scale * 0.4 && this.position.x > x) {
-			this.attack();
-		}
+		this.render[this.frame].position.x = this.position.x;
+		this.render[this.frame].position.y = this.position.y;
 	}
 
-	draw(ctx) {
+	draw(ctx, x, y, width, height) {
+		this.translate(x, y, width, height);
 		this.render[this.frame].draw(ctx);
 	}
 }

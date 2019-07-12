@@ -26,9 +26,6 @@ class Bots {
 		this.scale = scale;
 
 		this.bot = [];
-
-		this.frame = 3;
-
 	}
 
 	addBot(x) {
@@ -42,7 +39,7 @@ class Bots {
 
 	draw(ctx, x, y, width, height) {
 		this.bot.forEach(bot => {
-			bot.draw(ctx);
+			bot.draw(ctx, x, y, width, height);
 		});
 	}
 }
