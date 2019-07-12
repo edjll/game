@@ -137,15 +137,15 @@ class Player {
 	gravity() {
 		this.gravityActive = false;
 		if (this.position.y != this.startY) {
-			this.translate(0, this.deltaJump * this.scale);
+			this.translate(0, this.deltaJump * Math.floor(this.scale + 1));
 			this.gravityActive = true;
 		}
 	}
 
 	jump() {
 		this.frame = this.frame_jump;
-		if (this.startY - this.position.y < 100 * this.scale) {
-			this.translate(0, - 5 * this.deltaJump * this.scale);
+		if (this.startY - this.position.y < 100 * Math.floor(this.scale + 1)) {
+			this.translate(0, - 5 * this.deltaJump * Math.floor(this.scale + 1));
 		}
 		this.jumpFrame += 1;
 	}
