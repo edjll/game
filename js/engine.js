@@ -63,6 +63,13 @@ class Engine {
 					element.draw(this.ctx);
 				});
 			}
+
+			this.player.arrows.arrows.forEach(arrow => {
+				if (this.bots.hurt(arrow.position.x, 30, arrow.width)) {
+					arrow.removeArrow(this.player.arrows.arrows);
+				}
+				
+			});
 			
 			this.bots.draw(this.ctx, this.player.position.x, this.player.position.y, this.player.render[this.player.frame].frameWidth, this.player.render[this.player.frame].frameHeight);
 

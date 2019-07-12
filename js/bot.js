@@ -8,6 +8,7 @@ class Bot {
 		this.position = new Vector(x, y);
 		this.frame = 1;
 		this.frame_attack = 9;
+		this.frame_idle = 1;
 		this.step = 2;
 
 		this.scale = scale;
@@ -21,8 +22,8 @@ class Bot {
 							new Render(image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
 							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,   0, 15,  4, 8, 10),  // 4  left  hurt
 							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,  16, 15,  4, 8, 10),  // 5  right hurt
-							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 15,  5, 6, 10),  // 6  left  death
-							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  16, 15,  5, 6, 10),  // 7  right death
+							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 11,  4, 6, 10),  // 6  left  death
+							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  12, 11,  4, 6, 10),  // 7  right death
 							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0, 11,  4, 6, 10),  // 8 left  attack
 							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  12, 11,  4, 6, 10)   // 9 right attack
 						];
@@ -32,6 +33,10 @@ class Bot {
 		this.timeCooldownEnd = undefined;
 
 		this.attackActive = false;
+
+		this.hp = 30;
+
+		this.deathActive = false;
 	}
 
 	attack() {
@@ -43,11 +48,11 @@ class Bot {
 				this.timeCooldownStart = performance.now();
 			} else {
 				this.attackActive = true;
-				this.frame = 9;
+				this.frame = this.frame_attack;
 			}
 		} else {
 			this.timeCooldownEnd = performance.now()
-			this.frame = 1;
+			this.frame = this.frame_idle;
 			this.cooldownReset();
 		}
 	}
@@ -55,6 +60,30 @@ class Bot {
 	cooldownReset() {
 		if (this.timeCooldownEnd > this.timeCooldownStart + 2000) {
 			this.cooldown = false;
+		}
+	}
+
+	hurt(x, hp, width) {
+		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale) {
+			this.hp -= hp;
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	death(bots) {
+		if (this.hp == 0) {
+			if (this.render[7].controlFrame) {
+				if (bots.indexOf(this) != -1) {
+					bots.splice(bots.indexOf(this));
+				}
+			} else {
+				this.deathActive = true;
+				this.frame = 7;
+				this.render[this.frame].position.x = this.position.x;
+				this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
+			}
 		}
 	}
 
@@ -68,8 +97,10 @@ class Bot {
 			if (this.deltaLeft > 0) {
 				this.frame = 3;
 				this.frame_attack = 9;
+				this.frame_idle = 1;
 				this.position.x += this.step;
 			} else if (this.deltaRight > 0) {
+				this.frame_idle = 0;
 				this.frame_attack = 8;
 				this.frame = 2;
 				this.position.x -= this.step;
@@ -81,11 +112,14 @@ class Bot {
 			}
 		}
 		this.render[this.frame].position.x = this.position.x;
-		this.render[this.frame].position.y = this.position.y;
+		this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
 	}
 
-	draw(ctx, x, y, width, height) {
-		this.translate(x, y, width, height);
+	draw(ctx, x, y, width, height, bots) {
+		this.death(bots);
+		if (!this.deathActive) {
+			this.translate(x, y, width, height);
+		}
 		this.render[this.frame].draw(ctx);
 	}
 }

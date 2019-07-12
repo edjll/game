@@ -28,6 +28,14 @@ class Bots {
 		this.bot = [];
 	}
 
+	hurt(x, hp, width) {
+		for (let i = 0; i < this.bot.length; i++) {
+			if (this.bot[i].hurt(x, hp, width)) {
+				return true;
+			}
+		}
+	}
+
 	addBot(x) {
 		this.bot.push(new Bot(this.image_idle, 		this.image_idle.width,   this.image_idle.height,  
 							  this.image_run, 		this.image_run.width,    this.image_run.height,   
@@ -39,7 +47,7 @@ class Bots {
 
 	draw(ctx, x, y, width, height) {
 		this.bot.forEach(bot => {
-			bot.draw(ctx, x, y, width, height);
+			bot.draw(ctx, x, y, width, height, this.bot);
 		});
 	}
 }
