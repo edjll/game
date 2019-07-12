@@ -11,85 +11,41 @@ body{
 	font-family: 'Shojumaru', cursive;
 }
 
-#background {
-	background-position: right center;
-  	background-repeat: no-repeat;
-  	background-size: cover;
-  	background-image: url(../image/background.png);
-  	width: 100%;
-  	height: 100%;
-  	position: absolute;
-}
-
-.backgroundOff {
-	background-image: none !important;
-}
-
-.head{
-	font-size: 20px;
-	margin-top: 20px;
+p {
+	display: block;
+	position: absolute;
+	top: 10px;
 	width: 100%;
-	display: flex;
-	justify-content: center;
-	color: #2d6e6e;
-	font-family: 'Shojumaru', cursive;
+	transition-duration: 1s;
+	font-size: 30px;
+	color: #024a21;
 }
 
-#main {
+.textRight {
+	transform-origin: right center;
+}
+
+.textLeft {
+	transform-origin: right center;
+	text-align: right;
+}
+
+#helpPanel {
 	width: 50%;
 	height: 100%;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	position: absolute;
-	left: 25%;
+	left: 0;
 	transition-duration: 1s;
 	transform-origin: left center;
 	background-position: right center;
   	background-repeat: no-repeat;
   	background-size: cover;
-}
-
-.container{
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
-.container_button{
-	transform: translateY(0);
-	transition-duration: 0.5s;
-	background-color: #2c4851;
-	font-size: 50px;
-	border-radius: 50px;
-	font-family: 'Shojumaru', cursive;
-	margin-top: 25px;
-	width: 250px;
-	cursor: pointer;
-}
-
-.playOn {
-	left: 0 !important;
-}
-
-.helpOn {
-	left: 0 !important;
-}
-
-#helpPanel {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: black;
-	height: 100%;
-	width: 100%;
-	position: absolute;
-	left: -100%;
-	top: 0;
-	transition-duration: 1s;
+  	background-image: url(../image/background_left.png);
+  	transform-origin: left center;
 }
 
 #login {
@@ -100,24 +56,13 @@ body{
 	height: 100%;
 	width: 50%;
 	position: absolute;
-	right: -100%;
+	right: 0;
 	transition-duration: 1s;
-	transform-origin: right center;
 	background-position: left center;
   	background-repeat: no-repeat;
   	background-size: cover;
-}
-
-.loginOn {
-	right: 0 !important;
-}
-
-.background_left {
-	background-image: url(../image/background_left.png);
-}
-
-.background_right {
-	background-image: url(../image/background_right.png);
+  	background-image: url(../image/background_right.png);
+  	transform-origin: right center;
 }
 
 .rotate_right{
@@ -149,33 +94,9 @@ body{
 	font-family: 'Shojumaru', cursive;
 }
 
-#cancel {
+.key {
+	width: 100%;
 	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 	align-items: center;
-	height: 20px;
-	width: 30px;
-	border: none;
-	background-color: transparent;
-	position: absolute;
-	top: 20px;
-	right: 20px;
-	cursor: pointer;
-}
-
-.row {
-	width: 24px;
-	height: 3px;
-	background-color: white;
-}
-
-.row:nth-of-type(1) {
-	transform: rotateZ(45deg);
-	transform-origin: left;
-}
-
-.row:nth-of-type(2) {
-	transform: rotateZ(-45deg);
-	transform-origin: left;
+	justify-content: space-around;
 }
