@@ -27,6 +27,7 @@ class Player {
 		this.frame_shot = 5;
 		this.frame_attack = 11;
 		this.frame_jump = 7;
+		this.frame_hurt = 13;
 
 		this.death 	= false;
 		this.deathActive = false;
@@ -98,7 +99,7 @@ class Player {
 	hurt(x, y) {
 		if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x < x) {
 			this.hurtAnimation();
-			this.hp -= 2;
+			this.hp -= 1;
 			if (this.hp < 0) {
 				this.hp = 0;
 				this.deathPlayer();
@@ -107,15 +108,15 @@ class Player {
 	}
 
 	hurtAnimation() {
-		if (!this.deathActive) {
-			if (this.render[this.frame_attack].last) {
-				this.render[this.frame_attack].last  = false;
-				this.hurtActive = false;
-			} else {
-				this.hurtActive = true;
-				this.frame = 13;
-				this.translate(0, 0);
-			}
+		this.hurtActive = true;
+		this.frame = 13;
+		this.translate(0, 0);
+	}
+
+	checkHurtAnimation() {
+		if (this.render[this.frame_hurt].last) {
+			this.render[this.frame_hurt].last  = false;
+			this.hurtActive = false;
 		}
 	}
 
@@ -244,6 +245,8 @@ class Player {
 		this.regen();
 		this.gravity();
 		this.cooldowns();
+
+		this.checkHurtAnimation();
 
 		this.arrows.translate(x, width);
 		this.arrows.draw(ctx);
