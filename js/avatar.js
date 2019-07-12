@@ -14,6 +14,8 @@ class Avatar {
 		}
 
 		this.time = performance.now();
+		this.timeBeforePause = undefined;
+		this.timeAfterPause = undefined;
 	}
 
 	draw(ctx, x, width, hp, mp) {

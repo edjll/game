@@ -15,17 +15,18 @@ engine.ground[2].render.position.x = engine.ground[1].render.position.x + ground
 engine.player = new Player('./image/hero/idle.png',   1501,  801,
 						   './image/hero/run.png',    1000, 1600,
 						   './image/hero/shot.png',   2751,  800,
-						   './image/hero/jump.png',    250,  200,
+						   './image/hero/jump.png',    250,  400,
 						   './image/hero/death.png',  1250, 1200,
 						   './image/hero/attack.png', 1250,  800,
+						   './image/hero/hurt.png',   1250,  800,
 						   20, engine.canvas.height * 0.59, scale);
 
 engine.player.arrows = new Arrows('./image/arrow.png', scale);
 
 engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
-engine.bots = new Bots('./image/enemy/idle.png',   803,  800,
-					   './image/enemy/run.png',    803, 1068,
+engine.bots = new Bots('./image/enemy/idle.png',   803,   800,
+					   './image/enemy/run.png',    803,  1068,
 					   './image/enemy/hurt.png',   2751,  800,
 					   './image/enemy/death.png',  1250, 1200,
 					   './image/enemy/attack.png', 1250,  800,
@@ -33,96 +34,105 @@ engine.bots = new Bots('./image/enemy/idle.png',   803,  800,
 
 engine.update = () => {
 
-	if (engine.input.shot) {
-		if (engine.player.shotCooldown || engine.player.gravityActive || engine.input.attack || engine.player.attackActive) {
-			engine.input.shot = false;
-		} else {
-			if (engine.player.shot()) {
+	if (!engine.player.hurtActive) {
+
+		if (engine.input.shot && !engine.player.attackActive) {
+			if (engine.player.shotCooldown || engine.player.gravityActive || engine.input.attack) {
 				engine.input.shot = false;
-			}
-			engine.input.jump = false;
-		}
-	}
-
-	if (engine.input.attack) {
-		if (engine.player.attackCooldown || engine.player.gravityActive || engine.input.shot || engine.player.shotActive) {
-			engine.input.attack = false;
-		} else {
-			if (engine.player.attack()) {
-				engine.input.attack = false;
-			}
-			engine.input.jump = false;
-		}
-	}
-
-	if (engine.input.jump) {
-		if (engine.player.jumpCooldown) {
-			engine.input.jump = false;
-		} else {
-			engine.player.jump();
-			if (engine.player.jumpFrame == 20) {
+			} else {
+				if (engine.player.shot()) {
+					engine.input.shot = false;
+				}
 				engine.input.jump = false;
-				engine.player.jumpFrame = 0;
-				engine.player.jumpCooldown = true;
-				engine.player.jumpTimeCoolDownStart = performance.now();
 			}
 		}
-	}
 
-	if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
-		if (!engine.input.jump) {
-			engine.player.frame 		= 2;
+		if (engine.input.attack && !engine.player.shotActive) {
+			if (engine.player.attackCooldown || engine.player.gravityActive || engine.input.shot) {
+				engine.input.attack = false;
+			} else {
+				if (engine.player.attack()) {
+					engine.input.attack = false;
+				}
+				engine.input.jump = false;
+			}
 		}
-		engine.player.frame_idle 	= 0;
-		engine.player.frame_shot 	= 4;
-		engine.player.frame_attack  = 10;
+
+		if (engine.input.jump) {
+			if (engine.player.jumpCooldown) {
+				engine.input.jump = false;
+			} else {
+				engine.player.jump();
+				if (engine.player.jumpFrame == 20) {
+					engine.input.jump = false;
+					engine.player.jumpFrame = 0;
+					engine.player.jumpCooldown = true;
+					engine.player.jumpTimeCoolDownStart = performance.now();
+				}
+			}
+		}
+
+		if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
+			if (!engine.input.jump) {
+				engine.player.frame     = 2;
+			}
+			engine.player.frame_jump	= 6;
+			engine.player.frame_idle 	= 0;
+			engine.player.frame_shot 	= 4;
+			engine.player.frame_attack  = 10;
+			
+			engine.player.translate(-3, 0);
+
+			if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
+
+				engine.ground[0].render.position.x = engine.ground[1].render.position.x - groundWidth * scale;
+
+			} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 1) {
+
+				engine.ground[1].render.position.x = engine.ground[2].render.position.x - groundWidth * scale;
+
+			} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 2) {
+
+				engine.ground[2].render.position.x = engine.ground[0].render.position.x - groundWidth * scale;
+
+			}
+		}
+
+		if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
+			if (!engine.input.jump) {
+				engine.player.frame = 3;
+			}
+			engine.player.frame_jump	= 7;
+			engine.player.frame_idle 	= 1;
+			engine.player.frame_shot 	= 5;
+			engine.player.frame_attack  = 11;
+			engine.player.translate(3, 0);
+
+			if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
+	 
+				engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
+
+			} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 1) {
+
+				engine.ground[0].render.position.x = engine.ground[2].render.position.x + groundWidth * scale;
+
+			} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 2) {
+
+				engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
+
+			}
+		}
+
 		
-		engine.player.translate(-3, 0);
 
-		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
-
-			engine.ground[0].render.position.x = engine.ground[1].render.position.x - groundWidth * scale;
-
-		} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 1) {
-
-			engine.ground[1].render.position.x = engine.ground[2].render.position.x - groundWidth * scale;
-
-		} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 2) {
-
-			engine.ground[2].render.position.x = engine.ground[0].render.position.x - groundWidth * scale;
-
+		if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.jump && !engine.input.shot && !engine.input.attack) {
+			engine.player.frame = engine.player.frame_idle;
+			engine.player.translate(0, 0);
 		}
+
 	}
 
-	if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
-		if (!(engine.input.jump && engine.player.jumpActive)) {
-			engine.player.frame 		= 3;
-		}
-		engine.player.frame_idle 	= 1;
-		engine.player.frame_shot 	= 5;
-		engine.player.frame_attack  = 11;
-		engine.player.translate(3, 0);
-
-		if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
- 
-			engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
-
-		} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 1) {
-
-			engine.ground[0].render.position.x = engine.ground[2].render.position.x + groundWidth * scale;
-
-		} else if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 2) {
-
-			engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
-
-		}
-	}
-
-	if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.jump && !engine.input.shot && !engine.input.attack) {
-		engine.player.frame = engine.player.frame_idle;
-		engine.player.translate(0, 0);
-	}
-
+	engine.player.hurt(400, 100);
 
 	//camera position in window
 	let localPosition = engine.getLocalPosition(engine.player);
