@@ -29,7 +29,7 @@ engine.bots = new Bots('./image/enemy/idle.png',   803,   800,
 					   './image/enemy/run.png',    803,  1068,
 					   './image/enemy/hurt.png',   2751,  800,
 					   './image/enemy/death.png',  1250, 1200,
-					   './image/enemy/attack.png', 1250,  800,
+					   './image/enemy/attack.png',  803,  800,
 					   200, engine.canvas.height * 0.59, scale);
 
 engine.update = () => {
@@ -76,6 +76,7 @@ engine.update = () => {
 			if (!engine.input.jump) {
 				engine.player.frame     = 2;
 			}
+			engine.player.frame_hurt	= 12;
 			engine.player.frame_jump	= 6;
 			engine.player.frame_idle 	= 0;
 			engine.player.frame_shot 	= 4;
@@ -102,6 +103,7 @@ engine.update = () => {
 			if (!engine.input.jump) {
 				engine.player.frame = 3;
 			}
+			engine.player.frame_hurt	= 13;
 			engine.player.frame_jump	= 7;
 			engine.player.frame_idle 	= 1;
 			engine.player.frame_shot 	= 5;
@@ -131,8 +133,6 @@ engine.update = () => {
 		}
 
 	}
-
-	engine.player.hurt(400, 100);
 
 	//camera position in window
 	let localPosition = engine.getLocalPosition(engine.player);

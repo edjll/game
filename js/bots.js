@@ -14,6 +14,10 @@ class Bots {
 		this.image_death = image_death;
 		this.image_attack = image_attack;
 
+		this.scale = scale;
+
+		this.bot = [];
+
 		this.frame = 3;
 
 		this.render = [
@@ -21,26 +25,33 @@ class Bots {
 							new Render(this.image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,  12, 11,  4, 6, 10),  // 1  right idle
 							new Render(this.image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,   0, 15,  4, 8, 10),  // 2  left  run
 							new Render(this.image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
-							new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,   0, 15,  4, 8, 10),  // 2  left  hurt
-							new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,  16, 15,  4, 8, 10),  // 3  right hurt
-							new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 15,  5, 6, 10),  // 8  left  death
-							new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  16, 15,  5, 6, 10),  // 9  right death
-							new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0,  9,  5, 4, 10),  // 10 left  attack
-							new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  10,  9,  5, 4, 10)   // 11 right attack
+							new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,   0, 15,  4, 8, 10),  // 4  left  hurt
+							new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,  16, 15,  4, 8, 10),  // 5  right hurt
+							new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 15,  5, 6, 10),  // 6  left  death
+							new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  16, 15,  5, 6, 10),  // 7  right death
+							new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0, 11,  4, 6, 10),  // 8 left  attack
+							new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  12, 11,  4, 6, 10)   // 9 right attack
 						];
 	}
 
-	translate(x, y) {
-		this.position.x += x;
-		if (this.position.x < 0) {
-			this.position.x = 0;
-		}
-		this.position.y += y;
-		this.render[this.frame].position.x = this.position.x;
-		this.render[this.frame].position.y = this.position.y;
+	addBot(bot) {
+		this.bot.push(bot);
 	}
 
-	draw(ctx) {
+	draw(ctx, x, y, width, height) {
+		this.bot.forEach(bot => {
 
+			if (this.render[bot.frame_attack].last) {
+				this.render[bot.frame_attack].last = false;
+				bot.cooldown = true;
+				bot.timeCooldownStart = performance.now();
+			}
+
+			bot.translate(x, y, width, height, this.scale);
+			this.render[bot.frame].position.x = bot.position.x;
+			this.render[bot.frame].position.y = bot.position.y;
+
+			this.render[bot.frame].draw(ctx);
+		});
 	}
 }
