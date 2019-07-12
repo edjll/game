@@ -51,7 +51,7 @@ class Engine {
 			dt 		  = (realTime - this.lastTime) / 1000;
 
 		if (!this.gamePause && this.game) {
-			if (this.update) {
+			if (this.update && !this.player.deathActive) {
 				this.update();
 			}
 
