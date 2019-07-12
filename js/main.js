@@ -17,7 +17,7 @@ engine.player = new Player('./image/hero/idle.png',   1501,  801,
 						   './image/hero/shot.png',   2751,  800,
 						   './image/hero/jump.png',    250,  400,
 						   './image/hero/death.png',  1250, 1200,
-						   './image/hero/attack.png', 1250,  800,
+						   './image/hero/attack_n.png', 1250,  800,
 						   './image/hero/hurt.png',   1250,  800,
 						   20, engine.canvas.height * 0.59, scale);
 
@@ -25,19 +25,19 @@ engine.player.arrows = new Arrows('./image/arrow.png', scale);
 
 engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
-engine.bots = new Bots('./image/enemy/idle.png',   803,   800,
-					   './image/enemy/run.png',    803,  1068,
-					   './image/enemy/hurt.png',   2751,  800,
-					   './image/enemy/death.png',  1250, 1200,
-					   './image/enemy/attack.png',  803,  800,
-					   200, engine.canvas.height * 0.59, scale);
+engine.bots = new Bots('./image/enemy/idle.png',   
+					   './image/enemy/run.png',    
+					   './image/enemy/hurt.png',   
+					   './image/enemy/death.png',  
+					   './image/enemy/attack.png', 
+					  	engine.canvas.height * 0.59, scale);
 
 engine.update = () => {
 
 	if (!engine.player.hurtActive) {
 
-		if (engine.input.shot && !engine.player.attackActive) {
-			if (engine.player.shotCooldown || engine.player.gravityActive || engine.input.attack) {
+		if (engine.input.shot) {
+			if (engine.player.shotCooldown || engine.player.gravityActive || engine.player.attackActive) {
 				engine.input.shot = false;
 			} else {
 				if (engine.player.shot()) {
@@ -47,8 +47,8 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.attack && !engine.player.shotActive) {
-			if (engine.player.attackCooldown || engine.player.gravityActive || engine.input.shot) {
+		if (engine.input.attack) {
+			if (engine.player.gravityActive || engine.input.shot || engine.player.shotActive) {
 				engine.input.attack = false;
 			} else {
 				if (engine.player.attack()) {
@@ -58,7 +58,7 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.jump) {
+		if (engine.input.jump && !engine.player.attackActive) {
 			if (engine.player.jumpCooldown) {
 				engine.input.jump = false;
 			} else {
@@ -72,7 +72,7 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
+		if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack || engine.player.attackActive) && !(engine.input.isKeyDown('Space') && !engine.player.gravityActive)) {
 			if (!engine.input.jump) {
 				engine.player.frame     = 2;
 			}
@@ -99,7 +99,7 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
+		if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack || engine.player.attackActive) && !(engine.input.isKeyDown('Space') && !engine.player.gravityActive)) {
 			if (!engine.input.jump) {
 				engine.player.frame = 3;
 			}
@@ -124,8 +124,6 @@ engine.update = () => {
 
 			}
 		}
-
-		
 
 		if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.jump && !engine.input.shot && !engine.input.attack) {
 			engine.player.frame = engine.player.frame_idle;

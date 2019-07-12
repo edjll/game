@@ -1,35 +1,48 @@
 class Render {
 	constructor(image, x, y, width, height, scale = 1, frameStart = 0, frameCount = 0, framesX = 1, framesY = 1, speed = 1) {
-		this.image = new Image();
-		this.image.src = image;
 
 		this.position = new Vector(x, y);
 
-		this.image.onload = () => {
+		this.frame = frameStart;
+		this.frameStart = frameStart;
+		this.frameCount = frameCount;
+		this.framesX = framesX;
+		this.framesY = framesY;
 
-			this.frame = frameStart;
-			this.frameStart = frameStart;
-			this.frameCount = frameCount;
-			this.framesX = framesX;
-			this.framesY = framesY;
+		this.scale = scale;
 
-			this.scale = scale;
+		this.frameWidth = width / framesX;
+		this.frameHeight = height / framesY;
 
-			this.frameWidth = width / framesX;
-			this.frameHeight = height / framesY;
+		this.speed = speed;
 
-			this.speed = speed;
+		this.last = false;
 
-			this.last = false;
+		this.death = false;
 
-			this.death = false;
+		this.controlFrame = false;
+		this.point = true;
 
-			this.controlFrame = false;
-			this.point = true;
+		if (typeof image == 'string') {
+			this.image = new Image();
 
-			this.time = performance.now();
+			this.image.onload = () => {
 
-			this.image.ready = true;
+				this.time = performance.now();
+
+				this.image.ready = true;
+			}
+
+			this.image.src = image;
+		} else {
+			this.image = image;
+
+			if (this.image.complete) {
+
+				this.time = performance.now();
+
+				this.image.ready = true;				
+			}
 		}
 	}
 
