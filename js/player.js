@@ -77,11 +77,7 @@ class Player {
 		this.shotTimeCoolDownStart = undefined;
 		this.shotTimeCoolDownEnd   = undefined;
 
-		this.attackMp = 10;
 		this.attackActive = false;
-		this.attackCooldown = false;
-		this.attackTimeCoolDownStart = undefined;
-		this.attackTimeCoolDownEnd   = undefined;
 
 		this.gravityActive = false;
 	}
@@ -184,24 +180,17 @@ class Player {
 	}
 
 	attack() {
-		if (this.mp >= this.attackMp) {
-			if (this.render[this.frame_attack].last) {
-				this.render[this.frame_attack].last  = false;
-				this.attackTimeCoolDownStart = performance.now();
-				this.attackCooldown = true;
-				this.attackActive = false;
-				this.attackMp = 10;
-				return true;
-			} else {
-				if (this.attackMp > 0) {
-					this.mp -= 1;
-					this.attackMp -= 1;
-				}
-				this.frame = this.frame_attack;
-				this.attackActive = true;
-				this.translate(0, 0);
-				return false;
-			}
+		if (this.render[this.frame_attack].last) {
+			this.render[this.frame_attack].last  = false;
+			this.attackTimeCoolDownStart = performance.now();
+			this.attackActive = false;
+			this.attackMp = 10;
+			return true;
+		} else {
+			this.frame = this.frame_attack;
+			this.attackActive = true;
+			this.translate(0, 0);
+			return false;
 		}
 	}
 
@@ -217,12 +206,6 @@ class Player {
 				this.shotCooldown = false;
 			}
 			this.shotTimeCoolDownEnd = performance.now();
-		}
-		if (this.attackCooldown) {
-			if (this.attackTimeCoolDownEnd > this.attackTimeCoolDownStart + 1000) {
-				this.attackCooldown = false;
-			}
-			this.attackTimeCoolDownEnd = performance.now();
 		}
 	}
 

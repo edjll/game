@@ -25,8 +25,8 @@ engine.player.arrows = new Arrows('./image/arrow.png', scale);
 
 engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
-engine.bots = new Bots('./image/enemy/idle.png',   803,   800,
-					   './image/enemy/run.png',    803,  1068,
+engine.bots = new Bots('./image/enemy/idle.png',    803,  800,
+					   './image/enemy/run.png',     803, 1068,
 					   './image/enemy/hurt.png',   2751,  800,
 					   './image/enemy/death.png',  1250, 1200,
 					   './image/enemy/attack.png',  803,  800,
@@ -48,7 +48,7 @@ engine.update = () => {
 		}
 
 		if (engine.input.attack && !engine.player.shotActive) {
-			if (engine.player.attackCooldown || engine.player.gravityActive || engine.input.shot) {
+			if (engine.player.gravityActive || engine.input.shot) {
 				engine.input.attack = false;
 			} else {
 				if (engine.player.attack()) {
@@ -58,7 +58,7 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.jump) {
+		if (engine.input.jump && !engine.player.attackActive) {
 			if (engine.player.jumpCooldown) {
 				engine.input.jump = false;
 			} else {
@@ -72,7 +72,7 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
+		if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack || engine.player.attackActive) && !(engine.input.isKeyDown('Space') && !engine.player.gravityActive)) {
 			if (!engine.input.jump) {
 				engine.player.frame     = 2;
 			}
@@ -99,7 +99,7 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack && engine.player.attackActive)) {
+		if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack || engine.player.attackActive) && !(engine.input.isKeyDown('Space') && !engine.player.gravityActive)) {
 			if (!engine.input.jump) {
 				engine.player.frame = 3;
 			}
@@ -124,8 +124,6 @@ engine.update = () => {
 
 			}
 		}
-
-		
 
 		if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.jump && !engine.input.shot && !engine.input.attack) {
 			engine.player.frame = engine.player.frame_idle;
