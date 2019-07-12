@@ -67,9 +67,11 @@ class Bot {
 		} else {
 			if (this.deltaLeft > 0) {
 				this.frame = 3;
+				this.frame_attack = 9;
 				this.position.x += this.step;
 			} else if (this.deltaRight > 0) {
-				this.frame = 3;
+				this.frame_attack = 8;
+				this.frame = 2;
 				this.position.x -= this.step;
 			} else {
 				this.frame = 1;

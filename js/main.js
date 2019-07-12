@@ -26,7 +26,7 @@ engine.player.arrows = new Arrows('./image/arrow.png', scale);
 engine.avatar = new Avatar('./image/hero/avatar.png', 80, 80, 60, scale);
 
 engine.bots = new Bots('./image/enemy/idle.png',   
-					   './image/enemy/run.png',    
+					   './image/enemy/run.png',
 					   './image/enemy/hurt.png',
 					   './image/enemy/death.png',  
 					   './image/enemy/attack.png', 
