@@ -47,8 +47,8 @@ class Player {
 								new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  16, 15,  5, 6, 10),  // 9  right death
 								new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0,  9,  5, 4, 10),  // 10 left  attack
 								new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  10,  9,  5, 4, 10),  // 11 right attack
-								new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width, 	image_hurt_height, 	 this.scale,   0,  9,  5, 4, 10),  // 12 left  attack
-								new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width, 	image_hurt_height, 	 this.scale,  10,  9,  5, 4, 10)   // 13 right attack
+								new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width, 	image_hurt_height, 	 this.scale,   0,  9,  5, 4, 10),  // 12 left  hurt
+								new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width, 	image_hurt_height, 	 this.scale,  10,  9,  5, 4, 10)   // 13 right hurt
 							];
 
 		this.hp = hp;
@@ -90,6 +90,8 @@ class Player {
 		this.position.y += y;
 		this.render[this.frame].position.x = this.position.x;
 		this.render[this.frame].position.y = this.position.y;
+		this.render[10].position.x = this.position.x - 70 * this.scale;
+		this.render[10].position.y = this.position.y;
 	}
 
 	hurt(x, y) {
