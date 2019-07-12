@@ -82,7 +82,7 @@ engine.update = () => {
 			engine.player.frame_shot 	= 4;
 			engine.player.frame_attack  = 10;
 			
-			engine.player.translate(-3, 0);
+			engine.player.translate(-5 * scale, 0);
 
 			if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
 
@@ -108,7 +108,7 @@ engine.update = () => {
 			engine.player.frame_idle 	= 1;
 			engine.player.frame_shot 	= 5;
 			engine.player.frame_attack  = 11;
-			engine.player.translate(3, 0);
+			engine.player.translate(5 * scale, 0);
 
 			if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
 	 
@@ -137,7 +137,7 @@ engine.update = () => {
 
 	//player translate to left
 	if (localPosition.x < engine.canvas.width * 0.2) {
-		engine.camera.x += 3;
+		engine.camera.x += 5 * scale;
 	}
 	if (engine.camera.x > 0) {
 		engine.camera.x  = 0;
@@ -145,6 +145,6 @@ engine.update = () => {
 
 	//player translate to right
 	if (localPosition.x > engine.canvas.width * 0.6) {
-		engine.camera.x -= 3;
+		engine.camera.x -= 5 * scale;
 	}
 }

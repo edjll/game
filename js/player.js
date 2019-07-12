@@ -137,15 +137,15 @@ class Player {
 	gravity() {
 		this.gravityActive = false;
 		if (this.position.y != this.startY) {
-			this.translate(0, this.deltaJump);
+			this.translate(0, this.deltaJump * this.scale);
 			this.gravityActive = true;
 		}
 	}
 
 	jump() {
 		this.frame = this.frame_jump;
-		if (this.startY - this.position.y < 100) {
-			this.translate(0, - 5 * this.deltaJump);
+		if (this.startY - this.position.y < 100 * this.scale) {
+			this.translate(0, - 5 * this.deltaJump * this.scale);
 		}
 		this.jumpFrame += 1;
 	}
@@ -170,9 +170,9 @@ class Player {
 				}
 				if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
 					if (this.frame == 5) {
-						this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6);
+						this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6 * this.scale);
 					} else {
-						this.arrows.addArrow(this.position.x, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48, -6);
+						this.arrows.addArrow(this.position.x, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48, -6 * this.scale);
 					}
 					this.render[this.frame].point = false;
 				}

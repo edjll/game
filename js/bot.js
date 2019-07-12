@@ -13,8 +13,6 @@ class Bot {
 
 		this.scale = scale;
 
-		this.delta = undefined;
-
 		this.render = [
 							new Render(image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,   0, 11,  4, 6, 10),  // 0  left  idle
 							new Render(image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,  12, 11,  4, 6, 10),  // 1  right idle
@@ -64,7 +62,7 @@ class Bot {
 	}
 
 	hurt(x, hp, width) {
-		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale) {
+		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4) {
 			this.hp -= hp;
 			return true;
 		} else {
@@ -76,7 +74,7 @@ class Bot {
 		if (this.hp == 0) {
 			if (this.render[7].controlFrame) {
 				if (bots.indexOf(this) != -1) {
-					bots.splice(bots.indexOf(this));
+					bots.splice(bots.indexOf(this), 1);
 				}
 			} else {
 				this.deathActive = true;
