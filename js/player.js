@@ -83,6 +83,8 @@ class Player {
 		this.attackTimeCoolDownEnd   = undefined;
 
 		this.gravityActive = false;
+
+		this.score = 0;
 	}
 
 	translate(x, y) {

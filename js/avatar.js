@@ -18,7 +18,7 @@ class Avatar {
 		this.timeAfterPause = undefined;
 	}
 
-	draw(ctx, x, width, hp, mp) {
+	draw(ctx, x, width, hp, mp, score) {
 		if (this.image.ready) {
 
 			ctx.strokeStyle = '#214a2e';
@@ -70,6 +70,8 @@ class Avatar {
 
 			ctx.font = 30 * this.scale + 'px Georgia';
 			ctx.fillText(text, x + width - 70 * this.scale, 30 * this.scale);
+
+			ctx.fillText('Score : ' + score, x + width - 160 * this.scale, 60 * this.scale);
 
 			ctx.textAlign = 'center';
 			ctx.font = 35 * this.scale + 'px Georgia';

@@ -82,6 +82,7 @@ class Engine {
 			this.player.arrows.arrows.forEach(arrow => {
 				if (this.bots.hurt(arrow.position.x, 30, arrow.width)) {
 					arrow.removeArrow(this.player.arrows.arrows);
+					this.player.score += 100;
 				}
 			});
 
@@ -99,7 +100,7 @@ class Engine {
 
 			this.player.draw(this.ctx, this.canvas.width, -this.camera.x);
 
-			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp);
+			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp, this.player.score);
 
 			this.skills.draw(this.ctx, -this.camera.x, this.canvas.width, this.canvas.height, this.player.shotTimeCoolDownStart, this.player.shotCooldown, this.player.attackTimeCoolDownStart, this.player.attackCooldown, this.player.jumpTimeCoolDownStart, this.player.jumpCooldown);
 
