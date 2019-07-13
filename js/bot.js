@@ -132,8 +132,8 @@ class Bot {
 
 	translate(x, width, height) {
 		if (!this.hurtActive) {
-			this.deltaRight = Math.floor((this.position.x + 10 - (x + width * this.scale * 0.5)) / this.step);
-			this.deltaLeft = Math.floor((x + 10 - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
+			this.deltaRight = Math.floor((this.position.x + 10 * this.scale - (x + width * this.scale * 0.5)) / this.step);
+			this.deltaLeft = Math.floor((x + 10 * this.scale - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
 			if ((this.position.x <= x && this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5 >= x) || (
 				 this.position.x >= x && this.position.x <= x + width * this.scale * 0.5) || this.attackActive) {
 				this.attack();

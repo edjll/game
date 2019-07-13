@@ -21,6 +21,8 @@ class Engine {
 
 		this.avatar 		= undefined;
 
+		this.skills 		= undefined;
+
 		this.game 			= true;
 
 		this.gamePause 		= false;
@@ -47,10 +49,16 @@ class Engine {
 	}
 
 	loop() {
-		let realTime  = performance.now(),
-			dt 		  = (realTime - this.lastTime) / 1000;
+		let realTime  = performance.now();
+		
 
 		if (!this.gamePause && this.game) {
+
+			if (realTime > this.lastTime + 5000) {
+				this.bots.addBot(-this.camera.x + this.canvas.width);
+				this.lastTime = realTime;
+			}
+
 			if (this.update && !this.player.deathActive) {
 				this.update();
 			}
@@ -93,6 +101,8 @@ class Engine {
 
 			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp);
 
+			this.skills.draw(this.ctx, -this.camera.x, this.canvas.width, this.canvas.height, this.player.shotTimeCoolDownStart, this.player.shotCooldown, this.player.attackTimeCoolDownStart, this.player.attackCooldown, this.player.jumpTimeCoolDownStart, this.player.jumpCooldown);
+
 			if (this.player.death) {
 				this.game = false;
 				this.pause();
@@ -108,7 +118,6 @@ class Engine {
 			this.gamePause = false;
 		}
 
-		this.lastTime = realTime;
 		window.requestAnimationFrame(this.loop.bind(this));
 	}
 }

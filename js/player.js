@@ -78,6 +78,9 @@ class Player {
 		this.shotTimeCoolDownEnd   = undefined;
 
 		this.attackActive = false;
+		this.attackCooldown = false;
+		this.attackTimeCoolDownStart = undefined;
+		this.attackTimeCoolDownEnd   = undefined;
 
 		this.gravityActive = false;
 	}
@@ -162,7 +165,7 @@ class Player {
 				this.shotTimeCoolDownStart = performance.now();
 				this.shotCooldown = true;
 				this.shotActive = false;
-				this.shotMp = 20;
+				this.shotMp = 10;
 				return true;
 			} else {
 				this.shotActive = true;
@@ -192,6 +195,7 @@ class Player {
 			this.attackActive = false;
 			this.attackMp = 10;
 			this.render[this.frame].point = true;
+			this.attackCooldown = true;
 			return true;
 		} else {
 			this.frame = this.frame_attack;
@@ -207,6 +211,12 @@ class Player {
 				this.jumpCooldown = false;
 			}
 			this.jumpTimeCoolDownEnd = performance.now();
+		}
+		if (this.attackCooldown) {
+			if (this.attackTimeCoolDownEnd > this.attackTimeCoolDownStart + 500) {
+				this.attackCooldown = false;
+			}
+			this.attackTimeCoolDownEnd = performance.now();
 		}
 		if (this.shotCooldown) {
 			if (this.shotTimeCoolDownEnd > this.shotTimeCoolDownStart + 5000) {

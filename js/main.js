@@ -32,6 +32,11 @@ engine.bots = new Bots('./image/enemy/idle.png',
 					   './image/enemy/attack.png', 
 					  	engine.canvas.height * 0.67, scale);
 
+engine.skills = new Skills('./image/Skills/attack.png',
+						   './image/Skills/jump.png',
+						   './image/Skills/shoot.png',
+						    scale);
+
 engine.update = () => {
 
 	if (!engine.player.hurtActive) {
@@ -48,7 +53,7 @@ engine.update = () => {
 		}
 
 		if (engine.input.attack) {
-			if (engine.player.gravityActive || engine.input.shot || engine.player.shotActive) {
+			if (engine.player.gravityActive || engine.input.shot || engine.player.shotActive || engine.player.attackCooldown) {
 				engine.input.attack = false;
 			} else {
 				if (engine.player.attack()) {
