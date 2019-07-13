@@ -100,3 +100,29 @@ p {
 	align-items: center;
 	justify-content: space-between;
 }
+
+#end{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	background-color: black;
+	opacity: 0.9;
+	transition-duration: 1s;
+	transform: translateY(+100vh);
+}
+
+#on{
+	transform: translateY(0) !important;
+}
+
+.res{
+	display: flex;
+	justify-content: center;
+	width: 50%;
+	height: 50%;
+	border-radius: 20px;
+	background-color: white;
+}
