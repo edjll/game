@@ -12,13 +12,13 @@ engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, s
 engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
 engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
 
-engine.player = new Player('./image/hero/idle.png',   1501,  801,
-						   './image/hero/run.png',    1000, 1600,
-						   './image/hero/shot.png',   2751,  800,
-						   './image/hero/jump.png',    250,  400,
-						   './image/hero/death.png',  1250, 1200,
-						   './image/hero/attack.png', 1250,  800,
-						   './image/hero/hurt.png',   1250,  800,
+engine.player = new Player('./image/copies/idle.png',   1501,  801,
+						   './image/copies/run.png',    1000, 1600,
+						   './image/copies/shot.png',   2751,  800,
+						   './image/copies/jump.png',    250,  400,
+						   './image/copies/death.png',  1250, 1200,
+						   './image/copies/attack.png', 1250,  800,
+						   './image/copies/hurt.png',   1250,  800,
 						   20, engine.canvas.height * 0.59, scale);
 
 engine.player.arrows = new Arrows('./image/arrow.png', scale);
