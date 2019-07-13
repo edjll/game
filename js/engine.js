@@ -64,6 +64,12 @@ class Engine {
 				});
 			}
 
+			if ((this.player.frame == this.player.frame_attack) && this.player.render[this.player.frame].controlFrame && this.player.render[this.player.frame].point) {
+				if (this.bots.hurt(this.player.render[this.player.frame].position.x, 10, this.player.render[this.player.frame].frameWidth)) {
+					this.player.render[this.player.frame].point = false; 
+				}
+			}
+
 			this.player.arrows.arrows.forEach(arrow => {
 				if (this.bots.hurt(arrow.position.x, 30, arrow.width)) {
 					arrow.removeArrow(this.player.arrows.arrows);
@@ -77,7 +83,7 @@ class Engine {
 			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp);
 
 			if (this.player.death) {
-				this.game = false; 
+				this.game = false;
 				this.pause();
 			} else if (!this.input.pause) {
 				this.gamePause = true;

@@ -29,7 +29,7 @@ class Bots {
 	}
 
 	hurt(x, hp, width) {
-		for (let i = 0; i < this.bot.length; i++) {
+		for (let i = this.bot.length - 1; i >= 0; i--) {
 			if (this.bot[i].hurt(x, hp, width)) {
 				return true;
 			}

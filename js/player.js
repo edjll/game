@@ -186,6 +186,7 @@ class Player {
 			this.attackTimeCoolDownStart = performance.now();
 			this.attackActive = false;
 			this.attackMp = 10;
+			this.render[this.frame].point = true;
 			return true;
 		} else {
 			this.frame = this.frame_attack;

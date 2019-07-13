@@ -9,6 +9,7 @@ class Bot {
 		this.frame = 1;
 		this.frame_attack = 9;
 		this.frame_idle = 1;
+		this.frame_death = 7;
 		this.step = 2;
 
 		this.scale = scale;
@@ -62,6 +63,7 @@ class Bot {
 	}
 
 	hurt(x, hp, width) {
+		console.log(x + width * this.scale, this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6, x, this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4)
 		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4) {
 			this.hp -= hp;
 			return true;
@@ -72,13 +74,13 @@ class Bot {
 
 	death(bots) {
 		if (this.hp == 0) {
-			if (this.render[7].controlFrame) {
+			if (this.render[this.frame_death].controlFrame) {
 				if (bots.indexOf(this) != -1) {
 					bots.splice(bots.indexOf(this), 1);
 				}
 			} else {
 				this.deathActive = true;
-				this.frame = 7;
+				this.frame = this.frame_death;
 				this.render[this.frame].position.x = this.position.x;
 				this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
 			}
@@ -96,10 +98,12 @@ class Bot {
 				this.frame = 3;
 				this.frame_attack = 9;
 				this.frame_idle = 1;
+				this.frame_death = 7;
 				this.position.x += this.step;
 			} else if (this.deltaRight > 0) {
 				this.frame_idle = 0;
 				this.frame_attack = 8;
+				this.frame_death = 6;
 				this.frame = 2;
 				this.position.x -= this.step;
 			} else {
