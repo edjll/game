@@ -39,13 +39,9 @@ class Engine {
 	}
 
 	pause() {
-		this.ctx.globalAlpha = 0.5;
-
-		this.ctx.fillStyle = 'black';
+		this.ctx.fillStyle = '#00000099';
 
 		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-		this.ctx.globalAlpha = 1;
 	}
 
 	loop() {
@@ -73,7 +69,7 @@ class Engine {
 			}
 
 			if ((this.player.frame == this.player.frame_attack) && this.player.render[this.player.frame].controlFrame && this.player.render[this.player.frame].point) {
-				if (this.bots.hurt(this.player.render[this.player.frame].position.x, 10, this.player.render[this.player.frame].frameWidth)) {
+				if (this.bots.hurt(this.player.render[this.player.frame].position.x, 10, this.player.render[this.player.frame].frameWidth, this.player)) {
 					this.player.render[this.player.frame].point = false; 
 				}
 			}

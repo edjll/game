@@ -39,6 +39,8 @@ class Bot {
 		this.hp = 30;
 
 		this.deathActive = false;
+
+		this.score = 100;
 	}
 
 	attack() {
@@ -65,11 +67,14 @@ class Bot {
 		}
 	}
 
-	hurt(x, hp, width) {
+	hurt(x, hp, width, player) {
 		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4) {
 			this.hp -= hp;
 			if (this.hp <= 0) {
 				this.hp = 0;
+				if (this.deathActive) {
+					this.score = 0;
+				}
 				this.death();
 			} else {
 				this.hurtAnimation();
@@ -130,7 +135,7 @@ class Bot {
 		}
 	}
 
-	translate(x, width, height) {
+	translate(x, width) {
 		if (!this.hurtActive) {
 			this.deltaRight = Math.floor((this.position.x + 10 * this.scale - (x + width * this.scale * 0.5)) / this.step);
 			this.deltaLeft = Math.floor((x + 10 * this.scale - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
@@ -156,7 +161,7 @@ class Bot {
 		}
 	}
 
-	draw(ctx, x, y, width, height, bots) {
+	draw(ctx, x, y, width, bots) {
 
 		if (this.hurtActive) {
 			this.hurtAnimation();
@@ -164,7 +169,7 @@ class Bot {
 
 		this.death(bots);
 		if (!this.deathActive) {
-			this.translate(x, y, width, height);
+			this.translate(x, y, width);
 		}
 		this.render[this.frame].draw(ctx);
 

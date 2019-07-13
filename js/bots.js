@@ -28,9 +28,12 @@ class Bots {
 		this.bot = [];
 	}
 
-	hurt(x, hp, width) {
+	hurt(x, hp, width, player) {
 		for (let i = this.bot.length - 1; i >= 0; i--) {
 			if (this.bot[i].hurt(x, hp, width)) {
+				if (this.bot[i].deathActive && this.bot[i].score) {
+					player.score += this.bot[i].score;
+				}
 				return true;
 			}
 		}
@@ -47,7 +50,7 @@ class Bots {
 
 	draw(ctx, x, y, width, height) {
 		this.bot.forEach(bot => {
-			bot.draw(ctx, x, y, width, height, this.bot);
+			bot.draw(ctx, x, y, width, this.bot);
 		});
 	}
 }
