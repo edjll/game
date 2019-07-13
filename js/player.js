@@ -90,8 +90,7 @@ class Player {
 		this.position.y += y;
 		this.render[this.frame].position.x = this.position.x;
 		this.render[this.frame].position.y = this.position.y;
-		this.render[10].position.x = this.position.x - 70 * this.scale;
-		this.render[10].position.y = this.position.y;
+		this.render[this.frame - this.frame % 2].position.x = this.position.x - 70 * this.scale;
 	}
 
 	hurt(x, y) {
