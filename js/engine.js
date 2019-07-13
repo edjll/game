@@ -81,9 +81,8 @@ class Engine {
 
 
 			this.player.arrows.arrows.forEach(arrow => {
-				if (this.bots.hurt(arrow.position.x, 30, arrow.width)) {
+				if (this.bots.hurt(arrow.position.x, 30, arrow.width, this.player)) {
 					arrow.removeArrow(this.player.arrows.arrows);
-					this.player.score += 100;
 				}
 			});
 
@@ -107,6 +106,7 @@ class Engine {
 
 			if (this.player.death) {
 				this.game = false;
+				localStorage.setItem(localStorage.getItem('nickname'), this.player.score);
 			} else if (!this.input.pause) {
 				this.gamePause = true;
 				this.pause();
