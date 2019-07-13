@@ -94,20 +94,24 @@ class Player {
 	}
 
 	hurt(x, y) {
-		console.log(x, y, this.position.x);
-		if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x < x) {
-			this.hurtAnimation();
-			this.hp -= 1;
-			if (this.hp < 0) {
-				this.hp = 0;
-				this.deathPlayer();
+		if (!this.hurtActive) {
+			if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x + this.render[this.frame].frameWidth / 4 < x) {
+				this.hurtAnimation();
+				this.hp -= 5;
+				if (this.hp < 0) {
+					this.hp = 0;
+					this.deathPlayer();
+				}
 			}
 		}
 	}
 
 	hurtAnimation() {
+		if (this.frame != this.frame_hurt) {
+			this.render[this.frame].frame = this.render[this.frame].frameStart;
+		}
 		this.hurtActive = true;
-		this.frame = 13;
+		this.frame = this.frame_hurt;
 		this.translate(0, 0);
 	}
 

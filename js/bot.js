@@ -68,10 +68,12 @@ class Bot {
 	hurt(x, hp, width) {
 		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4) {
 			this.hp -= hp;
-			if (this.hp < 0) {
+			if (this.hp <= 0) {
 				this.hp = 0;
+				this.death();
+			} else {
+				this.hurtAnimation();
 			}
-			this.hurtAnimation();
 			return true;
 		} else {
 			return false;
@@ -83,10 +85,33 @@ class Bot {
 			this.hurtActive = false;
 			this.render[this.frame_hurt].last = false;
 		} else {
+			if (this.frame != this.frame_hurt) {
+				this.render[this.frame].frame = this.render[this.frame].frameStart;
+			}
 			this.hurtActive = true;
 			this.frame = this.frame_hurt;
 			this.render[this.frame].position.x = this.position.x;
 			this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
+		}
+	}
+
+	look(x, width) {
+		if (this.position.x + this.render[this.frame].frameWidth * 0.95 > x + width) {
+			if (this.frame_attack != 8) {
+				this.render[this.frame].frame = this.render[this.frame].frameStart;
+			}
+			this.frame_attack = 8;
+			this.frame_idle = 0;
+			this.frame_death = 6;
+			this.frame_hurt = 4;
+		} else if (this.position.x - this.render[this.frame].frameWidth * 0.1 < x) {
+			if (this.frame_attack != 9) {
+				this.render[this.frame].frame = this.render[this.frame].frameStart;
+			}
+			this.frame_attack = 9;
+			this.frame_idle = 1;
+			this.frame_death = 7;
+			this.frame_hurt = 5;
 		}
 	}
 
@@ -115,16 +140,8 @@ class Bot {
 			} else {
 				if (this.deltaLeft > 0) {
 					this.frame = 3;
-					this.frame_attack = 9;
-					this.frame_idle = 1;
-					this.frame_death = 7;
-					this.frame_hurt = 5;
 					this.position.x += this.step;
 				} else if (this.deltaRight > 0) {
-					this.frame_idle = 0;
-					this.frame_attack = 8;
-					this.frame_death = 6;
-					this.frame_hurt = 4;
 					this.frame = 2;
 					this.position.x -= this.step;
 				} else {
@@ -151,7 +168,16 @@ class Bot {
 		}
 		this.render[this.frame].draw(ctx);
 
-		ctx.fillStyle = 'red';
+		this.look(x, width);
+
+		
+		let hpFill = ctx.createLinearGradient(this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.5 * Math.abs(~this.frame % 2) + 20 * this.scale, this.render[this.frame].position.y + 15 * this.scale,
+										  	  this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.5 * Math.abs(~this.frame % 2) + 20 * this.scale, this.render[this.frame].position.y + 8 + 15 * this.scale);
+
+		hpFill.addColorStop(0, "#d8263f");
+		hpFill.addColorStop(1, "#5f111c");
+
+		ctx.fillStyle = hpFill;
 
 		ctx.fillRect(this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.5 * Math.abs(~this.frame % 2) + 20 * this.scale, this.render[this.frame].position.y + 15 * this.scale, this.hp * 1.8 * this.scale,  8 * this.scale);
 

@@ -78,8 +78,12 @@ class Engine {
 			});
 
 			this.bots.bot.forEach(bot => {
-				if (bot.frame == bot.frame_attack && bot.render[bot.frame].controlFrame) {
-					this.player.hurt(bot.position.x + bot.render[bot.frame].frameWidth * bot.scale, bot.position.y);
+				if (bot.frame == bot.frame_attack) {
+					if (bot.frame_attack % 2 == 1 && bot.render[bot.frame].controlFrame && bot.render[bot.frame].point) {
+						this.player.hurt(bot.position.x + bot.render[bot.frame].frameWidth * bot.scale, bot.position.y);
+					} else if (bot.frame_attack % 2 == 0 && bot.render[bot.frame].controlFrame && bot.render[bot.frame].point) {
+						this.player.hurt(bot.position.x, bot.position.y);
+					}
 				}
 			});
 
