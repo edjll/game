@@ -68,6 +68,9 @@ class Bot {
 	hurt(x, hp, width) {
 		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4) {
 			this.hp -= hp;
+			if (this.hp < 0) {
+				this.hp = 0;
+			}
 			this.hurtAnimation();
 			return true;
 		} else {
@@ -137,6 +140,11 @@ class Bot {
 	}
 
 	draw(ctx, x, y, width, height, bots) {
+
+		if (this.hurtActive) {
+			this.hurtAnimation();
+		}
+
 		this.death(bots);
 		if (!this.deathActive) {
 			this.translate(x, y, width, height);

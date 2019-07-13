@@ -94,6 +94,7 @@ class Player {
 	}
 
 	hurt(x, y) {
+		console.log(x, y, this.position.x);
 		if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x < x) {
 			this.hurtAnimation();
 			this.hp -= 1;

@@ -70,9 +70,16 @@ class Engine {
 				}
 			}
 
+
 			this.player.arrows.arrows.forEach(arrow => {
 				if (this.bots.hurt(arrow.position.x, 30, arrow.width)) {
 					arrow.removeArrow(this.player.arrows.arrows);
+				}
+			});
+
+			this.bots.bot.forEach(bot => {
+				if (bot.frame == bot.frame_attack && bot.render[bot.frame].controlFrame) {
+					this.player.hurt(bot.position.x + bot.render[bot.frame].frameWidth * bot.scale, bot.position.y);
 				}
 			});
 
