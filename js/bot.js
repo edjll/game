@@ -10,6 +10,7 @@ class Bot {
 		this.frame_attack = 9;
 		this.frame_idle = 1;
 		this.frame_death = 7;
+		this.frame_hurt = 5;
 		this.step = 2;
 
 		this.scale = scale;
@@ -19,8 +20,8 @@ class Bot {
 							new Render(image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,  12, 11,  4, 6, 10),  // 1  right idle
 							new Render(image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,   0, 15,  4, 8, 10),  // 2  left  run
 							new Render(image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
-							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,   0, 15,  4, 8, 10),  // 4  left  hurt
-							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,  16, 15,  4, 8, 10),  // 5  right hurt
+							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,   0, 11,  4, 6, 10),  // 4  left  hurt
+							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,  12, 11,  4, 6, 10),  // 5  right hurt
 							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 11,  4, 6, 10),  // 6  left  death
 							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  12, 11,  4, 6, 10),  // 7  right death
 							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0, 11,  4, 6, 10),  // 8 left  attack
@@ -32,6 +33,8 @@ class Bot {
 		this.timeCooldownEnd = undefined;
 
 		this.attackActive = false;
+
+		this.hurtActive = false;
 
 		this.hp = 30;
 
@@ -63,12 +66,24 @@ class Bot {
 	}
 
 	hurt(x, hp, width) {
-		console.log(x + width * this.scale, this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6, x, this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4)
 		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4) {
 			this.hp -= hp;
+			this.hurtAnimation();
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	hurtAnimation() {
+		if (this.render[this.frame_hurt].last) {
+			this.hurtActive = false;
+			this.render[this.frame_hurt].last = false;
+		} else {
+			this.hurtActive = true;
+			this.frame = this.frame_hurt;
+			this.render[this.frame].position.x = this.position.x;
+			this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
 		}
 	}
 
@@ -88,33 +103,37 @@ class Bot {
 	}
 
 	translate(x, width, height) {
-		this.deltaRight = Math.floor((this.position.x + 10 - (x + width * this.scale * 0.5)) / this.step);
-		this.deltaLeft = Math.floor((x + 10 - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
-		if ((this.position.x <= x && this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5 >= x) || (
-			 this.position.x >= x && this.position.x <= x + width * this.scale * 0.5) || this.attackActive) {
-			this.attack();
-		} else {
-			if (this.deltaLeft > 0) {
-				this.frame = 3;
-				this.frame_attack = 9;
-				this.frame_idle = 1;
-				this.frame_death = 7;
-				this.position.x += this.step;
-			} else if (this.deltaRight > 0) {
-				this.frame_idle = 0;
-				this.frame_attack = 8;
-				this.frame_death = 6;
-				this.frame = 2;
-				this.position.x -= this.step;
+		if (!this.hurtActive) {
+			this.deltaRight = Math.floor((this.position.x + 10 - (x + width * this.scale * 0.5)) / this.step);
+			this.deltaLeft = Math.floor((x + 10 - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
+			if ((this.position.x <= x && this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5 >= x) || (
+				 this.position.x >= x && this.position.x <= x + width * this.scale * 0.5) || this.attackActive) {
+				this.attack();
 			} else {
-				this.frame = 1;
+				if (this.deltaLeft > 0) {
+					this.frame = 3;
+					this.frame_attack = 9;
+					this.frame_idle = 1;
+					this.frame_death = 7;
+					this.frame_hurt = 5;
+					this.position.x += this.step;
+				} else if (this.deltaRight > 0) {
+					this.frame_idle = 0;
+					this.frame_attack = 8;
+					this.frame_death = 6;
+					this.frame_hurt = 4;
+					this.frame = 2;
+					this.position.x -= this.step;
+				} else {
+					this.frame = 1;
+				}
+				if (this.position.x < 0) {
+					this.position.x = 0;
+				}
 			}
-			if (this.position.x < 0) {
-				this.position.x = 0;
-			}
+			this.render[this.frame].position.x = this.position.x;
+			this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame].frameWidth * this.scale * 0.6;
 		}
-		this.render[this.frame].position.x = this.position.x;
-		this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame].frameWidth * this.scale * 0.6;
 	}
 
 	draw(ctx, x, y, width, height, bots) {
