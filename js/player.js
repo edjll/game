@@ -94,14 +94,14 @@ class Player {
 	}
 
 	hurt(x, y) {
-		if (!this.hurtActive) {
-			if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x + this.render[this.frame].frameWidth / 4 < x) {
+		if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x + this.render[this.frame].frameWidth / 4 < x) {
+			if (!this.hurtActive) {
 				this.hurtAnimation();
-				this.hp -= 5;
-				if (this.hp < 0) {
-					this.hp = 0;
-					this.deathPlayer();
-				}
+			}
+			this.hp -= 5;
+			if (this.hp < 0) {
+				this.hp = 0;
+				this.deathPlayer();
 			}
 		}
 	}
