@@ -71,7 +71,9 @@ class Avatar {
 			ctx.font = 30 * this.scale + 'px Georgia';
 			ctx.fillText(text, x + width - 70 * this.scale, 30 * this.scale);
 
-			ctx.fillText('Score : ' + score, x + width - 160 * this.scale, 60 * this.scale);
+			ctx.font = 40  * this.scale + 'px Verdana';
+			ctx.textAlign = 'center';
+			ctx.fillText(score, width / 2, 60 * this.scale);
 
 			ctx.textAlign = 'center';
 			ctx.font = 35 * this.scale + 'px Georgia';
