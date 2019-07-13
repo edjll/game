@@ -68,9 +68,8 @@ class Engine {
 				if (this.bots.hurt(arrow.position.x, 30, arrow.width)) {
 					arrow.removeArrow(this.player.arrows.arrows);
 				}
-				
 			});
-			
+
 			this.bots.draw(this.ctx, this.player.position.x, this.player.position.y, this.player.render[this.player.frame].frameWidth, this.player.render[this.player.frame].frameHeight);
 
 			this.player.draw(this.ctx, this.canvas.width, -this.camera.x);
