@@ -126,6 +126,6 @@ class Bot {
 
 		ctx.fillStyle = 'black';
 
-		ctx.fillRect(this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.6 + this.hp * 1.8 * this.scale, this.render[this.frame].position.y + 15 * this.scale, (30 - this.hp) * 1.8 * this.scale,  8 * this.scale);
+		ctx.fillRect(this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.5 * Math.abs(~this.frame % 2) + 20 * this.scale + this.hp * 1.8 * this.scale, this.render[this.frame].position.y + 15 * this.scale, (30 - this.hp) * 1.8 * this.scale,  8 * this.scale);
 	}
 }
