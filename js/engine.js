@@ -42,6 +42,11 @@ class Engine {
 		this.ctx.fillStyle = '#00000099';
 
 		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+		this.ctx.fillStyle = 'white';
+		this.font = 40 * this.player.scale + 'px Georgia';
+		this.ctx.textAlign = 'center';
+		this.ctx.fillText('Pause', this.canvas.width / 2, this.canvas.height / 2);
 	}
 
 	loop() {
