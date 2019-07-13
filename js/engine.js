@@ -107,7 +107,6 @@ class Engine {
 
 			if (this.player.death) {
 				this.game = false;
-				this.pause();
 			} else if (!this.input.pause) {
 				this.gamePause = true;
 				this.pause();
