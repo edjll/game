@@ -35,6 +35,7 @@ engine.bots = new Bots('./image/enemy/idle.png',
 engine.skills = new Skills('./image/Skills/attack.png',
 						   './image/Skills/jump.png',
 						   './image/Skills/shoot.png',
+						   './image/Skills/arrows.png',
 						    scale);
 
 engine.update = () => {

@@ -103,7 +103,10 @@ class Engine {
 
 			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp, this.player.score);
 
-			this.skills.draw(this.ctx, -this.camera.x, this.canvas.width, this.canvas.height, this.player.shotTimeCoolDownStart, this.player.shotCooldown, this.player.attackTimeCoolDownStart, this.player.attackCooldown, this.player.jumpTimeCoolDownStart, this.player.jumpCooldown);
+			this.skills.draw(this.ctx, -this.camera.x, this.canvas.width, this.canvas.height, this.player.shotTimeCoolDownStart, this.player.shotCooldown, 
+																							  this.player.attackTimeCoolDownStart, this.player.attackCooldown, 
+																							  this.player.jumpTimeCoolDownStart, this.player.jumpCooldown, 
+																							  this.player.threeArrowTimeCoolDownStart, this.player.threeArrowCooldown);
 
 			if (this.player.death) {
 				this.game = false;

@@ -273,7 +273,7 @@ class Player {
 			this.shotTimeCoolDownEnd = performance.now();
 		}
 		if (this.threeArrowCooldown) {
-			if (this.threeArrowTimeCoolDownEnd > this.threeArrowTimeCoolDownStart + 5000) {
+			if (this.threeArrowTimeCoolDownEnd > this.threeArrowTimeCoolDownStart + 8000) {
 				this.threeArrowCooldown = false;
 			}
 			this.threeArrowTimeCoolDownEnd = performance.now();
