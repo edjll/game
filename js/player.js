@@ -194,13 +194,15 @@ class Player {
 				}
 				return false;
 			}
+		} else {
+			return true;
 		}
 	}
 
 	threeArrow() {
 		if (this.mp >= this.threeArrowMp) {
 			if (this.render[this.frame_shot].last) {
-				
+
 				this.render[this.frame_shot].last  = false;
 				this.render[this.frame_shot].point = true;
 				this.threeArrowTimeCoolDownStart = performance.now();
@@ -233,6 +235,8 @@ class Player {
 				}
 				return false;
 			}
+		} else {
+			return true;
 		}
 	}
 
