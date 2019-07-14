@@ -117,9 +117,6 @@ function gameOver() {
 		res_right.innerHTML += '<b>' + point + '. ' + localStorage.getItem('nickname') + ': ' + localStorage.getItem(localStorage.getItem('nickname')) + '</b>';
 	}
 
-	res_left.innerHTML += '<button id="remove">' + "start" + '</button>'
-	res_right.innerHTML += '<button id="exit">' + "exit" + '</button>'
-
 	res_left.className = '';
 	res_right.className = '';
 }
