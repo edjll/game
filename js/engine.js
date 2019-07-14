@@ -74,7 +74,7 @@ class Engine {
 			this.gameTime = realTime - this.timePause;
 
 			if (this.gameTime > this.botTime + 5000) {
-				if (this.bots.bot.length < 5) {
+				if (this.bots.bot.length < 1) {
 					this.bots.addBot(-this.camera.x + Math.random() * (this.canvas.width - 200 * this.player.scale) + 100* this.player.scale);
 				}
 				this.botTime = this.gameTime;

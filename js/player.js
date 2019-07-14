@@ -110,7 +110,7 @@ class Player {
 	}
 
 	hurt(x, y) {
-		if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x + this.render[this.frame].frameWidth / 4 < x) {
+		if (this.position.x + this.render[this.frame].frameWidth * this.scale > x && this.position.x + this.render[this.frame].frameWidth * this.scale / 4 < x) {
 			if (!this.hurtActive && this.hp > 0) {
 				this.hurtAnimation();
 			}

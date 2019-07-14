@@ -144,8 +144,9 @@ class Bot {
 		if (!this.hurtActive) {
 			this.deltaRight = Math.floor((this.position.x + 10 * this.scale - (x + width * this.scale * 0.5)) / this.step);
 			this.deltaLeft = Math.floor((x + 10 * this.scale - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
-			if ((this.position.x <= x && this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5 >= x) || (
-				 this.position.x >= x && this.position.x <= x + width * this.scale * 0.5) || this.attackActive) {
+			console.log(width);
+			if ((this.render[this.frame].position.x <= x && this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.5 >= x) || (
+				 this.render[this.frame].position.x >= x && this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.23 <= x + width * this.scale * 0.5) || this.attackActive) {
 				this.attack();
 			} else {
 				if (this.deltaLeft > 0) {
@@ -181,7 +182,7 @@ class Bot {
 
 		this.death(bots);
 		if (!this.deathActive && this.resurrection()) {
-			this.translate(x, y, width);
+			this.translate(x, width);
 		}
 		this.render[this.frame].draw(ctx);
 
