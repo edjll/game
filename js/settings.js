@@ -43,7 +43,7 @@ soundTrack.volume = 0.8;
 
 function sortLocalStorage() {
 	if(localStorage.length > 0) {
-        let localStorageArray 	  = [];
+        let localStorageArray = [];
 
         for (i = 0; i < localStorage.length; i++) {
         	if (!isNaN(Number(localStorage.getItem(localStorage.key(i))))) {

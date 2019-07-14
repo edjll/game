@@ -84,7 +84,7 @@ engine.update = () => {
 					engine.input.jump = false;
 					engine.player.jumpFrame = 0;
 					engine.player.jumpCooldown = true;
-					engine.player.jumpTimeCoolDownStart = performance.now();
+					engine.player.jumpTimeCoolDownStart = engine.player.time;
 				}
 			}
 		}
