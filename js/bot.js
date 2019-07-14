@@ -4,9 +4,10 @@ class Bot {
 				image_hurt,   image_hurt_width,	  image_hurt_height,
 				image_death,  image_death_width,  image_death_height,
 				image_attack, image_attack_width, image_attack_height,
+				image_resurrection, image_resurrection_width, image_resurrection_height,
 				x, y, scale) {
 		this.position = new Vector(x, y);
-		this.frame = 1;
+		this.frame = 10;
 		this.frame_attack = 9;
 		this.frame_idle = 1;
 		this.frame_death = 7;
@@ -25,8 +26,11 @@ class Bot {
 							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 11,  4, 6, 10),  // 6  left  death
 							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  12, 11,  4, 6, 10),  // 7  right death
 							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0, 11,  4, 6, 10),  // 8 left  attack
-							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  12, 11,  4, 6, 10)   // 9 right attack
+							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  12, 11,  4, 6, 10),  // 9 right attack
+							new Render(image_resurrection, this.position.x, this.position.y, image_resurrection_width, image_resurrection_height, this.scale,  0, 11,  4, 3, 10),  //10 left  resurrection
 						];
+
+		this.render[10].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
 
 		this.cooldown = false;
 		this.timeCooldownStart = undefined;
@@ -162,6 +166,13 @@ class Bot {
 		}
 	}
 
+	resurrection() {
+		if (this.render[10].controlFrame) {
+			return true;
+		}
+		return false;
+	}
+
 	draw(ctx, x, y, width, bots) {
 
 		if (this.hurtActive) {
@@ -169,7 +180,7 @@ class Bot {
 		}
 
 		this.death(bots);
-		if (!this.deathActive) {
+		if (!this.deathActive && this.resurrection()) {
 			this.translate(x, y, width);
 		}
 		this.render[this.frame].draw(ctx);
