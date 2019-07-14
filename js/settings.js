@@ -102,9 +102,6 @@ function sortLocalStorage() {
 
 
 function gameOver() {
-	res_left.className = '';
-	res_right.className = '';
-
 	res_left.innerHTML = '<p>' + localStorage.getItem('nickname') + ': ' + localStorage.getItem(localStorage.getItem('nickname')) + '</p>';
 	let array = sortLocalStorage(),
 		amount  = 10;
@@ -120,4 +117,7 @@ function gameOver() {
 		}
 		amount--;
 	}
+
+	res_left.className = '';
+	res_right.className = '';
 }
