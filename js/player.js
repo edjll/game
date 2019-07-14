@@ -84,6 +84,8 @@ class Player {
 		this.attackTimeCoolDownStart = undefined;
 		this.attackTimeCoolDownEnd   = undefined;
 
+		this.attackHp = 10;
+
 		this.threeArrowMp = 30;
 		this.threeArrowAmount = 2;
 		this.threeArrowActive = false;
@@ -112,7 +114,6 @@ class Player {
 			if (!this.hurtActive) {
 				this.hurtAnimation();
 			}
-			this.hp -= 10;
 			if (this.hp < 0) {
 				this.hp = 0;
 				this.deathPlayer();
@@ -133,6 +134,12 @@ class Player {
 		if (this.render[this.frame_hurt].last) {
 			this.render[this.frame_hurt].last  = false;
 			this.hurtActive = false;
+			this.attackHp = 10;
+		} else if (this.hurtActive) {
+			if (this.attackHp > 0) {
+				this.hp -= 1;
+				this.attackHp -= 1;
+			}
 		}
 	}
 
