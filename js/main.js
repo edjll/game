@@ -89,7 +89,10 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack || engine.player.attackActive) && !(engine.input.isKeyDown('Space') && !engine.player.gravityActive)) {
+		if (engine.input.isKeyDown('ArrowLeft') && !(engine.input.shot && engine.player.shotActive)
+												&& !(engine.input.attack || engine.player.attackActive) 
+												&& !(engine.input.isKeyDown('Space') && !engine.player.gravityActive) 
+												&& !(engine.input.threeArrow && engine.player.threeArrowActive)) {
 			if (!engine.input.jump) {
 				engine.player.frame     = 2;
 			}
@@ -116,7 +119,10 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) && !(engine.input.attack || engine.player.attackActive) && !(engine.input.isKeyDown('Space') && !engine.player.gravityActive)) {
+		if (engine.input.isKeyDown('ArrowRight') && !(engine.input.shot && engine.player.shotActive) 
+												 && !(engine.input.attack || engine.player.attackActive) 
+												 && !(engine.input.isKeyDown('Space') && !engine.player.gravityActive) 
+												 && !(engine.input.threeArrow && engine.player.threeArrowActive)) {
 			if (!engine.input.jump) {
 				engine.player.frame = 3;
 			}
