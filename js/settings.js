@@ -42,7 +42,7 @@ soundTrack.play();
 soundTrack.volume = 0.8;
 
 /*if (!this.game) {
-	end.id += 'on'; 
+	end.id += 'on';
 	function sortLocalStorage(){
     if(localStorage.length > 0){
           var localStorageArray = [];
@@ -80,10 +80,10 @@ function sortLocalStorage() {
 
         for (i = 0; i < localStorage.length; i++) {
         	if (!isNaN(Number(localStorage.getItem(localStorage.key(i))))) {
-	        	localStorageArray[i] = {
+	        	localStorageArray.push({
 	                key:    localStorage.key(i),
 	                value: Number(localStorage.getItem(localStorage.key(i))),
-	            }
+	            });
         	}
         }
 
