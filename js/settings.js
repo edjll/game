@@ -41,6 +41,8 @@ let soundTrack = document.getElementById('soundTrack');
 soundTrack.play();
 soundTrack.volume = 0.8;
 
+<<<<<<< HEAD
+=======
 /*if (!this.game) {
 	end.id += 'on';
 	function sortLocalStorage(){
@@ -74,6 +76,7 @@ soundTrack.volume = 0.8;
 }*/
 
 
+>>>>>>> 57a60b3f68df34672d7f0f291b4ca4d6ceb2aa34
 function sortLocalStorage() {
 	if(localStorage.length > 0) {
         let localStorageArray 	  = [];
