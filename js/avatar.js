@@ -44,9 +44,9 @@ class Avatar {
 
 			ctx.fillStyle = 'white';
 			ctx.textAlign = 'center';
-			ctx.font = 15 * this.scale + 'px Georgia';
+			ctx.font = 18 * this.scale + 'px Georgia';
 
-			ctx.fillText(hp + '/100', x + (this.position.x + this.radius + 110) * this.scale, (this.position.y + 14) * this.scale);
+			ctx.fillText(hp + '/100', x + (this.position.x + this.radius + 110) * this.scale, (this.position.y + 15) * this.scale);
 			
 			let mpFill = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale,
 											  	  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 41) * this.scale);
