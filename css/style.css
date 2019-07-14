@@ -30,7 +30,7 @@ p {
 	text-align: right;
 }
 
-#helpPanel {
+#helpPanel, #res_left {
 	width: 50%;
 	height: 100%;
 	display: flex;
@@ -48,7 +48,7 @@ p {
   	transform-origin: left center;
 }
 
-#login {
+#login, #res_right {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -125,4 +125,10 @@ p {
 	height: 50%;
 	border-radius: 20px;
 	background-color: white;
+}
+
+canvas {
+	position: absolute;
+	top: 0;
+	z-index: -1;
 }

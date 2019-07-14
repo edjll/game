@@ -109,6 +109,7 @@ class Engine {
 				if (Number(localStorage.getItem(localStorage.getItem('nickname'))) < this.player.score) {
 					localStorage.setItem(localStorage.getItem('nickname'), this.player.score);
 				}
+				gameOver();
 			} else if (!this.input.pause) {
 				this.gamePause = true;
 				this.pause();
