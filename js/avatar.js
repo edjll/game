@@ -69,7 +69,7 @@ class Avatar {
 
 			ctx.fillText(mp + '/100', x + (this.position.x + this.radius + 90) * this.scale, (this.position.y + 37) * this.scale);
 
-			ctx.drawImage(this.image, x + this.position.x - this.radius * 0.9, this.position.y - this.radius * 0.9, this.image.width * this.scale, this.image.height * this.scale);
+			ctx.drawImage(this.image, x + (this.position.x - this.radius * 0.9) * this.scale, (this.position.y - this.radius * 0.9) * this.scale, this.image.width * this.scale, this.image.height * this.scale);
 
 			let text = String(Math.floor(time / 60000) + ':' + String(Math.floor(time / 1000) % 60));
 
