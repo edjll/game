@@ -3,7 +3,8 @@ class Bots {
 				image_run, 
 				image_hurt, 
 				image_death, 
-				image_attack, 
+				image_attack,
+				image_resurrection,
 				y, scale = 1, hp = 30, mp = 100, regenHp = 1, regenMp = 1) {
 
 		this.position = new Vector(0, y);
@@ -23,6 +24,9 @@ class Bots {
 		this.image_attack = new Image();
 		this.image_attack.src = image_attack;
 
+		this.image_resurrection = new Image();
+		this.image_resurrection.src = image_resurrection;
+
 		this.scale = scale;
 
 		this.bot = [];
@@ -40,11 +44,12 @@ class Bots {
 	}
 
 	addBot(x) {
-		this.bot.push(new Bot(this.image_idle, 		this.image_idle.width,   this.image_idle.height,  
-							  this.image_run, 		this.image_run.width,    this.image_run.height,   
-							  this.image_hurt, 		this.image_hurt.width,   this.image_hurt.height,  
-							  this.image_death, 	this.image_death.width,  this.image_death.height, 
-							  this.image_attack, 	this.image_attack.width, this.image_attack.height,
+		this.bot.push(new Bot(this.image_idle, 			this.image_idle.width,   		this.image_idle.height,  
+							  this.image_run, 			this.image_run.width,    		this.image_run.height,   
+							  this.image_hurt, 			this.image_hurt.width,  		this.image_hurt.height,  
+							  this.image_death, 		this.image_death.width,  		this.image_death.height, 
+							  this.image_attack, 		this.image_attack.width, 		this.image_attack.height,
+							  this.image_resurrection, 	this.image_resurrection.width, 	this.image_resurrection.height,
 							  x, this.position.y, this.scale));
 	}
 

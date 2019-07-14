@@ -29,7 +29,8 @@ engine.bots = new Bots('./image/enemy/idle.png',
 					   './image/enemy/run.png',
 					   './image/enemy/hurt.png',
 					   './image/enemy/death.png',  
-					   './image/enemy/attack.png', 
+					   './image/enemy/attack.png',
+					   './image/Enemy/remove.png',
 					  	engine.canvas.height * 0.67, scale);
 
 engine.skills = new Skills('./image/Skills/attack.png',

@@ -73,11 +73,6 @@ class Engine {
 			}
 			this.gameTime = realTime - this.timePause;
 
-			if (this.gameTime > this.botTime + 5000) {
-				this.bots.addBot(-this.camera.x + this.canvas.width);
-				this.botTime = this.gameTime;
-			}
-
 			this.player.timeUpload(this.gameTime);
 
 			if (this.update && !this.player.deathActive) {
