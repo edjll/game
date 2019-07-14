@@ -60,7 +60,7 @@ class Avatar {
 
 			ctx.drawImage(this.image, x + this.position.x - this.radius * 0.9, this.position.y - this.radius * 0.9, this.image.width * this.scale, this.image.height * this.scale);
 
-			let text = String(Math.floor(time / 60) + ':' + String(time % 60));
+			let text = String(Math.floor(time / 60000) + ':' + String(Math.floor(time / 1000) % 60));
 
 
 			ctx.font = 30 * this.scale + 'px Georgia';

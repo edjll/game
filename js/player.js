@@ -60,6 +60,8 @@ class Player {
 		this.lastTime = performance.now();
 		this.realTime = performance.now();
 
+		this.time 		= undefined;
+
 		this.hurtActive = false;
 
 		this.jumpFrame = 0;
@@ -110,7 +112,7 @@ class Player {
 			if (!this.hurtActive) {
 				this.hurtAnimation();
 			}
-			this.hp -= 5;
+			this.hp -= 10;
 			if (this.hp < 0) {
 				this.hp = 0;
 				this.deathPlayer();
@@ -171,7 +173,7 @@ class Player {
 			if (this.render[this.frame_shot].last) {
 				this.render[this.frame_shot].last  = false;
 				this.render[this.frame_shot].point = true;
-				this.shotTimeCoolDownStart = performance.now();
+				this.shotTimeCoolDownStart = this.time;
 				this.shotCooldown = true;
 				this.shotActive = false;
 				this.shotMp = 10;
@@ -205,7 +207,7 @@ class Player {
 
 				this.render[this.frame_shot].last  = false;
 				this.render[this.frame_shot].point = true;
-				this.threeArrowTimeCoolDownStart = performance.now();
+				this.threeArrowTimeCoolDownStart = this.time;
 				this.threeArrowCooldown = true;
 				this.threeArrowActive = false;
 				this.threeArrowMp = 30;
@@ -243,7 +245,7 @@ class Player {
 	attack() {
 		if (this.render[this.frame_attack].last) {
 			this.render[this.frame_attack].last  = false;
-			this.attackTimeCoolDownStart = performance.now();
+			this.attackTimeCoolDownStart = this.time;
 			this.attackActive = false;
 			this.attackMp = 10;
 			this.render[this.frame].point = true;
@@ -262,25 +264,25 @@ class Player {
 			if (this.jumpTimeCoolDownEnd > this.jumpTimeCoolDownStart + 3000) {
 				this.jumpCooldown = false;
 			}
-			this.jumpTimeCoolDownEnd = performance.now();
+			this.jumpTimeCoolDownEnd = this.time;
 		}
 		if (this.attackCooldown) {
 			if (this.attackTimeCoolDownEnd > this.attackTimeCoolDownStart + 500) {
 				this.attackCooldown = false;
 			}
-			this.attackTimeCoolDownEnd = performance.now();
+			this.attackTimeCoolDownEnd = this.time;
 		}
 		if (this.shotCooldown) {
 			if (this.shotTimeCoolDownEnd > this.shotTimeCoolDownStart + 5000) {
 				this.shotCooldown = false;
 			}
-			this.shotTimeCoolDownEnd = performance.now();
+			this.shotTimeCoolDownEnd = this.time;
 		}
 		if (this.threeArrowCooldown) {
 			if (this.threeArrowTimeCoolDownEnd > this.threeArrowTimeCoolDownStart + 8000) {
 				this.threeArrowCooldown = false;
 			}
-			this.threeArrowTimeCoolDownEnd = performance.now();
+			this.threeArrowTimeCoolDownEnd = this.time;
 		}
 	}
 
@@ -296,6 +298,10 @@ class Player {
 		if (this.render[this.frame].controlFrame) {
 			this.death = true;
 		}
+	}
+
+	timeUpload(time) {
+		this.time = time;
 	}
 
 	draw(ctx, width, x) {

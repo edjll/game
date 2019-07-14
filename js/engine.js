@@ -31,6 +31,10 @@ class Engine {
 
 		this.gameTime 		= 0;
 
+		this.timePause 		= 0;
+
+		this.deltaTime 		= 0;
+
 		window.requestAnimationFrame(this.loop.bind(this));
 	}
 
@@ -55,19 +59,26 @@ class Engine {
 
 	loop() {
 
+		let realTime  = performance.now();
+
+		if (this.gamePause) {
+			this.deltaTime = realTime - this.lastTime;
+		}
+
 		if (!this.gamePause && this.game) {
 
-			let realTime  = performance.now();
-
-			if (realTime > this.lastTime + 1000) {
-				this.gameTime += 1;
-				this.lastTime = realTime;
+			if (this.deltaTime) {
+				this.timePause += this.deltaTime;
+				this.deltaTime = 0;
 			}
+			this.gameTime = realTime - this.timePause;
 
-			if (realTime > this.botTime + 5000) {
+			if (this.gameTime > this.botTime + 5000) {
 				this.bots.addBot(-this.camera.x + this.canvas.width);
-				this.botTime = realTime;
+				this.botTime = this.gameTime;
 			}
+
+			this.player.timeUpload(this.gameTime);
 
 			if (this.update && !this.player.deathActive) {
 				this.update();
@@ -100,8 +111,10 @@ class Engine {
 				if (bot.frame == bot.frame_attack) {
 					if (bot.frame_attack % 2 == 1 && bot.render[bot.frame].controlFrame && bot.render[bot.frame].point) {
 						this.player.hurt(bot.position.x + bot.render[bot.frame].frameWidth * bot.scale, bot.position.y);
+						bot.render[bot.frame].point = false;
 					} else if (bot.frame_attack % 2 == 0 && bot.render[bot.frame].controlFrame && bot.render[bot.frame].point) {
 						this.player.hurt(bot.position.x, bot.position.y);
+						bot.render[bot.frame].point = false;
 					}
 				}
 			});
@@ -115,7 +128,8 @@ class Engine {
 			this.skills.draw(this.ctx, -this.camera.x, this.canvas.width, this.canvas.height, this.player.shotTimeCoolDownStart, this.player.shotCooldown, 
 																							  this.player.attackTimeCoolDownStart, this.player.attackCooldown, 
 																							  this.player.jumpTimeCoolDownStart, this.player.jumpCooldown, 
-																							  this.player.threeArrowTimeCoolDownStart, this.player.threeArrowCooldown);
+																							  this.player.threeArrowTimeCoolDownStart, this.player.threeArrowCooldown,
+																							  this.gameTime);
 
 			if (this.player.death) {
 				this.game = false;
@@ -127,6 +141,8 @@ class Engine {
 				this.gamePause = true;
 				this.pause();
 			}
+
+			this.lastTime = realTime;
 
 			this.ctx.restore();
 

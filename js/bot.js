@@ -50,6 +50,7 @@ class Bot {
 				this.cooldown = true;
 				this.attackActive = false;
 				this.timeCooldownStart = performance.now();
+				this.render[this.frame].point = true;
 			} else {
 				this.attackActive = true;
 				this.frame = this.frame_attack;
