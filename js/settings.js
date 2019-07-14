@@ -82,7 +82,7 @@ function gameOver() {
 			break;
 		}
 		if (array[i]['key'] == player) {
-			point = i;
+			point = i+1;
 			break;
 		}
 	}
