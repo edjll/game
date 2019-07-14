@@ -42,6 +42,12 @@ class Avatar {
 
 			ctx.fillRect(x + (this.position.x + this.radius + 10 + 2 * hp) * this.scale, this.position.y * this.scale, (2 * (100 - hp)) * this.scale, 20 * this.scale);
 
+			ctx.fillStyle = 'white';
+			ctx.textAlign = 'center';
+			ctx.font = 15 * this.scale + 'px Georgia';
+
+			ctx.fillText(hp + '/100', x + (this.position.x + this.radius + 110) * this.scale, (this.position.y + 14) * this.scale);
+			
 			let mpFill = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale,
 											  	  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 41) * this.scale);
 
@@ -57,6 +63,11 @@ class Avatar {
 
 			ctx.fillRect(x + (this.position.x + this.radius + 10 + (1.6 * mp)) * this.scale, (this.position.y + 24) * this.scale, (1.6 * (100 - mp)) * this.scale, 17 * this.scale);
 
+			ctx.fillStyle = 'white';
+			ctx.textAlign = 'center';
+			ctx.font = 15 * this.scale + 'px Georgia';
+
+			ctx.fillText(mp + '/100', x + (this.position.x + this.radius + 90) * this.scale, (this.position.y + 37) * this.scale);
 
 			ctx.drawImage(this.image, x + this.position.x - this.radius * 0.9, this.position.y - this.radius * 0.9, this.image.width * this.scale, this.image.height * this.scale);
 
@@ -64,6 +75,7 @@ class Avatar {
 
 
 			ctx.font = 30 * this.scale + 'px Georgia';
+			ctx.fillStyle = 'black';
 			ctx.fillText(text, x + width - 70 * this.scale, 30 * this.scale);
 
 			ctx.textAlign = 'center';
