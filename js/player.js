@@ -111,12 +111,8 @@ class Player {
 
 	hurt(x, y) {
 		if (this.position.x + this.render[this.frame].frameWidth > x && this.position.x + this.render[this.frame].frameWidth / 4 < x) {
-			if (!this.hurtActive) {
+			if (!this.hurtActive && this.hp > 0) {
 				this.hurtAnimation();
-			}
-			if (this.hp < 0) {
-				this.hp = 0;
-				this.deathPlayer();
 			}
 		}
 	}
@@ -136,9 +132,12 @@ class Player {
 			this.hurtActive = false;
 			this.attackHp = 10;
 		} else if (this.hurtActive) {
-			if (this.attackHp > 0) {
+			if (this.attackHp > 0 && this.hp > 0) {
 				this.hp -= 1;
 				this.attackHp -= 1;
+				if (this.hp == 0) {
+					this.deathPlayer();
+				}
 			}
 		}
 	}
