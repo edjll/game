@@ -21,6 +21,10 @@ p {
 	color: #024a21;
 }
 
+b{
+	color: yellow;
+}
+
 .textRight {
 	transform-origin: right center;
 }

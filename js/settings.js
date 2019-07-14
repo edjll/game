@@ -69,20 +69,52 @@ function sortLocalStorage() {
 
 
 function gameOver() {
-	
+	let player = localStorage.getItem('nickname');
+	let flag = 0; 
+	let point;
+	let transition = 5;
 	let array = sortLocalStorage(),
 		amount  = 10;
 
 	for (let i = 0; i < array.length; i++) {
-		if (amount == 0) {
+		if (array[i]['key'] == player && i<10) {
+			flag = 1;
 			break;
 		}
-		if (amount > 5) {
-			res_left.innerHTML += '<span>' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
+		if (array[i]['key'] == player) {
+			point = i;
+			break;
+		}
+	}
+
+	if (!flag) {
+		amount--;
+		transition = 4;
+	}
+
+	for (let i = 0; i < array.length; i++) {
+		if (amount == 0) { 
+			break;
+		}
+		if (array[i]['key'] == player) {
+			if (amount > transition){
+				res_left.innerHTML += '<b>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</b>';
+			} else {
+				res_right.innerHTML += '<b>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</b>';
+			}
+			amount--;
+			continue;
+		}
+		if (amount > transition) {
+			res_left.innerHTML += '<span>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
 		} else {
-			res_right.innerHTML += '<span>' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
+			res_right.innerHTML += '<span>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
 		}
 		amount--;
+	}
+
+	if (!flag) {
+		res_right.innerHTML += '<b>' + point + '. ' + localStorage.getItem('nickname') + ': ' + localStorage.getItem(localStorage.getItem('nickname')) + '</b>';
 	}
 
 	res_left.className = '';
