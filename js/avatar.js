@@ -18,7 +18,7 @@ class Avatar {
 		this.timeAfterPause = undefined;
 	}
 
-	draw(ctx, x, width, hp, mp, score) {
+	draw(ctx, x, width, hp, mp, score, timePause) {
 		if (this.image.ready) {
 
 			ctx.strokeStyle = '#214a2e';
@@ -65,7 +65,7 @@ class Avatar {
 			ctx.drawImage(this.image, x + this.position.x - this.radius * 0.9, this.position.y - this.radius * 0.9, this.image.width * this.scale, this.image.height * this.scale);
 
 			let time = performance.now(),
-				text = String(Math.floor((time - this.time) / 60000)) + ':' + String(Math.floor((time - this.time) / 1000) % 60);
+				text = String(Math.floor((time - this.time - (time - timePause)) / 60000)) + ':' + String(Math.floor((time - this.time - (time - timePause)) / 1000) % 60);
 
 
 			ctx.font = 30 * this.scale + 'px Georgia';

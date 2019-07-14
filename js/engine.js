@@ -9,6 +9,8 @@ class Engine {
 
 		this.lastTime 		= performance.now();
 
+		this.botTime 		= performance.now();
+
 		this.bots			= undefined;
 
 		this.camera 		= new Vector(0, 0);
@@ -50,14 +52,14 @@ class Engine {
 	}
 
 	loop() {
-		let realTime  = performance.now();
-		
 
 		if (!this.gamePause && this.game) {
 
-			if (realTime > this.lastTime + 5000) {
+			let realTime  = performance.now();
+
+			if (realTime > this.botTime + 5000) {
 				this.bots.addBot(-this.camera.x + this.canvas.width);
-				this.lastTime = realTime;
+				this.botTime = realTime;
 			}
 
 			if (this.update && !this.player.deathActive) {
@@ -101,7 +103,7 @@ class Engine {
 
 			this.player.draw(this.ctx, this.canvas.width, -this.camera.x);
 
-			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp, this.player.score);
+			this.avatar.draw(this.ctx, -this.camera.x, this.canvas.width, this.player.hp, this.player.mp, this.player.score, this.lastTime);
 
 			this.skills.draw(this.ctx, -this.camera.x, this.canvas.width, this.canvas.height, this.player.shotTimeCoolDownStart, this.player.shotCooldown, 
 																							  this.player.attackTimeCoolDownStart, this.player.attackCooldown, 
@@ -120,6 +122,8 @@ class Engine {
 			}
 
 			this.ctx.restore();
+
+			this.lastTime = performance.now();
 
 		}
 		if (this.input.pause) {
