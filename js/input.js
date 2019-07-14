@@ -6,6 +6,7 @@ class Input {
 		this.shot 		= false;
 		this.jump 		= false;
 		this.attack 	= false;
+		this.threeArrow = false;
 
 		document.onkeydown = (event) => {
 			this.downKeys[event.code] = true;
@@ -20,6 +21,9 @@ class Input {
 			}
 			if (event.code == 'Space') {
 				this.attack = true;
+			}
+			if (event.code == 'Digit1') {
+				this.threeArrow = true;
 			}
 		}
 

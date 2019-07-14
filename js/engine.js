@@ -80,11 +80,12 @@ class Engine {
 			}
 
 
-			this.player.arrows.arrows.forEach(arrow => {
-				if (this.bots.hurt(arrow.position.x, 30, arrow.width, this.player)) {
-					arrow.removeArrow(this.player.arrows.arrows);
+			for (let i = this.player.arrows.arrows.length - 1; i >= 0; i--) {
+				if (this.bots.hurt(this.player.arrows.arrows[i].position.x, 30, this.player.arrows.arrows[i].width, this.player)) {
+					this.player.arrows.arrows[i].removeArrow(this.player.arrows.arrows);
+					break;
 				}
-			});
+			}
 
 			this.bots.bot.forEach(bot => {
 				if (bot.frame == bot.frame_attack) {

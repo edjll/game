@@ -42,7 +42,7 @@ engine.update = () => {
 	if (!engine.player.hurtActive) {
 
 		if (engine.input.shot) {
-			if (engine.player.shotCooldown || engine.player.gravityActive || engine.player.attackActive) {
+			if (engine.player.shotCooldown || engine.player.gravityActive || engine.player.attackActive || engine.player.threeArrowActive) {
 				engine.input.shot = false;
 			} else {
 				if (engine.player.shot()) {
@@ -52,8 +52,19 @@ engine.update = () => {
 			}
 		}
 
+		if (engine.input.threeArrow) {
+			if (engine.player.threeArrowCooldown || engine.player.gravityActive || engine.player.attackActive || engine.player.shotActive || engine.input.shot) {
+				engine.input.threeArrow = false;
+			} else {
+				if (engine.player.threeArrow()) {
+					engine.input.threeArrow = false;
+				}
+				engine.input.jump = false;
+			}
+		}
+
 		if (engine.input.attack) {
-			if (engine.player.gravityActive || engine.input.shot || engine.player.shotActive || engine.player.attackCooldown) {
+			if (engine.player.gravityActive || engine.input.shot || engine.player.shotActive || engine.player.attackCooldown || engine.input.threeArrow || engine.player.threeArrowActive) {
 				engine.input.attack = false;
 			} else {
 				if (engine.player.attack()) {
@@ -130,7 +141,7 @@ engine.update = () => {
 			}
 		}
 
-		if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.jump && !engine.input.shot && !engine.input.attack) {
+		if (!engine.input.isKeyDown('ArrowLeft') && !engine.input.isKeyDown('ArrowRight') && !engine.input.jump && !engine.input.shot && !engine.input.attack && !engine.input.threeArrow) {
 			engine.player.frame = engine.player.frame_idle;
 			engine.player.translate(0, 0);
 		}
