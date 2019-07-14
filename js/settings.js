@@ -41,16 +41,52 @@ let soundTrack = document.getElementById('soundTrack');
 soundTrack.play();
 soundTrack.volume = 0.8;
 
+<<<<<<< HEAD
+=======
+/*if (!this.game) {
+	end.id += 'on';
+	function sortLocalStorage(){
+    if(localStorage.length > 0){
+          var localStorageArray = [];
+          for (i = 0; i < localStorage.length; i++){
+              localStorageArray[i] = {
+                  key:    localStorage.key(i),
+                  value: localStorage.getItem(localStorage.key(i)),
+              	}
+        	}
+    	}
+
+    	function sortArrayObject(a, b) {
+        	if (a['key'] > b['key']) {
+            	return 1;
+        	}
+        	if (a['key'] < b['key']) {
+           	 	return -1;
+        	}
+    	}
+
+   	 	sortLocalStorageArray = localStorageArray.sort(sortArrayObject);
+
+   	 	for (i = 0; i<localStorage.length || i<10; i++){
+    		key = localStorage.key(i);
+    		document.getElementsByClassName('res')[0].innerHTML += key + mass_elemets[i];
+		}
+	}
+
+}*/
+
+
+>>>>>>> 57a60b3f68df34672d7f0f291b4ca4d6ceb2aa34
 function sortLocalStorage() {
 	if(localStorage.length > 0) {
         let localStorageArray 	  = [];
 
         for (i = 0; i < localStorage.length; i++) {
         	if (!isNaN(Number(localStorage.getItem(localStorage.key(i))))) {
-	        	localStorageArray[i] = {
+	        	localStorageArray.push({
 	                key:    localStorage.key(i),
 	                value: Number(localStorage.getItem(localStorage.key(i))),
-	            }
+	            });
         	}
         }
 
