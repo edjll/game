@@ -42,6 +42,7 @@ class Skills {
 			}
 			ctx.font = 20 * this.scale + 'px Georgia';
 			ctx.textAlign = 'left';
+			ctx.fillStyle = 'black';
 			ctx.fillText('0', x + width / 5 + this.attack.width * this.scale * 2 / 5, (height - (this.attack.height + 5) * this.scale) + this.attack.height * this.scale);
 		}
 		if (this.jump.ready) {
@@ -54,6 +55,7 @@ class Skills {
 					ctx.fill();
 				ctx.closePath();
 			}
+			ctx.fillStyle = 'black';
 			ctx.fillText('0', x + width * 2 / 5 + this.jump.width * this.scale * 2 / 5, (height - (this.jump.height + 5) * this.scale) + this.jump.height * this.scale);
 		}
 		if (this.shot.ready) {
@@ -66,6 +68,7 @@ class Skills {
 					ctx.fill();
 				ctx.closePath();
 			}
+			ctx.fillStyle = 'black';
 			ctx.fillText('10', x + width * 3 / 5 + this.shot.width * this.scale * 2 / 5, (height - (this.shot.height + 5) * this.scale) + this.shot.height * this.scale);
 		}
 		if (this.arrows.ready) {
@@ -78,6 +81,7 @@ class Skills {
 					ctx.fill();
 				ctx.closePath();
 			}
+			ctx.fillStyle = 'black';
 			ctx.fillText('30', x + width * 4 / 5 + this.arrows.width * this.scale * 2 / 5, (height - (this.arrows.height + 5) * this.scale) + this.arrows.height * this.scale);
 		}
 	}
