@@ -18,7 +18,7 @@ start.onclick = () => {
 
 		localStorage.setItem('nickname', nickname.value);
 
-		engine.input.pause = true;
+		engine.player.input.pause = true;
 
 		login.className = 'rotate_right';
 		login.setAttribute('disabled', '');
