@@ -42,6 +42,8 @@ class Bot {
 
 		this.hp = 30;
 
+		this.hurtHp = undefined;
+
 		this.deathActive = false;
 
 		this.score = 100;
@@ -74,13 +76,14 @@ class Bot {
 
 	hurt(x, hp, width, player) {
 		if (x + width * this.scale > this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6 && x < this.render[this.frame].position.x + this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.4) {
-			this.hp -= hp;
-			if (this.hp <= 0) {
-				this.hp = 0;
+			if (!this.hurtActive) {
+				this.hurtHp = hp;
+			}
+			if (this.hp <= this.hurtHp) {
 				if (this.deathActive) {
 					this.score = 0;
 				}
-				this.death();
+				this.deathActive = true;
 			} else {
 				this.hurtAnimation();
 			}
@@ -97,6 +100,10 @@ class Bot {
 		} else {
 			if (this.frame != this.frame_hurt) {
 				this.render[this.frame].frame = this.render[this.frame].frameStart;
+			}
+			if (this.hurtHp > 0 && this.hp > 0) {
+				this.hp -= 1;
+				this.hurtHp -= 1;
 			}
 			this.hurtActive = true;
 			this.frame = this.frame_hurt;
@@ -126,17 +133,19 @@ class Bot {
 	}
 
 	death(bots) {
-		if (this.hp == 0) {
-			if (this.render[this.frame_death].controlFrame) {
-				if (bots.indexOf(this) != -1) {
-					bots.splice(bots.indexOf(this), 1);
-				}
-			} else {
-				this.deathActive = true;
-				this.frame = this.frame_death;
-				this.render[this.frame].position.x = this.position.x;
-				this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
+		if (this.render[this.frame_death].controlFrame) {
+			if (bots.indexOf(this) != -1) {
+				bots.splice(bots.indexOf(this), 1);
 			}
+		} else {
+			if (this.hurtHp > 0 && this.hp > 0) {
+				this.hp -= 1;
+				this.hurtHp -= 1;
+			}
+			this.deathActive = true;
+			this.frame = this.frame_death;
+			this.render[this.frame].position.x = this.position.x;
+			this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
 		}
 	}
 
@@ -179,7 +188,10 @@ class Bot {
 			this.hurtAnimation();
 		}
 
-		this.death(bots);
+		if (this.deathActive) {
+			this.death(bots);
+		}
+		
 		if (!this.deathActive && this.resurrection()) {
 			this.translate(x, width);
 		}
