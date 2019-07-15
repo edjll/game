@@ -137,7 +137,7 @@ class Engine {
 					localStorage.setItem(localStorage.getItem('nickname'), this.player.score);
 				}
 				gameOver();
-			} else if (!this.player.input.pause) {
+			} else if (this.player.input.pause) {
 				this.gamePause = true;
 				this.pause();
 			}
@@ -147,7 +147,7 @@ class Engine {
 			this.ctx.restore();
 
 		}
-		if (this.player.input.pause) {
+		if (!this.player.input.pause) {
 			this.gamePause = false;
 		}
 
