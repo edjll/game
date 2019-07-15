@@ -10,21 +10,39 @@ class Bots {
 		this.position = new Vector(0, y);
 		
 		this.image_idle = new Image();
+		this.image_idle.onload = () => {
+			this.image_idle.ready = true;
+		}
 		this.image_idle.src = image_idle;
 
 		this.image_run = new Image();
+		this.image_run.onload = () => {
+			this.image_run.ready = true;
+		}
 		this.image_run.src = image_run;
 
 		this.image_hurt = new Image();
+		this.image_hurt.onload = () => {
+			this.image_hurt.ready = true;
+		}
 		this.image_hurt.src = image_hurt;
 
 		this.image_death = new Image();
+		this.image_death.onload = () => {
+			this.image_death.ready = true;
+		}
 		this.image_death.src = image_death;
 
 		this.image_attack = new Image();
+		this.image_attack.onload = () => {
+			this.image_attack.ready = true;
+		}
 		this.image_attack.src = image_attack;
 
 		this.image_resurrection = new Image();
+		this.image_resurrection.onload = () => {
+			this.image_resurrection.ready = true;
+		}
 		this.image_resurrection.src = image_resurrection;
 
 		this.scale = scale;
