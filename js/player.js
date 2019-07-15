@@ -125,6 +125,7 @@ class Player {
 			this.shotActive = false;
 			this.attackActive = false;
 			this.threeArrowActive = false;
+			this.input.attack = false;
 			this.input.shot = false;
 			this.input.threeArrow = false;
 			this.threeArrowAmount = 2;
