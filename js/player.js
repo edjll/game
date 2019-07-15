@@ -20,6 +20,8 @@ class Player {
 
 		this.position 	= new Vector(x, y);
 
+		this.cameraX 	= 0;
+
 		this.startY 	= this.position.y;
 
 		this.input  	= new Input();
@@ -102,8 +104,8 @@ class Player {
 
 	translate(x, y) {
 		this.position.x += x;
-		if (this.position.x < 0) {
-			this.position.x = 0;
+		if (this.position.x < this.cameraX) {
+			this.position.x = this.cameraX;
 		}
 		this.position.y += y;
 		this.render[this.frame].position.x = this.position.x;

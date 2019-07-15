@@ -27,8 +27,8 @@ class Avatar {
 			ctx.closePath();
 			ctx.stroke();
 
-			let hpFill = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, this.position.y * this.scale,
-											  	  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 20) * this.scale);
+			let hpFill = ctx.createLinearGradient(0, this.position.y * this.scale,
+											  	  0, (this.position.y + 20) * this.scale);
 
 			hpFill.addColorStop(0, "#d8263f");
 			hpFill.addColorStop(1, "#5f111c");
@@ -38,7 +38,7 @@ class Avatar {
 
 			ctx.fillRect(x + (this.position.x + this.radius + 10) * this.scale, this.position.y * this.scale, (2 * hp) * this.scale, 20 * this.scale);
 
-			ctx.fillStyle = 'black';ctx.fillStyle = 'black';
+			ctx.fillStyle = 'black';
 
 			ctx.fillRect(x + (this.position.x + this.radius + 10 + 2 * hp) * this.scale, this.position.y * this.scale, (2 * (100 - hp)) * this.scale, 20 * this.scale);
 
@@ -48,8 +48,8 @@ class Avatar {
 
 			ctx.fillText(hp + '/100', x + (this.position.x + this.radius + 110) * this.scale, (this.position.y + 15) * this.scale);
 			
-			let mpFill = ctx.createLinearGradient(x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 24) * this.scale,
-											  	  x + (this.position.x + this.radius + 10) * this.scale, (this.position.y + 41) * this.scale);
+			let mpFill = ctx.createLinearGradient(0, (this.position.y + 24) * this.scale,
+											  	  0, (this.position.y + 41) * this.scale);
 
 			mpFill.addColorStop(0, "#504edf");
 			mpFill.addColorStop(1, "#27266f");
