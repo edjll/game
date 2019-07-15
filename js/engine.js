@@ -15,8 +15,6 @@ class Engine {
 
 		this.camera 		= new Vector(0, 0);
 
-		this.input 			= new Input();
-
 		this.ground 		= [];
 
 		this.player 		= undefined;
@@ -139,7 +137,7 @@ class Engine {
 					localStorage.setItem(localStorage.getItem('nickname'), this.player.score);
 				}
 				gameOver();
-			} else if (!this.input.pause) {
+			} else if (!this.player.input.pause) {
 				this.gamePause = true;
 				this.pause();
 			}
@@ -149,7 +147,7 @@ class Engine {
 			this.ctx.restore();
 
 		}
-		if (this.input.pause) {
+		if (this.player.input.pause) {
 			this.gamePause = false;
 		}
 

@@ -22,6 +22,8 @@ class Player {
 
 		this.startY 	= this.position.y;
 
+		this.input  	= new Input();
+
 		this.frame 		= 1;
 		this.frame_idle = 1;
 		this.frame_shot = 5;
@@ -73,7 +75,7 @@ class Player {
 		this.jumpTimeCoolDownStart = undefined;
 		this.jumpTimeCoolDownEnd   = undefined;
 
-		this.shotMp = 10;
+		this.shotMp = 0;
 		this.shotActive = false;
 		this.shotCooldown = false;
 		this.shotTimeCoolDownStart = undefined;
@@ -86,7 +88,7 @@ class Player {
 
 		this.attackHp = 10;
 
-		this.threeArrowMp = 30;
+		this.threeArrowMp = 0;
 		this.threeArrowAmount = 2;
 		this.threeArrowActive = false;
 		this.threeArrowCooldown = false;
@@ -120,6 +122,12 @@ class Player {
 	hurtAnimation() {
 		if (this.frame != this.frame_hurt) {
 			this.render[this.frame].frame = this.render[this.frame].frameStart;
+			this.shotActive = false;
+			this.attackActive = false;
+			this.threeArrowActive = false;
+			this.input.shot = false;
+			this.input.threeArrow = false;
+			this.threeArrowAmount = 2;
 		}
 		this.hurtActive = true;
 		this.frame = this.frame_hurt;
@@ -188,10 +196,6 @@ class Player {
 				this.shotActive = true;
 				this.frame = this.frame_shot;
 				this.translate(0, 0);
-				if (this.shotMp > 0) {
-					this.mp -= 1;
-					this.shotMp -= 1;
-				}
 				if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
 					if (this.frame == 5) {
 						this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6 * this.scale);
@@ -223,10 +227,6 @@ class Player {
 				this.threeArrowActive = true;
 				this.frame = this.frame_shot;
 				this.translate(0, 0);
-				if (this.threeArrowMp > 0) {
-					this.mp -= 1;
-					this.threeArrowMp -= 1;
-				}
 				if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
 					if (this.frame == 5) {
 						this.arrows.addArrow(this.position.x + this.render[this.frame].frameWidth * this.scale * 0.59, this.position.y + this.render[this.frame].frameHeight * this.scale * 0.48,  6 * this.scale);
@@ -253,7 +253,6 @@ class Player {
 			this.render[this.frame_attack].last  = false;
 			this.attackTimeCoolDownStart = this.time;
 			this.attackActive = false;
-			this.attackMp = 10;
 			this.render[this.frame].point = true;
 			this.attackCooldown = true;
 			return true;
@@ -292,6 +291,17 @@ class Player {
 		}
 	}
 
+	manaWaste() {
+		if (this.shotMp > 0) {
+			this.mp -= 1;
+			this.shotMp -= 1;
+		}
+		if (this.threeArrowMp > 0) {
+			this.mp -= 1;
+			this.threeArrowMp -= 1;
+		}
+	}
+
 	deathPlayer() {
 		this.frame = 9;
 		this.translate(0, 0);
@@ -315,6 +325,7 @@ class Player {
 		this.regen();
 		this.gravity();
 		this.cooldowns();
+		this.manaWaste();
 
 		this.checkHurtAnimation();
 
