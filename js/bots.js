@@ -1,31 +1,26 @@
 class Bots {
-	constructor(image_idle,  
-				image_run, 
-				image_hurt, 
-				image_death, 
-				image_attack,
-				image_resurrection,
+	constructor(imageIdle, imageRun, imageHurt, imageDeath, imageAttack, imageResurrection,
 				y, scale = 1, hp = 30, mp = 100, regenHp = 1, regenMp = 1) {
 
 		this.position = new Vector(0, y);
 		
-		this.image_idle = new Image();
-		this.image_idle.src = image_idle;
+		this.imageIdle 	   = new Image();
+		this.imageIdle.src = imageIdle;
 
-		this.image_run = new Image();
-		this.image_run.src = image_run;
+		this.imageRun 	  = new Image();
+		this.imageRun.src = imageRun;
 
-		this.image_hurt = new Image();
-		this.image_hurt.src = image_hurt;
+		this.imageHurt 	   = new Image();
+		this.imageHurt.src = imageHurt;
 
-		this.image_death = new Image();
-		this.image_death.src = image_death;
+		this.imageDeath 	= new Image();
+		this.imageDeath.src = imageDeath;
 
-		this.image_attack = new Image();
-		this.image_attack.src = image_attack;
+		this.imageAttack 	 = new Image();
+		this.imageAttack.src = imageAttack;
 
-		this.image_resurrection = new Image();
-		this.image_resurrection.src = image_resurrection;
+		this.imageResurrection 	   = new Image();
+		this.imageResurrection.src = imageResurrection;
 
 		this.scale = scale;
 
@@ -44,12 +39,12 @@ class Bots {
 	}
 
 	addBot(x) {
-		this.bot.push(new Bot(this.image_idle, 			this.image_idle.width,   		this.image_idle.height,  
-							  this.image_run, 			this.image_run.width,    		this.image_run.height,   
-							  this.image_hurt, 			this.image_hurt.width,  		this.image_hurt.height,  
-							  this.image_death, 		this.image_death.width,  		this.image_death.height, 
-							  this.image_attack, 		this.image_attack.width, 		this.image_attack.height,
-							  this.image_resurrection, 	this.image_resurrection.width, 	this.image_resurrection.height,
+		this.bot.push(new Bot(this.imageIdle, 			this.imageIdle.width,   		this.imageIdle.height,  
+							  this.imageRun, 			this.imageRun.width,    		this.imageRun.height,   
+							  this.imageHurt, 			this.imageHurt.width,  			this.imageHurt.height,  
+							  this.imageDeath, 			this.imageDeath.width,  		this.imageDeath.height, 
+							  this.imageAttack, 		this.imageAttack.width, 		this.imageAttack.height,
+							  this.imageResurrection, 	this.imageResurrection.width, 	this.imageResurrection.height,
 							  x, this.position.y, this.scale));
 	}
 

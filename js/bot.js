@@ -1,33 +1,35 @@
 class Bot {
-	constructor(image_idle,   image_idle_width,   image_idle_height, 
-				image_run,    image_run_width,    image_run_height,
-				image_hurt,   image_hurt_width,	  image_hurt_height,
-				image_death,  image_death_width,  image_death_height,
-				image_attack, image_attack_width, image_attack_height,
-				image_resurrection, image_resurrection_width, image_resurrection_height,
+	constructor(imageIdle,   imageIdleWidth,   imageIdleHeight, 
+				imageRun,    imageRunWidth,    imageRunHeight,
+				imageHurt,   imageHurtWidth,	  imageHurtHeight,
+				imageDeath,  imageDeathWidth,  imageDeathHeight,
+				imageAttack, imageAttackWidth, imageAttackHeight,
+				imageResurrection, imageResurrectionWidth, imageResurrectionHeight,
 				x, y, scale) {
 		this.position = new Vector(x, y);
-		this.frame = 10;
-		this.frame_attack = 9;
-		this.frame_idle = 1;
-		this.frame_death = 7;
-		this.frame_hurt = 5;
-		this.step = 2;
+
+		this.frame 			= 10;
+		this.frameAttack 	= 9;
+		this.frameIdle 		= 1;
+		this.frameDeath 	= 7;
+		this.frameHurt 		= 5;
+
+		this.stepTranslate = 2;
 
 		this.scale = scale;
 
 		this.render = [
-							new Render(image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,   0, 11,  4, 6, 10),  // 0  left  idle
-							new Render(image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,  12, 11,  4, 6, 10),  // 1  right idle
-							new Render(image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,   0, 15,  4, 8, 10),  // 2  left  run
-							new Render(image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
-							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,   0, 11,  4, 6, 10),  // 4  left  hurt
-							new Render(image_hurt,   this.position.x, this.position.y, image_hurt_width,   image_hurt_height,   this.scale,  12, 11,  4, 6, 10),  // 5  right hurt
-							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 11,  4, 6, 10),  // 6  left  death
-							new Render(image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  12, 11,  4, 6, 10),  // 7  right death
-							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0, 11,  4, 6, 10),  // 8 left  attack
-							new Render(image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  12, 11,  4, 6, 10),  // 9 right attack
-							new Render(image_resurrection, this.position.x, this.position.y, image_resurrection_width, image_resurrection_height, this.scale,  0, 11,  4, 3, 10),  //10 left  resurrection
+							new Render(imageIdle,   this.position.x, this.position.y, imageIdleWidth,   imageIdleHeight,   this.scale,   0, 11,  4, 6, 10),  // 0  left  idle
+							new Render(imageIdle,   this.position.x, this.position.y, imageIdleWidth,   imageIdleHeight,   this.scale,  12, 11,  4, 6, 10),  // 1  right idle
+							new Render(imageRun,    this.position.x, this.position.y, imageRunWidth,    imageRunHeight,    this.scale,   0, 15,  4, 8, 10),  // 2  left  run
+							new Render(imageRun,    this.position.x, this.position.y, imageRunWidth,    imageRunHeight,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
+							new Render(imageHurt,   this.position.x, this.position.y, imageHurtWidth,   imageHurtHeight,   this.scale,   0, 11,  4, 6, 10),  // 4  left  hurt
+							new Render(imageHurt,   this.position.x, this.position.y, imageHurtWidth,   imageHurtHeight,   this.scale,  12, 11,  4, 6, 10),  // 5  right hurt
+							new Render(imageDeath,  this.position.x, this.position.y, imageDeathWidth,  imageDeathHeight,  this.scale,   0, 11,  4, 6, 10),  // 6  left  death
+							new Render(imageDeath,  this.position.x, this.position.y, imageDeathWidth,  imageDeathHeight,  this.scale,  12, 11,  4, 6, 10),  // 7  right death
+							new Render(imageAttack, this.position.x, this.position.y, imageAttackWidth, imageAttackHeight, this.scale,   0, 11,  4, 6, 10),  // 8 left  attack
+							new Render(imageAttack, this.position.x, this.position.y, imageAttackWidth, imageAttackHeight, this.scale,  12, 11,  4, 6, 10),  // 9 right attack
+							new Render(imageResurrection, this.position.x, this.position.y, imageResurrectionWidth, imageResurrectionHeight, this.scale,  0, 11,  4, 3, 10),  //10 left  resurrection
 						];
 
 		this.render[10].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
@@ -39,10 +41,9 @@ class Bot {
 		this.attackActive = false;
 
 		this.hurtActive = false;
+		this.hurtHp = 0;
 
 		this.hp = 30;
-
-		this.hurtHp = undefined;
 
 		this.deathActive = false;
 
@@ -51,19 +52,19 @@ class Bot {
 
 	attack() {
 		if (!this.cooldown) {
-			if (this.render[this.frame_attack].last) {
-				this.render[this.frame_attack].last = false;
+			if (this.render[this.frameAttack].last) {
+				this.render[this.frameAttack].last = false;
 				this.cooldown = true;
 				this.attackActive = false;
 				this.timeCooldownStart = performance.now();
 				this.render[this.frame].point = true;
 			} else {
 				this.attackActive = true;
-				this.frame = this.frame_attack;
+				this.frame = this.frameAttack;
 			}
 		} else {
 			this.timeCooldownEnd = performance.now()
-			this.frame = this.frame_idle;
+			this.frame = this.frameIdle;
 			this.cooldownReset();
 		}
 	}
@@ -94,11 +95,11 @@ class Bot {
 	}
 
 	hurtAnimation() {
-		if (this.render[this.frame_hurt].last) {
+		if (this.render[this.frameHurt].last) {
 			this.hurtActive = false;
-			this.render[this.frame_hurt].last = false;
+			this.render[this.frameHurt].last = false;
 		} else {
-			if (this.frame != this.frame_hurt) {
+			if (this.frame != this.frameHurt) {
 				this.render[this.frame].frame = this.render[this.frame].frameStart;
 			}
 			if (this.hurtHp > 0 && this.hp > 0) {
@@ -106,7 +107,7 @@ class Bot {
 				this.hurtHp -= 1;
 			}
 			this.hurtActive = true;
-			this.frame = this.frame_hurt;
+			this.frame = this.frameHurt;
 			this.render[this.frame].position.x = this.position.x;
 			this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
 		}
@@ -114,26 +115,26 @@ class Bot {
 
 	look(x, width) {
 		if (this.position.x + this.render[this.frame].frameWidth * 0.95 > x + width) {
-			if (this.frame_attack != 8) {
+			if (this.frameAttack != 8) {
 				this.render[this.frame].frame = this.render[this.frame].frameStart;
 			}
-			this.frame_attack = 8;
-			this.frame_idle = 0;
-			this.frame_death = 6;
-			this.frame_hurt = 4;
+			this.frameAttack 	= 8;
+			this.frameIdle 		= 0;
+			this.frameDeath 	= 6;
+			this.frameHurt 		= 4;
 		} else if (this.position.x - this.render[this.frame].frameWidth * 0.1 < x) {
-			if (this.frame_attack != 9) {
+			if (this.frameAttack != 9) {
 				this.render[this.frame].frame = this.render[this.frame].frameStart;
 			}
-			this.frame_attack = 9;
-			this.frame_idle = 1;
-			this.frame_death = 7;
-			this.frame_hurt = 5;
+			this.frameAttack 	= 9;
+			this.frameIdle 		= 1;
+			this.frameDeath 	= 7;
+			this.frameHurt 		= 5;
 		}
 	}
 
 	death(bots) {
-		if (this.render[this.frame_death].controlFrame) {
+		if (this.render[this.frameDeath].controlFrame) {
 			if (bots.indexOf(this) != -1) {
 				bots.splice(bots.indexOf(this), 1);
 			}
@@ -143,7 +144,7 @@ class Bot {
 				this.hurtHp -= 1;
 			}
 			this.deathActive = true;
-			this.frame = this.frame_death;
+			this.frame = this.frameDeath;
 			this.render[this.frame].position.x = this.position.x;
 			this.render[this.frame - this.frame % 2].position.x = this.position.x - this.render[this.frame - this.frame % 2].frameWidth * this.scale * 0.6;
 		}
@@ -151,18 +152,18 @@ class Bot {
 
 	translate(x, width) {
 		if (!this.hurtActive) {
-			this.deltaRight = Math.floor((this.position.x + 10 * this.scale - (x + width * this.scale * 0.5)) / this.step);
-			this.deltaLeft = Math.floor((x + 10 * this.scale - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.step);
+			this.deltaRight = Math.floor((this.position.x + 10 * this.scale - (x + width * this.scale * 0.5)) / this.stepTranslate);
+			this.deltaLeft = Math.floor((x + 10 * this.scale - (this.position.x + this.render[this.frame].frameWidth * this.scale * 0.5)) / this.stepTranslate);
 			if ((this.render[this.frame].position.x <= x && this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.5 >= x) || (
 				 this.render[this.frame].position.x >= x && this.render[this.frame].position.x + this.render[this.frame].frameWidth * this.scale * 0.23 <= x + width * this.scale * 0.5) || this.attackActive) {
 				this.attack();
 			} else {
 				if (this.deltaLeft > 0) {
 					this.frame = 3;
-					this.position.x += this.step;
+					this.position.x += this.stepTranslate;
 				} else if (this.deltaRight > 0) {
 					this.frame = 2;
-					this.position.x -= this.step;
+					this.position.x -= this.stepTranslate;
 				} else {
 					this.frame = 1;
 				}

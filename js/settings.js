@@ -4,36 +4,46 @@ let
 	start 		= document.getElementById('start'),
 	nickname 	= document.getElementById('nickname'),
 	end			= document.getElementById('end'),
-	res_left	= document.createElement('div'),
-	res_right 	= document.createElement('div');
+	resLeft		= document.createElement('div'),
+	resRight 	= document.createElement('div'),
+	textLeft	= document.createElement('p'),
+	textRight 	= document.createElement('p');
 
-res_left.setAttribute('id', 'res_left');
-res_left.className = 'rotate_left';
+resLeft.setAttribute('id', 'resLeft');
+resLeft.className 	= 'rotateLeft';
+textLeft.className 	= 'textLeft';
 
-res_right.setAttribute('id', 'res_right');
-res_right.className = 'rotate_right';
+resRight.setAttribute('id', 'resRight');
+resRight.className 	= 'rotateRight';
 
 start.onclick = () => {
+	localStorage.setItem('nickname', nickname.value);
+
+	engine.player.input.pause = false;
+
+	login.className = 'rotateRight';
+	login.setAttribute('disabled', '');
+
+	helpPanel.className = 'rotateLeft';
+
+	start.setAttribute('disabled', '');
+
+	setTimeout(() => {
+		login.remove();
+		helpPanel.remove();
+
+		document.body.insertBefore(resRight, document.body.firstChild);
+		document.body.insertBefore(resLeft,  document.body.firstChild);
+	}, 2000);
+}
+
+nickname.oninput = () => {
 	if (nickname.value.length) {
-
-		localStorage.setItem('nickname', nickname.value);
-
-		engine.player.input.pause = false;
-
-		login.className = 'rotate_right';
-		login.setAttribute('disabled', '');
-
-		helpPanel.className = 'rotate_left';
-
+		if (start.hasAttribute('disabled')) {
+			start.removeAttribute('disabled');
+		}
+	} else if (!start.hasAttribute('disabled')) {
 		start.setAttribute('disabled', '');
-
-		setTimeout(() => {
-			login.remove();
-			helpPanel.remove();
-
-			document.body.insertBefore(res_right, document.body.firstChild);
-			document.body.insertBefore(res_left, document.body.firstChild);
-		}, 2000);
 	}
 }
 
@@ -65,12 +75,13 @@ function sortLocalStorage() {
 
 
 function gameOver() {
-	let player = localStorage.getItem('nickname');
-	let flag = 0; 
-	let point;
-	let transition = 5;
-	let array = sortLocalStorage(),
-		amount  = 10;
+	let 
+		player 		= localStorage.getItem('nickname'),
+		flag 		= 0, 
+		transition 	= 5,
+		array 		= sortLocalStorage(),
+		amount  	= 10,
+		point;
 
 	for (let i = 0; i < array.length; i++) {
 		if (array[i]['key'] == player && i<10) {
@@ -94,25 +105,31 @@ function gameOver() {
 		}
 		if (array[i]['key'] == player) {
 			if (amount > transition){
-				res_left.innerHTML += '<b>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</b>';
+				resLeft.innerHTML += '<b>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</b>';
 			} else {
-				res_right.innerHTML += '<b>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</b>';
+				resRight.innerHTML += '<b>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</b>';
 			}
 			amount--;
 			continue;
 		}
 		if (amount > transition) {
-			res_left.innerHTML += '<span>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
+			resLeft.innerHTML += '<span>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
 		} else {
-			res_right.innerHTML += '<span>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
+			resRight.innerHTML += '<span>' + (i+1) + '. ' + array[i]['key'] + ': ' + array[i]['value'] + '</span>';
 		}
 		amount--;
 	}
 
 	if (!flag) {
-		res_right.innerHTML += '<b>' + point + '. ' + localStorage.getItem('nickname') + ': ' + localStorage.getItem(localStorage.getItem('nickname')) + '</b>';
+		resRight.innerHTML += '<b>' + point + '. ' + localStorage.getItem('nickname') + ': ' + localStorage.getItem(localStorage.getItem('nickname')) + '</b>';
 	}
 
-	res_left.className = '';
-	res_right.className = '';
+	textLeft.innerHTML 	= 'Score:';
+	resLeft.appendChild(textLeft);
+
+	textRight.innerHTML = localStorage.getItem('score');
+	resRight.appendChild(textRight);
+
+	resLeft.className 	= '';
+	resRight.className 	= '';
 }

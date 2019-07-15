@@ -1,43 +1,39 @@
-
-
 let engine = new Engine(),
 	groundWidth = 1024,
 	groundHeight = 768,
 	scale = engine.canvas.height / groundHeight;
 
-engine.addGround(new Ground('./image/ground_1.png', groundWidth, groundHeight, scale));
-engine.addGround(new Ground('./image/ground_2.png', groundWidth, groundHeight, scale));
-engine.addGround(new Ground('./image/ground_3.png', groundWidth, groundHeight, scale));
+engine.addGround(new Ground('./image/background/ground_1.png', groundWidth, groundHeight, scale));
+engine.addGround(new Ground('./image/background/ground_2.png', groundWidth, groundHeight, scale));
+engine.addGround(new Ground('./image/background/ground_3.png', groundWidth, groundHeight, scale));
 
 engine.ground[1].render.position.x = engine.ground[0].render.position.x + groundWidth * scale;
 engine.ground[2].render.position.x = engine.ground[1].render.position.x + groundWidth * scale;
 
-engine.player = new Player('./image/copies/idle.png',   1501,  801,
-						   './image/copies/run.png',    1000, 1600,
-						   './image/copies/shot.png',   2751,  800,
-						   './image/copies/jump.png',    250,  400,
-						   './image/copies/death.png',  1250, 1200,
-						   './image/copies/attack.png', 1250,  800,
-						   './image/copies/hurt.png',   1250,  800,
+engine.player = new Player('./image/hero/idle.png',   1501,  801,
+						   './image/hero/run.png',    1000, 1600,
+						   './image/hero/shot.png',   2751,  800,
+						   './image/hero/jump.png',    250,  400,
+						   './image/hero/death.png',  1250, 1200,
+						   './image/hero/attack.png', 1250,  800,
+						   './image/hero/hurt.png',   1250,  800,
 						   20, engine.canvas.height * 0.59, scale);
 
-engine.player.arrows = new Arrows('./image/arrow.png', scale);
+engine.player.arrows = new Arrows('./image/hero/arrow.png', scale);
 
-engine.avatar = new Avatar('./image/Hero/avatar.png', 80, 80, 60, scale);
+engine.interface = new Avatar( './image/hero/avatar.png',
+							   './image/skills/attack.png',
+							   './image/skills/jump.png',
+							   './image/skills/shoot.png',
+							   './image/skills/arrows.png', 80, 80, 60, scale);
 
-engine.bots = new Bots('./image/Enemy/idle.png',   
-					   './image/Enemy/run.png',
-					   './image/Enemy/hurt.png',
-					   './image/Enemy/death.png',  
-					   './image/Enemy/attack.png',
-					   './image/Enemy/remove.png',
+engine.bots = new Bots('./image/enemy/idle.png',   
+					   './image/enemy/run.png',
+					   './image/enemy/hurt.png',
+					   './image/enemy/death.png',  
+					   './image/enemy/attack.png',
+					   './image/enemy/remove.png',
 					  	engine.canvas.height * 0.67, scale);
-
-engine.skills = new Skills('./image/Skills/attack.png',
-						   './image/Skills/jump.png',
-						   './image/Skills/shoot.png',
-						   './image/Skills/arrows.png',
-						    scale);
 
 engine.update = () => {
 
@@ -66,7 +62,7 @@ engine.update = () => {
 		}
 
 		if (engine.player.input.attack) {
-			if (engine.player.gravityActive || engine.player.input.shot || engine.player.shotActive || engine.player.attackCooldown || engine.player.input.threeArrow || engine.player.threeArrowActive) {
+			if (engine.player.attackCooldown || engine.player.gravityActive || engine.player.input.shot || engine.player.shotActive || engine.player.attackCooldown || engine.player.input.threeArrow || engine.player.threeArrowActive) {
 				engine.player.input.attack = false;
 			} else {
 				if (engine.player.attack()) {
@@ -90,18 +86,20 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.player.input.isKeyDown('ArrowLeft') && !(engine.player.input.shot && engine.player.shotActive)
-												&& !(engine.player.input.attack || engine.player.attackActive) 
-												&& !(engine.player.input.isKeyDown('Space') && !engine.player.gravityActive) 
-												&& !(engine.player.input.threeArrow && engine.player.threeArrowActive)) {
+		if (engine.player.input.isKeyDown('ArrowLeft') && !(engine.player.input.shot 				&&  engine.player.shotActive)
+													   && !(engine.player.input.attack 				||  engine.player.attackActive) 
+													   && !(engine.player.input.isKeyDown('Space')  && !engine.player.gravityActive) 
+													   && !(engine.player.input.threeArrow 			&&  engine.player.threeArrowActive)) {
 			if (!engine.player.input.jump) {
 				engine.player.frame     = 2;
 			}
-			engine.player.frame_hurt	= 12;
-			engine.player.frame_jump	= 6;
-			engine.player.frame_idle 	= 0;
-			engine.player.frame_shot 	= 4;
-			engine.player.frame_attack  = 10;
+
+			engine.player.frameHurt		= 12;
+			engine.player.frameJump		= 6;
+			engine.player.frameIdle 	= 0;
+			engine.player.frameShot 	= 4;
+			engine.player.frameAttack  	= 10;
+			engine.player.frameDeath 	= 8;
 			
 			engine.player.translate(-5 * scale, 0);
 
@@ -120,18 +118,21 @@ engine.update = () => {
 			}
 		}
 
-		if (engine.player.input.isKeyDown('ArrowRight') && !(engine.player.input.shot && engine.player.shotActive) 
-												 && !(engine.player.input.attack || engine.player.attackActive) 
-												 && !(engine.player.input.isKeyDown('Space') && !engine.player.gravityActive) 
-												 && !(engine.player.input.threeArrow && engine.player.threeArrowActive)) {
+		if (engine.player.input.isKeyDown('ArrowRight') && !(engine.player.input.shot 				&&  engine.player.shotActive) 
+												 		&& !(engine.player.input.attack 			||  engine.player.attackActive) 
+												 		&& !(engine.player.input.isKeyDown('Space') && !engine.player.gravityActive) 
+												 		&& !(engine.player.input.threeArrow 		&&  engine.player.threeArrowActive)) {
 			if (!engine.player.input.jump) {
-				engine.player.frame = 3;
+				engine.player.frame 	= 3;
 			}
-			engine.player.frame_hurt	= 13;
-			engine.player.frame_jump	= 7;
-			engine.player.frame_idle 	= 1;
-			engine.player.frame_shot 	= 5;
-			engine.player.frame_attack  = 11;
+
+			engine.player.frameHurt		= 13;
+			engine.player.frameJump		= 7;
+			engine.player.frameIdle 	= 1;
+			engine.player.frameShot 	= 5;
+			engine.player.frameAttack  	= 11;
+			engine.player.frameDeath 	= 9;
+
 			engine.player.translate(5 * scale, 0);
 
 			if ((Math.floor(-engine.camera.x / groundWidth / scale)) % 3 == 0) {
@@ -149,8 +150,14 @@ engine.update = () => {
 			}
 		}
 
-		if (!engine.player.input.isKeyDown('ArrowLeft') && !engine.player.input.isKeyDown('ArrowRight') && !engine.player.input.jump && !engine.player.input.shot && !engine.player.input.attack && !engine.player.input.threeArrow) {
-			engine.player.frame = engine.player.frame_idle;
+		if (	!engine.player.input.isKeyDown('ArrowLeft') 
+			&& 	!engine.player.input.isKeyDown('ArrowRight') 
+			&&  !engine.player.input.jump 
+			&& 	!engine.player.input.shot 
+			&& 	!engine.player.input.attack 
+			&& 	!engine.player.input.threeArrow) {
+
+			engine.player.frame = engine.player.frameIdle;
 			engine.player.translate(0, 0);
 		}
 

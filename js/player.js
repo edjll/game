@@ -1,58 +1,49 @@
 class Player {
-	constructor(image_idle,   image_idle_width,   image_idle_height, 
-				image_run,    image_run_width,    image_run_height, 
-				image_shot,   image_shot_width,   image_shot_height, 
-				image_jump,   image_jump_width,   image_jump_height, 
-				image_death,  image_death_width,  image_death_height,
-				image_attack, image_attack_width, image_attack_height,
-				image_hurt,   image_hurt_width,   image_hurt_height,
+	constructor(imageIdle,   imageIdleWidth,   imageIdleHeight, 
+				imageRun,    imageRunWidth,    imageRunHeight, 
+				imageShot,   imageShotWidth,   imageShotHeight, 
+				imageJump,   imageJumpWidth,   imageJumpHeight, 
+				imageDeath,  imageDeathWidth,  imageDeathHeight,
+				imageAttack, imageAttackWidth, imageAttackHeight,
+				imageHurt,   imageHurtWidth,   imageHurtHeight,
 				x, y, scale = 1, hp = 100, mp = 100, regenHp = 1, regenMp = 1) {
-
-		this.image_idle = image_idle;
-		this.image_run 	= image_run;
-		this.image_shot = image_shot;
-		this.image_jump = image_jump;
-		this.image_death = image_death;
-		this.image_attack = image_attack;
-		this.image_hurt = image_hurt;
 
 		this.scale = scale;
 
 		this.position 	= new Vector(x, y);
 
-		this.cameraX 	= 0;
-
 		this.startY 	= this.position.y;
 
 		this.input  	= new Input();
 
-		this.frame 		= 1;
-		this.frame_idle = 1;
-		this.frame_shot = 5;
-		this.frame_attack = 11;
-		this.frame_jump = 7;
-		this.frame_hurt = 13;
+		this.frame 			= 1;
+		this.frameIdle 		= 1;
+		this.frameShot 		= 5;
+		this.frameAttack 	= 11;
+		this.frameJump 		= 7;
+		this.frameHurt		= 13;
+		this.frameDeath 	= 9;
 
-		this.death 	= false;
+		this.death = false;
 		this.deathActive = false;
 
 		this.arrows = undefined;
 
 		this.render 	=  [
-								new Render(this.image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,   0, 11,  6, 4, 10),  // 0  left  idle
-								new Render(this.image_idle,   this.position.x, this.position.y, image_idle_width,   image_idle_height,   this.scale,  12, 11,  6, 4, 10),  // 1  right idle
-								new Render(this.image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,   0, 15,  4, 8, 10),  // 2  left  run
-								new Render(this.image_run,    this.position.x, this.position.y, image_run_width,    image_run_height,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
-								new Render(this.image_shot,   this.position.x, this.position.y, image_shot_width,   image_shot_height,   this.scale,   0, 21, 11, 4, 10),  // 4  left  shot
-								new Render(this.image_shot,   this.position.x, this.position.y, image_shot_width,   image_shot_height,   this.scale,  22, 21, 11, 4, 10),  // 5  right shot
-								new Render(this.image_jump,   this.position.x, this.position.y, image_jump_width,   image_jump_height,   this.scale,   0,  0,  1, 2, 10),  // 6  left  jump
-								new Render(this.image_jump,   this.position.x, this.position.y, image_jump_width,   image_jump_height,   this.scale,   1,  0,  1, 2, 10),  // 7  right jump
-								new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,   0, 15,  5, 6, 10),  // 8  left  death
-								new Render(this.image_death,  this.position.x, this.position.y, image_death_width,  image_death_height,  this.scale,  16, 15,  5, 6, 10),  // 9  right death
-								new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,   0,  9,  5, 4, 10),  // 10 left  attack
-								new Render(this.image_attack, this.position.x, this.position.y, image_attack_width, image_attack_height, this.scale,  10,  9,  5, 4, 10),  // 11 right attack
-								new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width, 	image_hurt_height, 	 this.scale,   0,  9,  5, 4, 10),  // 12 left  hurt
-								new Render(this.image_hurt,   this.position.x, this.position.y, image_hurt_width, 	image_hurt_height, 	 this.scale,  10,  9,  5, 4, 10)   // 13 right hurt
+								new Render(imageIdle,   this.position.x, this.position.y, imageIdleWidth,   imageIdleHeight,   this.scale,   0, 11,  6, 4, 10),  // 0  left  idle
+								new Render(imageIdle,   this.position.x, this.position.y, imageIdleWidth,   imageIdleHeight,   this.scale,  12, 11,  6, 4, 10),  // 1  right idle
+								new Render(imageRun,    this.position.x, this.position.y, imageRunWidth,    imageRunHeight,    this.scale,   0, 15,  4, 8, 10),  // 2  left  run
+								new Render(imageRun,    this.position.x, this.position.y, imageRunWidth,    imageRunHeight,    this.scale,  16, 15,  4, 8, 10),  // 3  right run
+								new Render(imageShot,   this.position.x, this.position.y, imageShotWidth,   imageShotHeight,   this.scale,   0, 21, 11, 4, 10),  // 4  left  shot
+								new Render(imageShot,   this.position.x, this.position.y, imageShotWidth,   imageShotHeight,   this.scale,  22, 21, 11, 4, 10),  // 5  right shot
+								new Render(imageJump,   this.position.x, this.position.y, imageJumpWidth,   imageJumpHeight,   this.scale,   0,  0,  1, 2, 10),  // 6  left  jump
+								new Render(imageJump,   this.position.x, this.position.y, imageJumpWidth,   imageJumpHeight,   this.scale,   1,  0,  1, 2, 10),  // 7  right jump
+								new Render(imageDeath,  this.position.x, this.position.y, imageDeathWidth,  imageDeathHeight,  this.scale,   0, 15,  5, 6, 10),  // 8  left  death
+								new Render(imageDeath,  this.position.x, this.position.y, imageDeathWidth,  imageDeathHeight,  this.scale,  16, 15,  5, 6, 10),  // 9  right death
+								new Render(imageAttack, this.position.x, this.position.y, imageAttackWidth, imageAttackHeight, this.scale,   0,  9,  5, 4, 10),  // 10 left  attack
+								new Render(imageAttack, this.position.x, this.position.y, imageAttackWidth, imageAttackHeight, this.scale,  10,  9,  5, 4, 10),  // 11 right attack
+								new Render(imageHurt,   this.position.x, this.position.y, imageHurtWidth, 	imageHurtHeight, 	 this.scale,   0,  9,  5, 4, 10),  // 12 left  hurt
+								new Render(imageHurt,   this.position.x, this.position.y, imageHurtWidth, 	imageHurtHeight, 	 this.scale,  10,  9,  5, 4, 10)   // 13 right hurt
 							];
 
 		this.hp = hp;
@@ -61,12 +52,11 @@ class Player {
 		this.regenHp = regenHp;
 		this.regenMp = regenMp;
 
-		this.lastTime = performance.now();
-		this.realTime = performance.now();
-
-		this.time 		= undefined;
+		this.lastTime 	= 0;
+		this.time 		= 0;
 
 		this.hurtActive = false;
+		this.hurtHp 	= 10;
 
 		this.jumpFrame = 0;
 
@@ -88,8 +78,6 @@ class Player {
 		this.attackTimeCoolDownStart = undefined;
 		this.attackTimeCoolDownEnd   = undefined;
 
-		this.attackHp = 10;
-
 		this.threeArrowMp = 0;
 		this.threeArrowAmount = 2;
 		this.threeArrowActive = false;
@@ -104,8 +92,8 @@ class Player {
 
 	translate(x, y) {
 		this.position.x += x;
-		if (this.position.x < this.cameraX) {
-			this.position.x = this.cameraX;
+		if (this.position.x < 0) {
+			this.position.x = 0;
 		}
 		this.position.y += y;
 		this.render[this.frame].position.x = this.position.x;
@@ -114,7 +102,10 @@ class Player {
 	}
 
 	hurt(x, y) {
-		if (this.position.x + this.render[this.frame].frameWidth * this.scale > x && this.position.x + this.render[this.frame].frameWidth * this.scale / 4 < x) {
+		if (	this.position.x + this.render[this.frame].frameWidth * this.scale > x
+			&&  this.position.x + this.render[this.frame].frameWidth * this.scale / 4 < x 
+			&&	this.position.y + this.render[this.frame].frameHeight * this.scale > y) {
+
 			if (!this.hurtActive && this.hp > 0) {
 				this.hurtAnimation();
 			}
@@ -122,7 +113,7 @@ class Player {
 	}
 
 	hurtAnimation() {
-		if (this.frame != this.frame_hurt) {
+		if (this.frame != this.frameHurt) {
 			this.render[this.frame].frame = this.render[this.frame].frameStart;
 			this.shotActive = false;
 			this.attackActive = false;
@@ -130,22 +121,27 @@ class Player {
 			this.input.attack = false;
 			this.input.shot = false;
 			this.input.threeArrow = false;
-			this.threeArrowAmount = 2;
+			if (this.threeArrowAmount != 2) {
+				this.threeArrowMp = 30;
+				this.threeArrowAmount = 2;
+				this.threeArrowTimeCoolDownStart = this.time;
+				this.threeArrowCooldown = true;
+			}
 		}
 		this.hurtActive = true;
-		this.frame = this.frame_hurt;
+		this.frame = this.frameHurt;
 		this.translate(0, 0);
 	}
 
 	checkHurtAnimation() {
-		if (this.render[this.frame_hurt].last) {
-			this.render[this.frame_hurt].last  = false;
+		if (this.render[this.frameHurt].last) {
+			this.render[this.frameHurt].last  = false;
 			this.hurtActive = false;
-			this.attackHp = 10;
+			this.hurtHp = 10;
 		} else if (this.hurtActive) {
-			if (this.attackHp > 0 && this.hp > 0) {
+			if (this.hurtHp > 0 && this.hp > 0) {
 				this.hp -= 1;
-				this.attackHp -= 1;
+				this.hurtHp -= 1;
 				if (this.hp == 0) {
 					this.deathPlayer();
 				}
@@ -157,16 +153,15 @@ class Player {
 		if (this.regenHp == 0) {
 			this.checkPlayerDeath();
 		}
-		if (this.realTime > this.lastTime + 1000) {
+		if (this.time > this.lastTime + 1000) {
 			if (this.hp < 100) {
 				this.hp += this.regenHp;
 			}
 			if (this.mp < 100) {
 				this.mp += this.regenMp;
 			}
-			this.lastTime = this.realTime;
+			this.lastTime = this.time;
 		}
-		this.realTime = performance.now();
 	}
 
 	gravity() {
@@ -178,7 +173,7 @@ class Player {
 	}
 
 	jump() {
-		this.frame = this.frame_jump;
+		this.frame = this.frameJump;
 		if (this.startY - this.position.y < 100 * Math.floor(this.scale + 1)) {
 			this.translate(0, - 5 * this.deltaJump * Math.floor(this.scale + 1));
 		}
@@ -186,10 +181,10 @@ class Player {
 	}
 
 	shot() {
-		if (this.mp >= this.shotMp) {
-			if (this.render[this.frame_shot].last) {
-				this.render[this.frame_shot].last  = false;
-				this.render[this.frame_shot].point = true;
+		if (this.mp >= 10) {
+			if (this.render[this.frameShot].last) {
+				this.render[this.frameShot].last  = false;
+				this.render[this.frameShot].point = true;
 				this.shotTimeCoolDownStart = this.time;
 				this.shotCooldown = true;
 				this.shotActive = false;
@@ -197,7 +192,7 @@ class Player {
 				return true;
 			} else {
 				this.shotActive = true;
-				this.frame = this.frame_shot;
+				this.frame = this.frameShot;
 				this.translate(0, 0);
 				if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
 					if (this.frame == 5) {
@@ -215,11 +210,11 @@ class Player {
 	}
 
 	threeArrow() {
-		if (this.mp >= this.threeArrowMp) {
-			if (this.render[this.frame_shot].last) {
+		if (this.mp >= 30) {
+			if (this.render[this.frameShot].last) {
 
-				this.render[this.frame_shot].last  = false;
-				this.render[this.frame_shot].point = true;
+				this.render[this.frameShot].last  = false;
+				this.render[this.frameShot].point = true;
 				this.threeArrowTimeCoolDownStart = this.time;
 				this.threeArrowCooldown = true;
 				this.threeArrowActive = false;
@@ -228,7 +223,7 @@ class Player {
 				return true;
 			} else {
 				this.threeArrowActive = true;
-				this.frame = this.frame_shot;
+				this.frame = this.frameShot;
 				this.translate(0, 0);
 				if (this.render[this.frame].controlFrame && this.render[this.frame].point) {
 					if (this.frame == 5) {
@@ -252,15 +247,15 @@ class Player {
 	}
 
 	attack() {
-		if (this.render[this.frame_attack].last) {
-			this.render[this.frame_attack].last  = false;
+		if (this.render[this.frameAttack].last) {
+			this.render[this.frameAttack].last  = false;
 			this.attackTimeCoolDownStart = this.time;
 			this.attackActive = false;
 			this.render[this.frame].point = true;
 			this.attackCooldown = true;
 			return true;
 		} else {
-			this.frame = this.frame_attack;
+			this.frame = this.frameAttack;
 			this.attackActive = true;
 			this.translate(0, 0);
 			return false;
@@ -306,7 +301,7 @@ class Player {
 	}
 
 	deathPlayer() {
-		this.frame = 9;
+		this.frame = this.frameDeath;
 		this.translate(0, 0);
 		this.regenHp = 0;
 		this.regenMp = 0;
@@ -329,7 +324,6 @@ class Player {
 		this.gravity();
 		this.cooldowns();
 		this.manaWaste();
-
 		this.checkHurtAnimation();
 
 		this.arrows.translate(x, width);

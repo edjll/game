@@ -1,14 +1,17 @@
 class Arrow {
 	constructor(x, y, speed, width, height) {
+
 		this.position = new Vector(x, y);
-		this.speed = speed;
-		this.width = width;
+		
+		this.speed  = speed;
+
+		this.width  = width;
 		this.height = height;
 	}
 
-	removeArrow(arrows) {
-		if (arrows.indexOf(this) != -1) {
-			arrows.splice(arrows.indexOf(this), 1);
+	removeArrow(arrow) {
+		if (arrow.indexOf(this) != -1) {
+			arrow.splice(arrow.indexOf(this), 1);
 		}
 	}
 

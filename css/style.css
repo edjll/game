@@ -12,11 +12,9 @@ body{
 }
 
 p {
-	display: block;
 	position: absolute;
 	top: 10px;
 	width: 100%;
-	transition-duration: 1s;
 	font-size: 30px;
 	color: #024a21;
 }
@@ -25,16 +23,11 @@ b {
 	color: yellow;
 }
 
-.textRight {
-	transform-origin: right center;
-}
-
 .textLeft {
-	transform-origin: right center;
 	text-align: right;
 }
 
-#helpPanel, #res_left {
+#helpPanel, #resLeft {
 	width: 50%;
 	height: 100%;
 	display: flex;
@@ -48,11 +41,11 @@ b {
 	background-position: right center;
   	background-repeat: no-repeat;
   	background-size: cover;
-  	background-image: url(../image/background_left.png);
+  	background-image: url(../image/background/backgroundLeft.png);
   	transform-origin: left center;
 }
 
-#login, #res_right {
+#login, #resRight {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -65,15 +58,15 @@ b {
 	background-position: left center;
   	background-repeat: no-repeat;
   	background-size: cover;
-  	background-image: url(../image/background_right.png);
+  	background-image: url(../image/background/backgroundRight.png);
   	transform-origin: right center;
 }
 
-.rotate_right{
+.rotateRight{
 	transform: perspective(1000px) rotateY(-90deg) !important;
 }
 
-.rotate_left{
+.rotateLeft{
 	transform: perspective(1000px) rotateY(90deg) !important;
 }
 
@@ -96,6 +89,11 @@ b {
 	height: 50px;
 	cursor: pointer;
 	font-family: 'Shojumaru', cursive;
+	transition-duration: 0.5s;
+}
+
+#start:disabled {
+	opacity: 0.6;
 }
 
 .key {
