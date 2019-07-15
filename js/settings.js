@@ -37,10 +37,6 @@ start.onclick = () => {
 	}
 }
 
-let soundTrack = document.getElementById('soundTrack');
-soundTrack.play();
-soundTrack.volume = 0.8;
-
 function sortLocalStorage() {
 	if(localStorage.length > 0) {
         let localStorageArray = [];
